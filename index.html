@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 디지털미디어이노베이션 R&D — 컨소시엄 전략</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0f2137;
+    --navy-light: #1a3254;
+    --slate: #3d5a80;
+    --teal: #1b7a6e;
+    --warm-grey: #f7f5f2;
+    --mid-grey: #94949c;
+    --text: #2c2c2c;
+    --text-light: #5a5a64;
+    --border: #e2e0dc;
+    --white: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    font-weight: 300; color: var(--text); background: var(--white);
+    line-height: 1.75; font-size: 15.5px; -webkit-font-smoothing: antialiased;
+  }
+  nav {
+    position: fixed; top: 0; width: 100%;
+    background: rgba(255,255,255,0.97); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border); z-index: 100; padding: 0 48px;
+  }
+  nav .nav-inner {
+    max-width: 1080px; margin: 0 auto; display: flex;
+    align-items: center; justify-content: space-between; height: 56px;
+  }
+  nav .nav-brand {
+    font-family: 'Cormorant Garamond', serif; font-weight: 700;
+    font-size: 14px; letter-spacing: 3px; text-transform: uppercase; color: var(--navy);
+  }
+  nav .nav-links { display: flex; gap: 32px; }
+  nav .nav-links a {
+    font-size: 12.5px; font-weight: 400; color: var(--text-light);
+    text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s;
+  }
+  nav .nav-links a:hover { color: var(--navy); }
+  .hero {
+    padding: 140px 48px 80px; max-width: 1080px; margin: 0 auto;
+  }
+  .hero .label {
+    font-size: 11.5px; font-weight: 500; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--teal); margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Noto Serif KR', serif; font-weight: 700; font-size: 38px;
+    line-height: 1.35; color: var(--navy); margin-bottom: 24px; max-width: 720px;
+  }
+  .hero .subtitle {
+    font-size: 16.5px; font-weight: 300; color: var(--text-light);
+    max-width: 600px; line-height: 1.8;
+  }
+  .hero .meta-bar {
+    display: flex; gap: 48px; margin-top: 48px;
+    padding-top: 32px; border-top: 1px solid var(--border);
+  }
+  .meta-label {
+    font-size: 10.5px; font-weight: 500; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--mid-grey); margin-bottom: 4px;
+  }
+  .meta-value { font-size: 14px; font-weight: 500; color: var(--navy); }
+  .meta-value.urgent { color: #c0392b; }
+  section {
+    max-width: 1080px; margin: 0 auto; padding: 72px 48px;
+  }
+  section + section { border-top: 1px solid var(--border); }
+  .section-number {
+    font-family: 'Cormorant Garamond', serif; font-size: 13px;
+    font-weight: 600; color: var(--mid-grey); margin-bottom: 6px;
+  }
+  .section-label {
+    font-size: 10.5px; font-weight: 500; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--teal); margin-bottom: 12px;
+  }
+  h2 {
+    font-family: 'Noto Serif KR', serif; font-weight: 600; font-size: 26px;
+    color: var(--navy); margin-bottom: 32px; line-height: 1.4;
+  }
+  h3 {
+    font-family: 'Noto Sans KR', sans-serif; font-weight: 500; font-size: 16px;
+    color: var(--navy); margin-top: 40px; margin-bottom: 16px;
+  }
+  p { margin-bottom: 16px; max-width: 720px; }
+  .metrics {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: var(--border); border: 1px solid var(--border); margin: 32px 0;
+  }
+  .metric-card { background: var(--white); padding: 28px 24px; text-align: center; }
+  .metric-card .metric-number {
+    font-family: 'Cormorant Garamond', serif; font-size: 36px;
+    font-weight: 700; color: var(--navy); line-height: 1.1;
+  }
+  .metric-card .metric-unit { font-size: 16px; font-weight: 400; color: var(--slate); }
+  .metric-card .metric-desc {
+    font-size: 12px; color: var(--mid-grey); margin-top: 8px; line-height: 1.5;
+  }
+  table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 14px; }
+  thead th {
+    font-weight: 500; font-size: 11px; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--mid-grey); text-align: left;
+    padding: 12px 16px; border-bottom: 2px solid var(--navy);
+  }
+  tbody td {
+    padding: 14px 16px; border-bottom: 1px solid var(--border);
+    vertical-align: top; line-height: 1.6;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: var(--warm-grey); }
+  .highlight-box {
+    background: var(--warm-grey); border-left: 3px solid var(--navy);
+    padding: 24px 28px; margin: 28px 0;
+  }
+  .highlight-box p { margin-bottom: 8px; }
+  .highlight-box p:last-child { margin-bottom: 0; }
+  .alert-box {
+    background: #fef9f0; border-left: 3px solid #d4a017;
+    padding: 24px 28px; margin: 28px 0;
+  }
+  .danger-box {
+    background: #fdf2f2; border-left: 3px solid #c0392b;
+    padding: 24px 28px; margin: 28px 0;
+  }
+  .tag {
+    display: inline-block; font-size: 11px; font-weight: 500;
+    letter-spacing: 0.5px; padding: 3px 10px; border-radius: 2px; margin-right: 4px;
+  }
+  .tag-navy { background: var(--navy); color: var(--white); }
+  .tag-teal { background: var(--teal); color: var(--white); }
+  .tag-grey { background: #e8e8ea; color: var(--text-light); }
+  .tag-amber { background: #fef3c7; color: #92400e; }
+  .timeline { margin: 32px 0; }
+  .timeline-item {
+    display: flex; gap: 20px; padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .timeline-item:last-child { border-bottom: none; }
+  .timeline-date { min-width: 120px; font-size: 13px; font-weight: 500; color: var(--navy); }
+  .timeline-content { flex: 1; }
+  .timeline-title { font-weight: 500; font-size: 14.5px; color: var(--text); margin-bottom: 4px; }
+  .timeline-desc { font-size: 13.5px; color: var(--text-light); line-height: 1.6; }
+  .checklist { margin: 20px 0; }
+  .checklist-item {
+    display: flex; gap: 12px; padding: 10px 0; font-size: 14px; align-items: flex-start;
+  }
+  .check-icon {
+    min-width: 20px; height: 20px; border: 1.5px solid var(--border);
+    border-radius: 2px; display: flex; align-items: center;
+    justify-content: center; font-size: 11px; color: var(--mid-grey); margin-top: 2px;
+  }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin: 32px 0; }
+  footer {
+    max-width: 1080px; margin: 0 auto; padding: 48px 48px 64px;
+    border-top: 1px solid var(--border); font-size: 12.5px; color: var(--mid-grey);
+    display: flex; justify-content: space-between;
+  }
+  @media (max-width: 768px) {
+    nav { padding: 0 24px; }
+    .hero { padding: 120px 24px 60px; }
+    .hero h1 { font-size: 28px; }
+    .hero .meta-bar { flex-wrap: wrap; gap: 24px; }
+    section { padding: 48px 24px; }
+    .metrics { grid-template-columns: repeat(2, 1fr); }
+    .two-col { grid-template-columns: 1fr; gap: 32px; }
+    nav .nav-links { gap: 16px; }
+    nav .nav-links a { font-size: 11px; }
+    footer { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">Consortium Strategy</div>
+    <div class="nav-links">
+      <a href="#overview">사업 개요</a>
+      <a href="#opportunity">기회 분석</a>
+      <a href="#qualification">자격요건</a>
+      <a href="#consortium">컨소시엄</a>
+      <a href="#action">액션 플랜</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="label">Confidential — Internal Use Only</div>
+  <h1>2026 디지털미디어이노베이션<br>R&D 컨소시엄 전략</h1>
+  <p class="subtitle">방송미디어통신위원회 주관 국가 R&D 사업 참여를 위한<br>컨소시엄 구성 및 역할 분담 전략 브리핑</p>
+  <div class="meta-bar">
+    <div class="meta-item"><div class="meta-label">사업명</div><div class="meta-value">디지털미디어이노베이션기술개발</div></div>
+    <div class="meta-item"><div class="meta-label">관리기관</div><div class="meta-value">IITP</div></div>
+    <div class="meta-item"><div class="meta-label">접수 마감</div><div class="meta-value urgent">2026. 2. 12 (목) 15:00</div></div>
+    <div class="meta-item"><div class="meta-label">총 사업규모</div><div class="meta-value">137.67억원</div></div>
+  </div>
+</div>
+
+<section id="overview">
+  <div class="section-number">01</div>
+  <div class="section-label">사업 개요</div>
+  <h2>목표 과제: 미디어 바이브 편집 기술개발</h2>
+  <p>2026-방송미디어-1 (총괄/세부1) — 자연어 대화를 통해 영상 생성·검색·합성·편집을 통합 제어하는 AI 미디어 프로덕션 파이프라인을 구축하는 과제입니다.</p>
+  <div class="metrics">
+    <div class="metric-card"><div class="metric-number">32<span class="metric-unit">억원</span></div><div class="metric-desc">총 연구개발비 (3년)</div></div>
+    <div class="metric-card"><div class="metric-number">33<span class="metric-unit">개월</span></div><div class="metric-desc">연구개발기간<br>'26.4 – '28.12</div></div>
+    <div class="metric-card"><div class="metric-number">TRL 5<span class="metric-unit">→7</span></div><div class="metric-desc">기술준비수준<br>개발연구</div></div>
+    <div class="metric-card"><div class="metric-number">3<span class="metric-unit">개</span></div><div class="metric-desc">세부과제<br>통합 선정</div></div>
+  </div>
+  <h3>연차별 예산</h3>
+  <table>
+    <thead><tr><th>연차</th><th>기간</th><th>정부지원연구개발비</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>1차년도</td><td>'26.4 – '26.12 (9개월)</td><td>8억원</td><td>기반 구축</td></tr>
+      <tr><td>2차년도</td><td>'27.1 – '27.12</td><td>12억원</td><td>핵심 기술 개발</td></tr>
+      <tr><td>3차년도</td><td>'28.1 – '28.12</td><td>12억원</td><td>실증 및 사업화</td></tr>
+    </tbody>
+  </table>
+  <h3>세부과제 구성 (통합형)</h3>
+  <table>
+    <thead><tr><th>과제</th><th>과제명</th><th>핵심 내용</th><th>수행주체</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag tag-navy">세부1</span></td><td>미디어 바이브 편집 기술개발</td><td>자연어 기반 통합 편집 + 오케스트레이션 UI</td><td>기업 (필수)</td></tr>
+      <tr><td><span class="tag tag-grey">세부2</span></td><td>실사 영상 AI 프롬프트 생성</td><td>실사 영상 → AI 역프롬프트 자동 추출</td><td>제한없음</td></tr>
+      <tr><td><span class="tag tag-grey">세부3</span></td><td>고속 검색 기반 사실형 영상 합성</td><td>Video RAG 기반 대규모 아카이브 검색·합성</td><td>제한없음</td></tr>
+    </tbody>
+  </table>
+  <div class="highlight-box">
+    <p><strong>통합형 과제 유의사항</strong></p>
+    <p>총괄/세부1 주관기관은 세부2·3의 공동연구기관으로 참여 가능. 선정평가 시 전체 컨소시엄으로 통합 선정. 총괄과제는 전체 프로세스 관리 및 실증방안 제시 필수.</p>
+  </div>
+</section>
+
+<section id="opportunity">
+  <div class="section-number">02</div>
+  <div class="section-label">기회 분석</div>
+  <h2>왜 이 과제인가 — AENA 실증 기반</h2>
+  <p>KT ENA에서 STEP AI와 함께 구축한 AENA는 이 과제의 핵심 개념인 "자연어 기반 미디어 편집 자동화"를 이미 실증한 플랫폼입니다.</p>
+  <div class="metrics">
+    <div class="metric-card"><div class="metric-number">53<span class="metric-unit">%</span></div><div class="metric-desc">제작 작업시간 단축<br>17h → 8h</div></div>
+    <div class="metric-card"><div class="metric-number">4<span class="metric-unit">배</span></div><div class="metric-desc">운영 채널 증가<br>2개 → 8개</div></div>
+    <div class="metric-card"><div class="metric-number">40<span class="metric-unit">개</span></div><div class="metric-desc">예능 60분 기준<br>클립 생산량</div></div>
+    <div class="metric-card"><div class="metric-number">100<span class="metric-unit">개</span></div><div class="metric-desc">예능 60분 기준<br>숏폼 생산량</div></div>
+  </div>
+  <h3>RFP 요구사항 ↔ AENA 매칭</h3>
+  <table>
+    <thead><tr><th>RFP 핵심 기술 요소</th><th>AENA 대응 역량</th></tr></thead>
+    <tbody>
+      <tr><td>멀티모달 에이전트 기술 (자연어 → 편집 실행)</td><td>AI 자동화 워크플로우로 자연어 기반 콘텐츠 제작 실증</td></tr>
+      <tr><td>오케스트레이션 모듈 및 UI 구축</td><td>CMS·제작·배포·분석 통합 대시보드 운영 중</td></tr>
+      <tr><td>편집 일관성 유지 및 보정 기술</td><td>AI 영상 분류 + 자동 클립핑으로 일관된 품질 유지</td></tr>
+      <tr><td>편집이력 관리 기술</td><td>콘텐츠 생산 전 과정 데이터 기반 리포팅 시스템</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="qualification">
+  <div class="section-number">03</div>
+  <div class="section-label">자격요건 상세</div>
+  <h2>참여기관 유형별 자격요건</h2>
+  <p>「국가연구개발혁신법」 제2조 제3호 및 동법 시행령 제2조에 해당되는 기관이 연구개발기관으로 참여 가능합니다.</p>
+
+  <h3>주관연구개발기관</h3>
+  <div class="highlight-box">
+    <p><strong>필수:</strong> 접수마감일 현재 <strong>기업부설연구소 또는 연구전담부서</strong> 보유 법인사업자</p>
+    <p>선정 이후 연구개발기간 동안 계속 유지 의무</p>
+    <p>연구책임자 = 주관기관 소속 / 동시수행과제 수 제한: 책임자 최대 3개, 연구자 최대 5개</p>
+  </div>
+
+  <h3>공동연구개발기관</h3>
+  <div class="highlight-box">
+    <p>주관기관과 분담하여 공동 수행</p>
+    <p>산업계 주관 시 <strong>학계 2개 이상</strong> 공동 참여·협력 필수</p>
+    <p>과제 종료연도 기준 산업계 공동연구기관 연구비 <strong>총 연구비의 40% 이상</strong> 증액 편성</p>
+    <p>위탁연구개발비 사용 불가</p>
+  </div>
+
+  <h3>위탁연구개발기관</h3>
+  <div class="highlight-box">
+    <p>주관기관으로부터 연구과제 일부를 위탁받아 수행</p>
+    <p>위탁연구개발비: <strong>수정직접비의 40% 이내</strong></p>
+    <p>기관부담연구개발비 현금부담 <strong>면제</strong></p>
+  </div>
+
+  <h3>사전지원제외 대상 (하나라도 해당 시 탈락)</h3>
+  <table>
+    <thead><tr><th>제외 사유</th><th>적용 범위</th></tr></thead>
+    <tbody>
+      <tr><td>의무사항 불이행 (보고서, 기술료, 회수금, 환수금 등)</td><td>주관/공동/위탁 전체</td></tr>
+      <tr><td>국가연구개발사업 참여제한 중</td><td>주관/공동/위탁 전체</td></tr>
+      <tr><td>기업 부도</td><td>기업</td></tr>
+      <tr><td>국세/지방세 체납처분</td><td>기업</td></tr>
+      <tr><td>채무불이행자명부 등재</td><td>기업</td></tr>
+      <tr><td>파산·회생절차 개시 신청</td><td>기업</td></tr>
+      <tr><td>자본전액잠식</td><td>기업</td></tr>
+      <tr><td>감사의견 "의견거절" 또는 "부적정"</td><td>외부감사 기업</td></tr>
+    </tbody>
+  </table>
+
+  <h3>사후관리 대상 (2개 이상 해당 시)</h3>
+  <table>
+    <thead><tr><th>항목</th><th>기준</th></tr></thead>
+    <tbody>
+      <tr><td>부채비율</td><td>최근년도말 300% 이상</td></tr>
+      <tr><td>유동비율</td><td>최근년도말 100% 이하</td></tr>
+      <tr><td>자본잠식</td><td>부분자본잠식</td></tr>
+      <tr><td>이자보상비율</td><td>직전년도 1.0배 미만</td></tr>
+      <tr><td>영업이익</td><td>최근 3개년 계속 적자</td></tr>
+      <tr><td>감사의견</td><td>"한정" (외부감사 기업)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>정부지원 비율 및 기관부담 현금</h3>
+  <table>
+    <thead><tr><th>기업 유형</th><th>정부지원 비율</th><th>기관부담 현금</th></tr></thead>
+    <tbody>
+      <tr><td>중소기업</td><td>75% 이내</td><td>기관부담의 10% 이상</td></tr>
+      <tr><td>중견기업 (매출 3천억 미만)</td><td>75% 이하</td><td>13% 이상</td></tr>
+      <tr><td>중견기업 (매출 3천억 이상)</td><td>70% 이내</td><td>13% 이상</td></tr>
+      <tr><td>대기업·공기업</td><td>50% 이하</td><td>15% 이상</td></tr>
+      <tr><td>비영리 (대학 등)</td><td>100% 이내</td><td>필요시</td></tr>
+    </tbody>
+  </table>
+
+  <h3>신규 인력 채용 의무</h3>
+  <div class="highlight-box">
+    <p>정부지원연구개발비 매 <strong>5억원 당 청년 1명</strong> (만 18~34세) 신규 채용</p>
+    <p>1차년도 최소 1명 / 1년 이상 고용 유지 / 인건비계상률 100%</p>
+  </div>
+
+  <h3>선정평가</h3>
+  <table>
+    <thead><tr><th>평가항목</th><th>배점</th><th>세부</th></tr></thead>
+    <tbody>
+      <tr><td>수행계획 충실성</td><td><strong>30</strong></td><td>목표 명확성, 추진계획 구체성, 도전성</td></tr>
+      <tr><td>창의성</td><td><strong>20</strong></td><td>목표·방법의 창의성·혁신성</td></tr>
+      <tr><td>수행능력</td><td><strong>20</strong></td><td>연구책임자 및 팀 역량</td></tr>
+      <tr><td>성과 활용가능성</td><td><strong>30</strong></td><td>파급효과, 결과 활용방안</td></tr>
+    </tbody>
+  </table>
+  <p>합계 100점 / 가점 +5점 / 감점 -3점 / <strong>60점 이상 지원가능</strong></p>
+</section>
+
+<section id="consortium">
+  <div class="section-number">04</div>
+  <div class="section-label">컨소시엄 구성</div>
+  <h2>제안 컨소시엄 구조</h2>
+  <table>
+    <thead><tr><th>역할</th><th>기관</th><th>담당</th><th>상태</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag tag-navy">주관</span></td><td>KT 또는 KT알티미디어</td><td>총괄관리, AI 인프라, 연구책임</td><td><span class="tag tag-amber">협의 필요</span></td></tr>
+      <tr><td><span class="tag tag-teal">공동</span></td><td>KT알티미디어 또는 KT</td><td>IPTV/미디어 기술, AI 편집 엔진</td><td><span class="tag tag-amber">협의 필요</span></td></tr>
+      <tr><td><span class="tag tag-teal">공동</span></td><td>KT ENA</td><td>실증, 콘텐츠 데이터, 현업 피드백</td><td><span class="tag tag-amber">협의 필요</span></td></tr>
+      <tr><td><span class="tag tag-grey">공동 (학계1)</span></td><td>—</td><td>멀티모달 AI, 역프롬프트</td><td><span class="tag tag-amber">섭외 필요</span></td></tr>
+      <tr><td><span class="tag tag-grey">공동 (학계2)</span></td><td>—</td><td>영상 품질 평가, 일관성 메트릭</td><td><span class="tag tag-amber">섭외 필요</span></td></tr>
+      <tr><td><span class="tag tag-amber">미정</span></td><td>STEP AI</td><td>AENA 기반 UI/UX 설계, 요구사항 분석, 워크플로우 기획</td><td><span class="tag tag-amber">자격확인 필요</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="alert-box">
+    <p><strong>STEP AI 참여 방식 — 미정</strong></p>
+    <p>기업부설연구소·연구전담부서 미보유. 혁신법 시행령 제2조 "연구개발기관" 해당 여부 IITP 확인 후 결정.</p>
+    <p style="margin-top:8px;font-size:13.5px;color:var(--text-light);">옵션: 공동연구개발기관 / 위탁연구개발기관 / 연구개발기관 외 기관 (외부전문기술활용비) / 기존 계약 관계</p>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 style="margin-top:0">기술적 강점</h3>
+      <p>AENA라는 작동하는 PoC 보유. 실증 기반 제안 가능. KT 그룹 AI 인프라 + 방송 콘텐츠 아카이브를 실증 데이터로 활용.</p>
+    </div>
+    <div>
+      <h3 style="margin-top:0">구조적 강점</h3>
+      <p>KT 그룹 주관으로 신뢰도·인프라·실증 환경 일체 확보. 학계 2곳 요건 충족. STEP AI AENA 실무 경험으로 개발 역량 보강.</p>
+    </div>
+  </div>
+
+  <h3>확인/결정 필요사항</h3>
+  <div class="checklist">
+    <div class="checklist-item"><div class="check-icon"></div><div>KT vs KT알티미디어 — 주관기관 확정</div></div>
+    <div class="checklist-item"><div class="check-icon"></div><div>KT ENA 공동연구기관 참여 의향</div></div>
+    <div class="checklist-item"><div class="check-icon"></div><div>학계 2곳 섭외</div></div>
+    <div class="checklist-item"><div class="check-icon"></div><div>STEP AI 참여 자격 IITP 확인</div></div>
+    <div class="checklist-item"><div class="check-icon"></div><div>세부2·3 수행기관 확보</div></div>
+    <div class="checklist-item"><div class="check-icon"></div><div>예산 배분 합의</div></div>
+  </div>
+</section>
+
+<section id="action">
+  <div class="section-number">05</div>
+  <div class="section-label">액션 플랜</div>
+  <h2>마감까지의 실행 계획</h2>
+  <div class="danger-box">
+    <p><strong>접수 마감: 2026. 2. 12 (목) 15:00 — IRIS 전산접수</strong></p>
+    <p>마감 당일 접속 폭주 가능. 하루 전 제출 완료 권장.</p>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item"><div class="timeline-date">2/3 (월)</div><div class="timeline-content"><div class="timeline-title">KT · KT알티미디어 화상회의</div><div class="timeline-desc">참여 의향 확인, 주관기관 협의, R&R 초안, 학계 후보 공유</div></div></div>
+    <div class="timeline-item"><div class="timeline-date">2/3 – 2/4</div><div class="timeline-content"><div class="timeline-title">IITP 담당PM 확인</div><div class="timeline-desc">STEP AI 참여 자격 (이금희 팀장) / 위탁·공동 가능 여부</div></div></div>
+    <div class="timeline-item"><div class="timeline-date">2/4 – 2/5</div><div class="timeline-content"><div class="timeline-title">컨소시엄 확정</div><div class="timeline-desc">주관 확정, 학계 2곳 섭외, 세부2·3 기관, 예산 배분</div></div></div>
+    <div class="timeline-item"><div class="timeline-date">2/5 – 2/10</div><div class="timeline-content"><div class="timeline-title">핵심 문서 작성</div><div class="timeline-desc">연구개발계획서 (붙임3-1, 50p) / 총괄계획서 (붙임3-2) / 기술기여도 (붙임3-6) / 서명 서류</div></div></div>
+    <div class="timeline-item"><div class="timeline-date">2/11 (화)</div><div class="timeline-content"><div class="timeline-title">IRIS 전산접수 완료</div><div class="timeline-desc">마감 하루 전 제출 목표. 누락·오류 최종 점검.</div></div></div>
+    <div class="timeline-item"><div class="timeline-date">2/12 (수)</div><div class="timeline-content"><div class="timeline-title">접수 마감 15:00</div><div class="timeline-desc">마감 이후 수정·등록 불가. 비상 대비.</div></div></div>
+  </div>
+
+  <h3>제출 서류</h3>
+  <table>
+    <thead><tr><th>#</th><th>서류명</th><th>대상</th><th>형식</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>연구개발계획서</td><td>주관</td><td>HWP</td></tr>
+      <tr><td>2</td><td>총괄 연구개발계획서</td><td>총괄/세부1 주관</td><td>HWP</td></tr>
+      <tr><td>3</td><td>신청자격 적정성 및 자기진단서</td><td>전체</td><td>PDF</td></tr>
+      <tr><td>4</td><td>기관 대표 참여의사 확인서·동의서</td><td>전체</td><td>PDF</td></tr>
+      <tr><td>5</td><td>참여연구자 개인정보 동의서</td><td>전체 책임자</td><td>PDF</td></tr>
+      <tr><td>6</td><td>기술기여도 산정 근거</td><td>기술료 의무기관</td><td>PDF</td></tr>
+      <tr><td>7</td><td>동시수행과제수 준수 확인서</td><td>전체</td><td>IRIS</td></tr>
+      <tr><td>8</td><td>연구책임자 과제 목록</td><td>주관</td><td>IRIS</td></tr>
+      <tr><td>9</td><td>연구개발비 사용 신청서</td><td>해당시</td><td>IRIS</td></tr>
+      <tr><td>10</td><td>사업자등록증</td><td>전체</td><td>IRIS</td></tr>
+      <tr><td>11</td><td>국세·지방세 완납 증명</td><td>영리기관</td><td>IRIS</td></tr>
+      <tr><td>12</td><td>회계감사보고서·재무제표</td><td>영리기관</td><td>IRIS</td></tr>
+      <tr><td>13</td><td>우대사항 증빙 (선택)</td><td>해당시</td><td>IRIS</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<footer>
+  <div>Confidential — 2026. 2. 1 기준</div>
+  <div>내부 협의용. 외부 배포 금지.</div>
+</footer>
+
+</body>
+</html>
