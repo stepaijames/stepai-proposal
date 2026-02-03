@@ -1,976 +1,1749 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026 디지털미디어이노베이션 R&D — 컨소시엄 전략</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --navy: #0a1628;
-  --navy-mid: #162240;
-  --navy-light: #1e3055;
-  --accent: #2563eb;
-  --accent-light: #3b82f6;
-  --gold: #d4a853;
-  --gold-light: #e8c882;
-  --bg: #f8f7f4;
-  --bg-alt: #f0eeea;
-  --bg-card: #ffffff;
-  --text: #1a1a1a;
-  --text-light: #555;
-  --text-muted: #888;
-  --border: #e0ddd6;
-  --success: #10b981;
-  --warning: #f59e0b;
-  --danger: #ef4444;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 K-Culture 대중소 공동도약 | STEP AI 컨소시엄 전략</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Playfair+Display:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0f172a;
+      --secondary: #1e293b;
+      --accent: #3b82f6;
+      --accent-light: #60a5fa;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-2: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+      --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+    }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans KR', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
 
-body {
-  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.75;
-  font-size: 15px;
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased;
-}
+    .app {
+      min-height: 100vh;
+    }
 
-/* ─── NAV ─── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  background: rgba(10, 22, 40, 0.97);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-.nav-inner {
-  max-width: 1200px; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 2rem; height: 56px;
-}
-.nav-brand {
-  font-family: 'Noto Serif KR', serif;
-  color: #fff; font-size: 14px; font-weight: 600; letter-spacing: -0.02em;
-}
-.nav-brand span { color: var(--gold); }
-.nav-links { display: flex; gap: 0; }
-.nav-links a {
-  color: rgba(255,255,255,0.65); text-decoration: none;
-  font-size: 12.5px; font-weight: 500; letter-spacing: 0.02em;
-  padding: 0 1rem; line-height: 56px;
-  transition: color 0.2s;
-}
-.nav-links a:hover { color: #fff; }
-.nav-tag {
-  font-size: 10px; color: rgba(255,255,255,0.35);
-  letter-spacing: 0.05em; text-transform: uppercase;
-}
+    /* Hero Section */
+    .hero {
+      background: var(--gradient-2);
+      color: white;
+      padding: 80px 24px 60px;
+      position: relative;
+      overflow: hidden;
+    }
 
-/* ─── HERO ─── */
-.hero {
-  background: linear-gradient(145deg, var(--navy) 0%, var(--navy-mid) 50%, var(--navy-light) 100%);
-  padding: 8rem 2rem 4rem;
-  color: #fff;
-  position: relative;
-  overflow: hidden;
-}
-.hero::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(ellipse at 70% 20%, rgba(37, 99, 235, 0.08) 0%, transparent 60%),
-              radial-gradient(ellipse at 20% 80%, rgba(212, 168, 83, 0.05) 0%, transparent 50%);
-}
-.hero-inner {
-  max-width: 900px; margin: 0 auto; position: relative; z-index: 1;
-}
-.hero-label {
-  display: inline-block;
-  font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--gold);
-  border: 1px solid rgba(212, 168, 83, 0.3);
-  padding: 4px 14px; border-radius: 2px;
-  margin-bottom: 1.5rem;
-}
-.hero h1 {
-  font-family: 'Noto Serif KR', serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 900; line-height: 1.3;
-  letter-spacing: -0.03em;
-  margin-bottom: 1rem;
-}
-.hero-sub {
-  font-size: 15px; color: rgba(255,255,255,0.7);
-  line-height: 1.8; max-width: 700px;
-  font-weight: 300;
-}
-.hero-meta {
-  display: flex; gap: 2.5rem; margin-top: 2.5rem;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(255,255,255,0.1);
-}
-.hero-meta-item label {
-  display: block; font-size: 10px; text-transform: uppercase;
-  letter-spacing: 0.1em; color: rgba(255,255,255,0.4);
-  margin-bottom: 4px; font-weight: 500;
-}
-.hero-meta-item span {
-  font-size: 14px; color: rgba(255,255,255,0.9); font-weight: 500;
-}
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.5;
+    }
 
-/* ─── SECTIONS ─── */
-.section {
-  max-width: 1000px; margin: 0 auto;
-  padding: 4rem 2rem;
-}
-.section-num {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 56px; font-weight: 900; color: rgba(37, 99, 235, 0.07);
-  line-height: 1; margin-bottom: -0.5rem;
-}
-.section h2 {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 1.6rem; font-weight: 700;
-  color: var(--navy); letter-spacing: -0.02em;
-  margin-bottom: 0.5rem;
-}
-.section h3 {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 1.15rem; font-weight: 600;
-  color: var(--navy); margin: 2rem 0 0.75rem;
-  letter-spacing: -0.01em;
-}
-.section-lead {
-  font-size: 15px; color: var(--text-light);
-  line-height: 1.8; max-width: 750px; margin-bottom: 2rem;
-}
-.divider {
-  height: 1px; background: var(--border);
-  margin: 0 auto; max-width: 1000px;
-}
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
 
-/* ─── KPI CARDS ─── */
-.kpi-row {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem; margin: 1.5rem 0;
-}
-.kpi-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 1.5rem;
-  text-align: center;
-}
-.kpi-card .num {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 2rem; font-weight: 900;
-  color: var(--accent);
-  line-height: 1.2;
-}
-.kpi-card .unit {
-  font-size: 12px; color: var(--text-muted);
-  margin-top: 4px; line-height: 1.5;
-}
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
 
-/* ─── TABLES ─── */
-table {
-  width: 100%; border-collapse: collapse;
-  margin: 1rem 0; font-size: 13.5px;
-}
-thead th {
-  background: var(--navy);
-  color: #fff; font-weight: 600;
-  padding: 10px 14px; text-align: left;
-  font-size: 12px; letter-spacing: 0.02em;
-}
-thead th:first-child { border-radius: 4px 0 0 0; }
-thead th:last-child { border-radius: 0 4px 0 0; }
-tbody td {
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--border);
-  vertical-align: top;
-}
-tbody tr:hover { background: rgba(37, 99, 235, 0.02); }
+    .hero-badge .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
 
-/* ─── TRACK OVERVIEW CARDS ─── */
-.tracks-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(440px, 1fr));
-  gap: 1rem; margin: 1.5rem 0;
-}
-.track-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 1.25rem 1.5rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  position: relative;
-}
-.track-card:hover {
-  border-color: var(--accent-light);
-  box-shadow: 0 2px 12px rgba(37, 99, 235, 0.08);
-}
-.track-card.target {
-  border-color: var(--accent);
-  border-width: 2px;
-  background: linear-gradient(135deg, #f0f5ff 0%, #fff 100%);
-}
-.track-card.target::after {
-  content: '★ 우리 타겟';
-  position: absolute; top: -10px; right: 12px;
-  background: var(--accent);
-  color: #fff; font-size: 10px; font-weight: 700;
-  padding: 2px 10px; border-radius: 2px;
-  letter-spacing: 0.03em;
-}
-.track-num {
-  display: inline-block;
-  font-size: 10px; font-weight: 700;
-  color: var(--accent); letter-spacing: 0.05em;
-  margin-bottom: 6px;
-}
-.track-card h4 {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 14.5px; font-weight: 700;
-  color: var(--navy); line-height: 1.5;
-  margin-bottom: 8px;
-}
-.track-card p {
-  font-size: 12.5px; color: var(--text-light);
-  line-height: 1.65; margin-bottom: 8px;
-}
-.track-meta {
-  display: flex; gap: 1rem; flex-wrap: wrap;
-}
-.track-meta span {
-  font-size: 11px; color: var(--text-muted);
-  background: var(--bg-alt); padding: 2px 8px; border-radius: 3px;
-}
-.track-meta span strong {
-  color: var(--text); font-weight: 600;
-}
-.track-group-label {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 14px; font-weight: 700;
-  color: var(--navy-mid);
-  margin: 2rem 0 0.75rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--accent);
-  display: inline-block;
-}
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
 
-/* ─── MATCH TABLE ─── */
-.match-row {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 0; margin: 0.5rem 0;
-  border: 1px solid var(--border); border-radius: 4px;
-  overflow: hidden;
-}
-.match-row:first-of-type { margin-top: 1rem; }
-.match-row .left, .match-row .right {
-  padding: 10px 14px; font-size: 13px;
-}
-.match-row .left {
-  background: var(--bg-alt); font-weight: 500;
-  border-right: 1px solid var(--border);
-}
-.match-row .right { background: var(--bg-card); color: var(--text-light); }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
 
-/* ─── INFO BOX ─── */
-.info-box {
-  background: var(--bg-alt);
-  border-left: 3px solid var(--accent);
-  padding: 1rem 1.25rem;
-  margin: 1.5rem 0;
-  font-size: 13.5px;
-  border-radius: 0 4px 4px 0;
-}
-.info-box strong { color: var(--navy); }
+    .hero-subtitle {
+      font-size: 18px;
+      opacity: 0.9;
+      margin-bottom: 32px;
+      max-width: 600px;
+    }
 
-/* ─── CONSORTIUM TABLE ─── */
-.status-badge {
-  display: inline-block; font-size: 11px; font-weight: 600;
-  padding: 2px 8px; border-radius: 3px;
-}
-.status-badge.need { background: #fef3c7; color: #92400e; }
-.status-badge.check { background: #dbeafe; color: #1e40af; }
-.status-badge.open { background: #fee2e2; color: #991b1b; }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
 
-/* ─── TIMELINE ─── */
-.timeline { margin: 1.5rem 0; }
-.tl-item {
-  display: flex; gap: 1.5rem; margin-bottom: 1.25rem;
-  position: relative;
-}
-.tl-item::before {
-  content: '';
-  position: absolute; left: 64px; top: 28px; bottom: -20px;
-  width: 1px; background: var(--border);
-}
-.tl-item:last-child::before { display: none; }
-.tl-date {
-  flex: 0 0 auto; width: 120px; text-align: right;
-  padding-right: 1.5rem; position: relative;
-}
-.tl-date .day {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 18px; font-weight: 700; color: var(--navy);
-}
-.tl-date .dow {
-  font-size: 11px; color: var(--text-muted); font-weight: 500;
-}
-.tl-date::after {
-  content: '';
-  position: absolute; right: -5px; top: 6px;
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  background: var(--accent);
-  border: 2px solid var(--bg);
-}
-.tl-content {
-  flex: 1; background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 6px; padding: 1rem 1.25rem;
-}
-.tl-content h4 {
-  font-size: 14px; font-weight: 700; color: var(--navy);
-  margin-bottom: 4px;
-}
-.tl-content p {
-  font-size: 13px; color: var(--text-light); line-height: 1.6;
-}
-.tl-item.highlight .tl-date::after { background: var(--danger); }
-.tl-item.highlight .tl-content { border-color: var(--danger); }
+    .hero-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
 
-/* ─── EVAL TABLE ─── */
-.eval-bar {
-  display: flex; align-items: center; gap: 8px;
-}
-.eval-bar .bar {
-  height: 6px; border-radius: 3px; background: var(--accent);
-}
+    .hero-meta-item label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.6;
+    }
 
-/* ─── SUBMIT TABLE ─── */
-tbody td code {
-  background: var(--bg-alt); padding: 1px 6px;
-  border-radius: 3px; font-size: 12px; font-family: inherit;
-}
+    .hero-meta-item span {
+      font-size: 15px;
+      font-weight: 600;
+    }
 
-/* ─── FOOTER ─── */
-.footer {
-  background: var(--navy);
-  color: rgba(255,255,255,0.4);
-  text-align: center;
-  padding: 2rem;
-  font-size: 12px;
-}
+    /* Navigation */
+    .nav {
+      position: sticky;
+      top: 0;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
 
-/* ─── RESPONSIVE ─── */
-@media (max-width: 768px) {
-  .hero { padding: 7rem 1.5rem 3rem; }
-  .hero h1 { font-size: 1.6rem; }
-  .hero-meta { flex-wrap: wrap; gap: 1.5rem; }
-  .section { padding: 3rem 1.5rem; }
-  .tracks-grid { grid-template-columns: 1fr; }
-  .kpi-row { grid-template-columns: repeat(2, 1fr); }
-  .nav-links { display: none; }
-  .tl-item { flex-direction: column; gap: 0.5rem; }
-  .tl-date { text-align: left; width: auto; padding-right: 0; }
-  .tl-item::before { display: none; }
-  .tl-date::after { display: none; }
-  table { font-size: 12px; }
-  thead th, tbody td { padding: 8px 10px; }
-}
-</style>
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .nav-inner::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-item {
+      flex-shrink: 0;
+      padding: 16px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-item:hover {
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .nav-item.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* Main Content */
+    .main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 48px;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .section-num {
+      width: 40px;
+      height: 40px;
+      background: var(--gradient-2);
+      color: white;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow);
+    }
+
+    .card-clickable {
+      cursor: pointer;
+    }
+
+    .card-clickable:hover {
+      border-color: var(--accent);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .card-badge {
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge-primary { background: #dbeafe; color: #1d4ed8; }
+    .badge-success { background: #d1fae5; color: #047857; }
+    .badge-warning { background: #fef3c7; color: #b45309; }
+    .badge-danger { background: #fee2e2; color: #b91c1c; }
+
+    /* Grid */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    /* Stats */
+    .stat-card {
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Tables */
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: var(--bg);
+      font-weight: 600;
+      color: var(--text-muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: var(--bg);
+    }
+
+    /* TRL */
+    .trl-container {
+      display: flex;
+      gap: 4px;
+      margin: 24px 0;
+    }
+
+    .trl-step {
+      flex: 1;
+      padding: 12px 8px;
+      text-align: center;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 12px;
+      background: var(--bg);
+      border: 2px solid transparent;
+    }
+
+    .trl-step:hover {
+      transform: translateY(-2px);
+    }
+
+    .trl-step.active {
+      background: var(--accent);
+      color: white;
+    }
+
+    .trl-step.target {
+      border-color: var(--success);
+      background: #d1fae5;
+    }
+
+    .trl-step .level {
+      font-weight: 700;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    /* Accordion */
+    .accordion {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .accordion-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background: var(--card);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .accordion-header:hover {
+      background: var(--bg);
+    }
+
+    .accordion-title {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .accordion-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s;
+    }
+
+    .accordion-icon.open {
+      transform: rotate(180deg);
+    }
+
+    .accordion-content {
+      padding: 0 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s;
+      background: var(--bg);
+    }
+
+    .accordion-content.open {
+      padding: 20px;
+      max-height: 2000px;
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      margin: 32px 0;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: var(--border);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--gradient-1);
+      border-radius: 100px;
+      transition: width 0.5s ease;
+    }
+
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 32px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -32px;
+      top: 4px;
+      width: 24px;
+      height: 24px;
+      background: var(--card);
+      border: 3px solid var(--accent);
+      border-radius: 50%;
+    }
+
+    .timeline-item.completed::before {
+      background: var(--success);
+      border-color: var(--success);
+    }
+
+    .timeline-item.current::before {
+      background: var(--accent);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+    }
+
+    .timeline-date {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .timeline-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .timeline-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    .tab {
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .tab:hover {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .tab.active {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* Consortium Diagram */
+    .consortium-diagram {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding: 32px;
+      background: var(--bg);
+      border-radius: 16px;
+      margin: 24px 0;
+    }
+
+    .consortium-row {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .consortium-box {
+      padding: 20px 32px;
+      border-radius: 12px;
+      text-align: center;
+      min-width: 160px;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .consortium-box:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .consortium-box.lead {
+      background: var(--gradient-2);
+      color: white;
+    }
+
+    .consortium-box.partner {
+      background: var(--card);
+      border: 2px solid var(--accent);
+    }
+
+    .consortium-box.support {
+      background: var(--card);
+      border: 2px solid var(--border);
+    }
+
+    .consortium-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.7;
+      margin-bottom: 4px;
+    }
+
+    .consortium-name {
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .consortium-role {
+      font-size: 12px;
+      margin-top: 8px;
+      opacity: 0.8;
+    }
+
+    .consortium-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+    }
+
+    /* Alert */
+    .alert {
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin: 16px 0;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .alert-info {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+    }
+
+    .alert-warning {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      color: #92400e;
+    }
+
+    .alert-success {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+    }
+
+    .alert-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    /* Checklist */
+    .checklist {
+      list-style: none;
+    }
+
+    .checklist li {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .checklist li:last-child {
+      border-bottom: none;
+    }
+
+    .check-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .check-icon.success {
+      background: #d1fae5;
+      color: #059669;
+    }
+
+    .check-icon.warning {
+      background: #fef3c7;
+      color: #d97706;
+    }
+
+    .check-icon.danger {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--primary);
+      color: white;
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    .footer-text {
+      opacity: 0.6;
+      font-size: 13px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 60px 20px 40px;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .nav-item {
+        padding: 14px 16px;
+        font-size: 13px;
+      }
+
+      .main {
+        padding: 24px 16px 60px;
+      }
+
+      .section-title {
+        font-size: 20px;
+      }
+
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .trl-container {
+        flex-wrap: wrap;
+      }
+
+      .trl-step {
+        flex: 0 0 calc(25% - 4px);
+      }
+
+      .consortium-diagram {
+        padding: 20px;
+      }
+
+      .consortium-box {
+        min-width: 140px;
+        padding: 16px 20px;
+      }
+    }
+
+    /* Utility */
+    .text-muted { color: var(--text-muted); }
+    .text-accent { color: var(--accent); }
+    .text-success { color: var(--success); }
+    .text-warning { color: var(--warning); }
+    .text-danger { color: var(--danger); }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .mt-16 { margin-top: 16px; }
+    .mt-24 { margin-top: 24px; }
+    .mb-16 { margin-bottom: 16px; }
+    .mb-24 { margin-bottom: 24px; }
+  </style>
 </head>
 <body>
+  <div id="root"></div>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-inner">
-    <div class="nav-brand">2026 디지털미디어이노베이션 R&D — <span>Consortium Strategy</span></div>
-    <div class="nav-links">
-      <a href="#overview">사업 개요</a>
-      <a href="#tracks">전체 과제</a>
-      <a href="#target">타겟 과제</a>
-      <a href="#opportunity">기회 분석</a>
-      <a href="#qualification">자격요건</a>
-      <a href="#consortium">컨소시엄</a>
-      <a href="#action">액션 플랜</a>
-    </div>
-    <div class="nav-tag">Confidential</div>
-  </div>
-</nav>
+  <script type="text/babel">
+    const { useState, useEffect } = React;
 
-<!-- HERO -->
-<header class="hero">
-  <div class="hero-inner">
-    <div class="hero-label">Consortium Strategy</div>
-    <h1>2026 디지털미디어이노베이션<br>R&D 컨소시엄 전략</h1>
-    <p class="hero-sub">
-      방송미디어통신위원회 주관 국가 R&D 사업 참여를 위한<br>
-      컨소시엄 구성 및 역할 분담 전략 브리핑
-    </p>
-    <div class="hero-meta">
-      <div class="hero-meta-item">
-        <label>사업명</label>
-        <span>디지털미디어이노베이션기술개발</span>
-      </div>
-      <div class="hero-meta-item">
-        <label>관리기관</label>
-        <span>IITP</span>
-      </div>
-      <div class="hero-meta-item">
-        <label>접수 마감</label>
-        <span>2026. 2. 12 (목) 15:00</span>
-      </div>
-      <div class="hero-meta-item">
-        <label>총 공고규모</label>
-        <span>79억원 (8개 과제)</span>
-      </div>
-    </div>
-  </div>
-</header>
+    // Icons
+    const ChevronDown = () => (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    );
 
-<!-- 01. 사업 개요 -->
-<div class="divider"></div>
-<section class="section" id="overview">
-  <div class="section-num">01</div>
-  <h2>사업 개요</h2>
-  <p class="section-lead">
-    2026년도 디지털미디어이노베이션기술개발(R&D) 사업은 방송미디어통신위원회가 공고하고 IITP가 관리하는 국가 R&D 사업으로, 
-    <strong>미디어지능화제작핵심기술개발</strong>(4개 과제, 37억)과 <strong>마이미디어플랫폼핵심기술개발</strong>(4개 과제, 42억) 두 내역사업으로 구성됩니다.
-    전체 8개 과제, 총 공고규모 79억원(연간 기준), 3년 총 311억원 규모입니다.
-  </p>
+    const Check = () => (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+        <path d="M20 6L9 17l-5-5"/>
+      </svg>
+    );
 
-  <div class="kpi-row">
-    <div class="kpi-card">
-      <div class="num">8개</div>
-      <div class="unit">신규 공모 과제</div>
-    </div>
-    <div class="kpi-card">
-      <div class="num">79억</div>
-      <div class="unit">'26년 공고 규모</div>
-    </div>
-    <div class="kpi-card">
-      <div class="num">311억</div>
-      <div class="unit">3년 총 정부지원</div>
-    </div>
-    <div class="kpi-card">
-      <div class="num">33개월</div>
-      <div class="unit">연구개발기간<br>'26.4 – '28.12</div>
-    </div>
-  </div>
+    const AlertIcon = () => <span>💡</span>;
+    const WarningIcon = () => <span>⚠️</span>;
+    const SuccessIcon = () => <span>✅</span>;
 
-  <h3>내역사업 구성</h3>
-  <table>
-    <thead>
-      <tr><th>내역사업</th><th>'26년 예산</th><th>과제 수</th><th>비고</th></tr>
-    </thead>
-    <tbody>
-      <tr><td><strong>미디어지능화제작핵심기술개발</strong></td><td>37억원</td><td>4개 (RFP 1~4)</td><td>AI 제작 혁신</td></tr>
-      <tr><td><strong>마이미디어플랫폼핵심기술개발</strong></td><td>42억원</td><td>4개 (RFP 5~8)</td><td>개인화·플랫폼</td></tr>
-      <tr style="font-weight:600; background:#f0f5ff;"><td>합계</td><td>79억원</td><td>8개</td><td></td></tr>
-    </tbody>
-  </table>
-</section>
+    // Data
+    const trlData = [
+      { level: 1, name: '기초연구', desc: '기초 원리 관찰 및 보고' },
+      { level: 2, name: '개념정립', desc: '기술 개념 및 응용 연구' },
+      { level: 3, name: '기능검증', desc: '개념의 분석적/실험적 검증' },
+      { level: 4, name: '기술검증', desc: '실험실 환경에서 기술 검증' },
+      { level: 5, name: '유사환경검증', desc: '유사 환경에서 기술 검증' },
+      { level: 6, name: '시제품개발', desc: '실제 환경에서 시제품 검증' },
+      { level: 7, name: '시제품실증', desc: '운영 환경에서 시제품 실증' },
+      { level: 8, name: '시스템완성', desc: '실제 시스템 완성 및 인증', target: true },
+      { level: 9, name: '사업화', desc: '실제 운영을 통한 시스템 검증' },
+    ];
 
-<!-- 02. 전체 8개 과제 개요 -->
-<div class="divider"></div>
-<section class="section" id="tracks">
-  <div class="section-num">02</div>
-  <h2>전체 과제 개요 (8개 RFP)</h2>
-  <p class="section-lead">
-    방송미디어 분야 전체 8개 신규과제의 구조입니다. 과제 1~3은 통합형으로 하나의 컨소시엄이 동시 수행하며,
-    과제 5~7도 별도 통합형입니다. 과제 4, 8은 독립형입니다.
-  </p>
+    const sections = [
+      { id: 'overview', name: '사업 핵심 요약' },
+      { id: 'requirements', name: '필수 요건' },
+      { id: 'evaluation', name: '평가지표' },
+      { id: 'budget', name: '연구개발비' },
+      { id: 'consortium', name: '컨소시엄 전략' },
+      { id: 'roadmap', name: '추진 로드맵' },
+    ];
 
-  <!-- 그룹 A: 미디어지능화제작 -->
-  <div class="track-group-label">A. 미디어지능화제작핵심기술개발 ('26년 37억, 총 149억)</div>
+    // Components
+    const Accordion = ({ title, icon, children, defaultOpen = false }) => {
+      const [isOpen, setIsOpen] = useState(defaultOpen);
+      return (
+        <div className="accordion">
+          <div className="accordion-header" onClick={() => setIsOpen(!isOpen)}>
+            <div className="accordion-title">
+              {icon && <span>{icon}</span>}
+              {title}
+            </div>
+            <div className={`accordion-icon ${isOpen ? 'open' : ''}`}>
+              <ChevronDown />
+            </div>
+          </div>
+          <div className={`accordion-content ${isOpen ? 'open' : ''}`}>
+            {children}
+          </div>
+        </div>
+      );
+    };
 
-  <div class="tracks-grid">
-    <!-- Track 1 -->
-    <div class="track-card target">
-      <div class="track-num">RFP #1 · 2026-방송미디어-1 · 통합형 (총괄/세부1)</div>
-      <h4>(총괄) 대화형 멀티모달 AI 기반 미디어 프로덕션 기술개발<br>(세부1) 미디어 바이브 편집 기술개발</h4>
-      <p>자연어 대화를 통해 영상 생성·검색·합성·편집을 통합 제어하는 AI 미디어 프로덕션 파이프라인. 멀티모달 에이전트 기술, 오케스트레이션 모듈·UI, 편집 일관성 보정, 편집이력 관리.</p>
-      <div class="track-meta">
-        <span><strong>'26년 8억</strong> / 총 32억</span>
-        <span>주관: <strong>기업</strong></span>
-        <span>TRL 5→7</span>
-        <span>사업화연계</span>
-      </div>
-    </div>
+    const TRLScale = () => {
+      const [selected, setSelected] = useState(8);
+      return (
+        <div>
+          <div className="trl-container">
+            {trlData.map((trl) => (
+              <div
+                key={trl.level}
+                className={`trl-step ${selected === trl.level ? 'active' : ''} ${trl.target ? 'target' : ''}`}
+                onClick={() => setSelected(trl.level)}
+              >
+                <div className="level">{trl.level}</div>
+                <div>{trl.name}</div>
+              </div>
+            ))}
+          </div>
+          <div className="card mt-16">
+            <div className="card-header">
+              <div className="card-title">TRL {selected}: {trlData[selected-1].name}</div>
+              {selected === 8 && <span className="card-badge badge-success">목표 단계</span>}
+            </div>
+            <p className="text-muted">{trlData[selected-1].desc}</p>
+            {selected === 8 && (
+              <div className="alert alert-success mt-16">
+                <span className="alert-icon"><SuccessIcon /></span>
+                <div>
+                  <strong>TRL 8 달성 요건:</strong> 실제 시스템이 완성되어 인증을 받은 상태. 
+                  실제 운영 환경에서 시스템이 정상 작동하며, 사업화를 위한 모든 기술적 준비가 완료된 단계입니다.
+                  AENA의 경우 KT ENA 실서비스 적용이 TRL 8 달성의 핵심 근거가 됩니다.
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    };
 
-    <!-- Track 2 -->
-    <div class="track-card">
-      <div class="track-num">RFP #2 · 2026-방송미디어-2 · 통합형 (세부2)</div>
-      <h4>(세부2) 실사 영상에 대한 AI 프롬프트 생성 기술개발</h4>
-      <p>실사 영상에서 AI 프롬프트를 역추출하고, 수정을 통해 기획 의도를 반영한 프롬프트를 생성. 역방향 프롬프트 생성, 실시간 인터렉티브 편집, 범용 AI 모델 프롬프트 변환.</p>
-      <div class="track-meta">
-        <span><strong>'26년 8억</strong> / 총 32억</span>
-        <span>주관: <strong>제한없음</strong></span>
-        <span>TRL 5→7</span>
-        <span>사업화연계</span>
-      </div>
-    </div>
+    // Main App
+    const App = () => {
+      const [activeSection, setActiveSection] = useState('overview');
+      const [budgetTab, setBudgetTab] = useState('overview');
 
-    <!-- Track 3 -->
-    <div class="track-card">
-      <div class="track-num">RFP #3 · 2026-방송미디어-3 · 통합형 (세부3)</div>
-      <h4>(세부3) 고속 검색 기반 사실형 영상 합성 기술개발</h4>
-      <p>대용량 영상 아카이브 고속 검색 + AI 편집을 통해 출처 기반 신뢰성 높은 영상을 합성하는 Video RAG 기술. 구조 인식형 벡터 인덱싱, 의미 검색, 영상 자동 합성·편집.</p>
-      <div class="track-meta">
-        <span><strong>'26년 11억</strong> / 총 43억</span>
-        <span>주관: <strong>제한없음</strong></span>
-        <span>TRL 5→7</span>
-        <span>사업화연계</span>
-      </div>
-    </div>
+      const scrollToSection = (id) => {
+        setActiveSection(id);
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
 
-    <!-- Track 4 -->
-    <div class="track-card">
-      <div class="track-num">RFP #4 · 2026-방송미디어-4 · 독립형</div>
-      <h4>경량화된 협업형 미디어 저작·실시간 시각화 기술개발</h4>
-      <p>다양한 기기·네트워크 환경에서 다중 사용자가 동시 편집·시각화하는 온프레미스 기반 경량 협업형 미디어 저작 기술. 저지연 입력 스트림, 3D 공동편집, 표준 인터페이스.</p>
-      <div class="track-meta">
-        <span><strong>'26년 10억</strong> / 총 42억</span>
-        <span>주관: <strong>기업</strong></span>
-        <span>TRL 5→7</span>
-        <span>사업화연계</span>
-      </div>
-    </div>
-  </div>
+      return (
+        <div className="app">
+          {/* Hero */}
+          <header className="hero">
+            <div className="hero-content">
+              <div className="hero-badge">
+                <span className="dot"></span>
+                자유공모 | KOCCA
+              </div>
+              <h1>2026 K-Culture 대중소 공동도약</h1>
+              <p className="hero-subtitle">
+                K-Culture 핵심 장르의 대·중·소 공동도약을 위한 협력 R&D 사업<br/>
+                STEP AI 컨소시엄 전략 문서
+              </p>
+              <div className="hero-meta">
+                <div className="hero-meta-item">
+                  <label>접수마감</label>
+                  <span>2026. 2. 25 (수) 14:00</span>
+                </div>
+                <div className="hero-meta-item">
+                  <label>D-Day</label>
+                  <span>D-22</span>
+                </div>
+                <div className="hero-meta-item">
+                  <label>과제당 규모</label>
+                  <span>약 77억원 (3년)</span>
+                </div>
+                <div className="hero-meta-item">
+                  <label>대상 트랙</label>
+                  <span>영상</span>
+                </div>
+                <div className="hero-meta-item">
+                  <label>목표 TRL</label>
+                  <span>8단계 이상</span>
+                </div>
+              </div>
+            </div>
+          </header>
 
-  <!-- 그룹 B: 마이미디어플랫폼 -->
-  <div class="track-group-label">B. 마이미디어플랫폼핵심기술개발 ('26년 42억, 총 162억)</div>
+          {/* Navigation */}
+          <nav className="nav">
+            <div className="nav-inner">
+              {sections.map((section) => (
+                <div
+                  key={section.id}
+                  className={`nav-item ${activeSection === section.id ? 'active' : ''}`}
+                  onClick={() => scrollToSection(section.id)}
+                >
+                  {section.name}
+                </div>
+              ))}
+            </div>
+          </nav>
 
-  <div class="tracks-grid">
-    <!-- Track 5 -->
-    <div class="track-card">
-      <div class="track-num">RFP #5 · 2026-방송미디어-5 · 통합형 (총괄/세부1)</div>
-      <h4>(총괄) 개인화 미디어 서비스 추천-자동생성 기술개발<br>(세부1) 개인 맞춤형 영상 자동생성 및 삽입 기술개발</h4>
-      <p>시청자의 페르소나·메타데이터·시청맥락을 분석하여 개인 최적화 중간영상을 자동 생성·삽입. 상용 생성형 AI 활용, AI 기반 검수 및 영상 자산관리.</p>
-      <div class="track-meta">
-        <span><strong>'26년 10억</strong> / 총 42억</span>
-        <span>주관: <strong>기업</strong></span>
-        <span>TRL 5→7</span>
-        <span>사업화연계</span>
-      </div>
-    </div>
+          {/* Main Content */}
+          <main className="main">
 
-    <!-- Track 6 -->
-    <div class="track-card">
-      <div class="track-num">RFP #6 · 2026-방송미디어-6 · 통합형 (세부2)</div>
-      <h4>(세부2) 미디어 소비 이력을 축적한 페르소나 AI 모델 기술개발</h4>
-      <p>TV 시청 로그 등 대규모 소비이력을 학습하여 개인 미디어 소비 유형을 반영한 페르소나 생성 AI 모델. 비식별화 데이터셋 구축, 설명 가능형 페르소나 표현.</p>
-      <div class="track-meta">
-        <span><strong>'26년 12억</strong> / 총 44억</span>
-        <span>주관: <strong>제한없음</strong></span>
-        <span>TRL 5→7</span>
-        <span>사업화연계</span>
-      </div>
-    </div>
+            {/* Section 1: Overview */}
+            <section className="section" id="overview">
+              <div className="section-header">
+                <div className="section-num">01</div>
+                <h2 className="section-title">사업 핵심 요약</h2>
+              </div>
 
-    <!-- Track 7 -->
-    <div class="track-card">
-      <div class="track-num">RFP #7 · 2026-방송미디어-7 · 통합형 (세부3)</div>
-      <h4>(세부3) 방송·미디어 메타데이터 특화 AI 모델 개발</h4>
-      <p>대본·자막·편성표 등 방송 도메인 비정형 텍스트를 이해·예측하는 LLM 기반 특화 AI 모델. 벤치마크 데이터셋 공개, AI 툴체인 호환 API·임베딩 스택.</p>
-      <div class="track-meta">
-        <span><strong>'26년 12억</strong> / 총 44억</span>
-        <span>주관: <strong>제한없음</strong></span>
-        <span>TRL 5→7</span>
-        <span>사업화연계</span>
-      </div>
-    </div>
+              <div className="grid-4 mb-24">
+                <div className="stat-card">
+                  <div className="stat-value">77억</div>
+                  <div className="stat-label">과제당 총 지원금 (3년)</div>
+                </div>
+                <div className="stat-card">
+                  <div className="stat-value">21.25억</div>
+                  <div className="stat-label">1단계 지원금 ('26년)</div>
+                </div>
+                <div className="stat-card">
+                  <div className="stat-value">3개</div>
+                  <div className="stat-label">신규 선정 과제</div>
+                </div>
+                <div className="stat-card">
+                  <div className="stat-value">TRL 8</div>
+                  <div className="stat-label">목표 기술성숙도</div>
+                </div>
+              </div>
 
-    <!-- Track 8 -->
-    <div class="track-card">
-      <div class="track-num">RFP #8 · 2026-방송미디어-8 · 독립형</div>
-      <h4>미디어 개인화 서비스 AI 에이전트 기술개발</h4>
-      <p>콘텐츠 심층정보 추출, 사용자 이해·분석, 환경적응형 미디어 변환, 프라이버시 보호형 AI 프레임워크. 상용 플랫폼 독립적 개인용 미디어 AI 에이전트.</p>
-      <div class="track-meta">
-        <span><strong>'26년 8억</strong> / 총 32억</span>
-        <span>주관: <strong>기업</strong></span>
-        <span>TRL 5→7</span>
-        <span>사업화연계</span>
-      </div>
-    </div>
-  </div>
+              <Accordion title="사업 개요" icon="📋" defaultOpen={true}>
+                <div className="table-wrapper">
+                  <table>
+                    <tbody>
+                      <tr><th style={{width:'160px'}}>사업명</th><td>K-Culture 글로벌 스타트업 육성 기술개발 → 지속가능한 K-Culture 공동도약 기술개발</td></tr>
+                      <tr><th>공모방식</th><td>자유공모 (대중소 공동도약형)</td></tr>
+                      <tr><th>전문기관</th><td>한국콘텐츠진흥원 (KOCCA)</td></tr>
+                      <tr><th>접수처</th><td>IRIS (iris.go.kr)</td></tr>
+                      <tr><th>접수마감</th><td><strong>2026. 2. 25 (수) 14:00:00</strong></td></tr>
+                      <tr><th>연구기간</th><td>1단계: 2026.4.1~12.31 (9개월) / 2~3단계: 매년 12개월</td></tr>
+                      <tr><th>지원분야</th><td>영상, 음악/공연, 게임/웹툰 (각 1개 과제)</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </Accordion>
 
-  <div class="info-box">
-    <strong>통합형 과제 구조:</strong> 과제 1~3은 하나의 통합 컨소시엄으로 동시 선정 (총괄/세부1 주관기관이 세부2·3 공동연구기관 참여 가능). 과제 5~7도 동일 구조. 총괄과제는 전체 프로세스 관리 및 실증방안을 반드시 제시해야 합니다.
-  </div>
-</section>
+              <Accordion title="TRL (기술성숙도) 상세 설명" icon="📊" defaultOpen={true}>
+                <p className="mb-16">본 사업은 <strong>TRL 8단계 이상</strong>의 기술성숙도를 목표로 합니다. 클릭하여 각 단계를 확인하세요.</p>
+                <TRLScale />
+              </Accordion>
 
-<!-- 03. 타겟 과제 상세 -->
-<div class="divider"></div>
-<section class="section" id="target">
-  <div class="section-num">03</div>
-  <h2>목표 과제: 미디어 바이브 편집 기술개발</h2>
-  <p class="section-lead">
-    2026-방송미디어-1 (총괄/세부1) — 자연어 대화를 통해 영상 생성·검색·합성·편집을 통합 제어하는 AI 미디어 프로덕션 파이프라인을 구축하는 과제입니다.
-  </p>
+              <Accordion title="영상 트랙 + AENA 적합성 분석" icon="🎯">
+                <div className="alert alert-info">
+                  <span className="alert-icon"><AlertIcon /></span>
+                  <div>
+                    <strong>결론: AENA 기반 영상 트랙 진행 적합</strong><br/>
+                    기술 적합성, TRL 달성 가능성, 사업화 연계, 글로벌 확장성 모두 충족
+                  </div>
+                </div>
+                <div className="table-wrapper mt-16">
+                  <table>
+                    <thead>
+                      <tr><th>평가 관점</th><th>적합성</th><th>근거</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>기술 적합성</td>
+                        <td><span className="text-success">✅ 높음</span></td>
+                        <td>AI 기반 미디어 제작 자동화 → 영상 트랙 직접 부합</td>
+                      </tr>
+                      <tr>
+                        <td>TRL 달성 가능성</td>
+                        <td><span className="text-success">✅ 높음</span></td>
+                        <td>KT ENA PoC 검증 완료 (53% 작업시간 단축, 4x 채널 관리)</td>
+                      </tr>
+                      <tr>
+                        <td>사업화 연계</td>
+                        <td><span className="text-success">✅ 높음</span></td>
+                        <td>KT ENA 실서비스 적용 → 평가지표 "동반성장 및 사업화" 40점 공략</td>
+                      </tr>
+                      <tr>
+                        <td>글로벌 확장성</td>
+                        <td><span className="text-success">✅ 높음</span></td>
+                        <td>K-Culture 글로벌 육성 사업 취지 부합, 동남아 확장 계획 연계</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </Accordion>
+            </section>
 
-  <div class="kpi-row">
-    <div class="kpi-card">
-      <div class="num">32억원</div>
-      <div class="unit">총 연구개발비 (3년)</div>
-    </div>
-    <div class="kpi-card">
-      <div class="num">33개월</div>
-      <div class="unit">연구개발기간<br>'26.4 – '28.12</div>
-    </div>
-    <div class="kpi-card">
-      <div class="num">TRL 5→7</div>
-      <div class="unit">기술준비수준<br>개발연구</div>
-    </div>
-    <div class="kpi-card">
-      <div class="num">3개</div>
-      <div class="unit">세부과제<br>통합 선정</div>
-    </div>
-  </div>
+            {/* Section 2: Requirements */}
+            <section className="section" id="requirements">
+              <div className="section-header">
+                <div className="section-num">02</div>
+                <h2 className="section-title">컨소시엄 필수 요건</h2>
+              </div>
 
-  <h3>연차별 예산</h3>
-  <table>
-    <thead><tr><th>연차</th><th>기간</th><th>정부지원연구개발비</th><th>비고</th></tr></thead>
-    <tbody>
-      <tr><td>1차년도</td><td>'26.4 – '26.12 (9개월)</td><td>8억원</td><td>기반 구축</td></tr>
-      <tr><td>2차년도</td><td>'27.1 – '27.12</td><td>12억원</td><td>핵심 기술 개발</td></tr>
-      <tr><td>3차년도</td><td>'28.1 – '28.12</td><td>12억원</td><td>실증 및 사업화</td></tr>
-    </tbody>
-  </table>
+              <div className="alert alert-warning mb-24">
+                <span className="alert-icon"><WarningIcon /></span>
+                <div>
+                  <strong>핵심 필수 조건:</strong> 반드시 <strong>대기업(또는 중견)</strong>과 <strong>중소기업(또는 벤처)</strong>이 함께 컨소시엄을 구성해야 합니다. 단독 참여 불가.
+                </div>
+              </div>
 
-  <h3>세부과제 구성 (통합형)</h3>
-  <table>
-    <thead><tr><th>과제</th><th>과제명</th><th>핵심 내용</th><th>수행주체</th></tr></thead>
-    <tbody>
-      <tr><td>세부1</td><td>미디어 바이브 편집 기술개발</td><td>자연어 기반 통합 편집 + 오케스트레이션 UI</td><td>기업 (필수)</td></tr>
-      <tr><td>세부2</td><td>실사 영상 AI 프롬프트 생성</td><td>실사 영상 → AI 역프롬프트 자동 추출</td><td>제한없음</td></tr>
-      <tr><td>세부3</td><td>고속 검색 기반 사실형 영상 합성</td><td>Video RAG 기반 대규모 아카이브 검색·합성</td><td>제한없음</td></tr>
-    </tbody>
-  </table>
+              <div className="grid-2 mb-24">
+                <div className="card">
+                  <div className="card-header">
+                    <div className="card-title">주관/공동연구개발기관</div>
+                    <span className="card-badge badge-primary">영리기관</span>
+                  </div>
+                  <p className="text-muted mb-16">연구개발 및 사업화가 가능한 영리기관(법인)</p>
+                  <ul className="checklist">
+                    <li>
+                      <span className="check-icon success"><Check /></span>
+                      <span>대기업, 공기업, 중견기업, 중소기업, 벤처기업 모두 가능</span>
+                    </li>
+                    <li>
+                      <span className="check-icon success"><Check /></span>
+                      <span>공동연구개발기관 참여 수 제한 없음</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="card">
+                  <div className="card-header">
+                    <div className="card-title">위탁연구개발기관</div>
+                    <span className="card-badge badge-success">비영리법인</span>
+                  </div>
+                  <p className="text-muted mb-16">비영리법인(대학, 출연연, 기타)만 가능</p>
+                  <ul className="checklist">
+                    <li>
+                      <span className="check-icon success"><Check /></span>
+                      <span>위탁연구개발기관 제외한 컨소시엄 구성도 가능</span>
+                    </li>
+                    <li>
+                      <span className="check-icon warning">!</span>
+                      <span>위탁연구개발비는 직접비의 40% 이내</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
 
-  <div class="info-box">
-    <strong>통합형 과제 유의사항 —</strong>
-    총괄/세부1 주관기관은 세부2·3의 공동연구기관으로 참여 가능. 선정평가 시 전체 컨소시엄으로 통합 선정. 총괄과제는 전체 프로세스 관리 및 실증방안 제시 필수.
-    사업화 대상기간은 총 연구개발기간의 1/5 의무 편성 (연구 26개월 + 사업화 7개월).
-  </div>
-</section>
+              <Accordion title="기관 유형별 역할 정의" icon="🏢" defaultOpen={true}>
+                <div className="table-wrapper">
+                  <table>
+                    <thead>
+                      <tr><th>기관 유형</th><th>필수 역할</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>중소기업 / 벤처기업</strong></td>
+                        <td>
+                          • 대중소 공동도약 과제 발굴 및 기술 기획 주도적 참여<br/>
+                          • 대기업·중견기업 필요기술의 설계·구현 등 공동 R&D 수행<br/>
+                          • 기술 검증, 제품화 및 글로벌 진출 기술 경쟁력 확보<br/>
+                          • R&D 기술 내재화 및 독자적 사업 확장 기반 마련
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>대기업 / 중견기업</strong></td>
+                        <td>
+                          • 중소·벤처기업과 공동 과제 기획 및 R&D 전 과정 참여<br/>
+                          • 실제 사업 환경 기반 기술 검증, 실증, 적용 시나리오 제공<br/>
+                          • 개발 기술의 공동 사업화와 서비스 적용 전제 공동연구<br/>
+                          • 글로벌 네트워크·플랫폼·유통 채널 활용 시장 확산 지원<br/>
+                          • 공동 성과 기반 지속 가능한 상생협력 생태계 구축
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>비영리법인 (위탁)</strong></td>
+                        <td>
+                          • 오픈이노베이션 및 대중소 공동도약 협력 R&D 지원<br/>
+                          • 기술 수요-개발 역량 매칭 촉진자 역할<br/>
+                          • 공동 R&D 기획 객관성·실현 가능성 확보<br/>
+                          • 소통 및 갈등 조정자 역할 수행
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </Accordion>
 
-<!-- 04. 기회 분석 -->
-<div class="divider"></div>
-<section class="section" id="opportunity">
-  <div class="section-num">04</div>
-  <h2>왜 이 과제인가 — AENA 실증 기반</h2>
-  <p class="section-lead">
-    KT ENA에서 STEP AI와 함께 구축한 AENA는 이 과제의 핵심 개념인 "자연어 기반 미디어 편집 자동화"를 이미 실증한 플랫폼입니다.
-  </p>
+              <Accordion title="신청자격 부적합 대상 (체크리스트)" icon="🚫">
+                <p className="text-muted mb-16">아래 항목 중 하나라도 해당 시 평가대상에서 제외됩니다. 컨소시엄 구성 전 반드시 확인하세요.</p>
+                <ul className="checklist">
+                  <li><span className="check-icon danger">✕</span><span>신청자격을 충족하지 못한 경우</span></li>
+                  <li><span className="check-icon danger">✕</span><span>신청과제가 공고된 목표 및 내용에 부합하지 않는 경우</span></li>
+                  <li><span className="check-icon danger">✕</span><span>국가연구개발사업 참여제한을 받고 있는 경우</span></li>
+                  <li><span className="check-icon danger">✕</span><span>연구개발사업 의무사항 불이행 중인 경우</span></li>
+                  <li><span className="check-icon danger">✕</span><span>동시 수행 과제 5개 이상 또는 주관 책임자 3개 이상</span></li>
+                  <li><span className="check-icon danger">✕</span><span>부도 상태인 경우</span></li>
+                  <li><span className="check-icon danger">✕</span><span>국세, 지방세 체납처분을 받은 경우</span></li>
+                  <li><span className="check-icon danger">✕</span><span>채무불이행자명부 등재 또는 등록된 경우</span></li>
+                  <li><span className="check-icon danger">✕</span><span>파산·회생절차 개시 신청이 이루어진 경우</span></li>
+                  <li><span className="check-icon danger">✕</span><span>영리기관: 최근 결산 기준 자본전액잠식 상태</span></li>
+                  <li><span className="check-icon danger">✕</span><span>외부감사 기업: 최근년도 결산감사 의견이 "의견거절" 또는 "부적정"</span></li>
+                </ul>
+              </Accordion>
+            </section>
 
-  <div class="kpi-row">
-    <div class="kpi-card">
-      <div class="num">53%</div>
-      <div class="unit">제작 작업시간 단축<br>17h → 8h</div>
-    </div>
-    <div class="kpi-card">
-      <div class="num">4배</div>
-      <div class="unit">운영 채널 증가<br>2개 → 8개</div>
-    </div>
-    <div class="kpi-card">
-      <div class="num">40개</div>
-      <div class="unit">예능 60분 기준<br>클립 생산량</div>
-    </div>
-    <div class="kpi-card">
-      <div class="num">100개</div>
-      <div class="unit">예능 60분 기준<br>숏폼 생산량</div>
-    </div>
-  </div>
+            {/* Section 3: Evaluation */}
+            <section className="section" id="evaluation">
+              <div className="section-header">
+                <div className="section-num">03</div>
+                <h2 className="section-title">평가지표 분석</h2>
+              </div>
 
-  <h3>RFP 요구사항 ↔ AENA 매칭</h3>
-  <div class="match-row">
-    <div class="left">멀티모달 에이전트 기술 (자연어 → 편집 실행)</div>
-    <div class="right">AI 자동화 워크플로우로 자연어 기반 콘텐츠 제작 실증</div>
-  </div>
-  <div class="match-row">
-    <div class="left">오케스트레이션 모듈 및 UI 구축</div>
-    <div class="right">CMS·제작·배포·분석 통합 대시보드 운영 중</div>
-  </div>
-  <div class="match-row">
-    <div class="left">편집 일관성 유지 및 보정 기술</div>
-    <div class="right">AI 영상 분류 + 자동 클립핑으로 일관된 품질 유지</div>
-  </div>
-  <div class="match-row">
-    <div class="left">편집이력 관리 기술</div>
-    <div class="right">콘텐츠 생산 전 과정 데이터 기반 리포팅 시스템</div>
-  </div>
-</section>
+              <div className="alert alert-info mb-24">
+                <span className="alert-icon"><AlertIcon /></span>
+                <div>
+                  <strong>핵심 포인트:</strong> "동반성장 및 사업화 계획"이 <strong>40점 (40%)</strong>으로 가장 높은 비중. 
+                  대중소 협력 지속성, 중소·벤처 경쟁력 강화, 성과 창출 가능성이 당락을 결정합니다.
+                </div>
+              </div>
 
-<!-- 05. 자격요건 -->
-<div class="divider"></div>
-<section class="section" id="qualification">
-  <div class="section-num">05</div>
-  <h2>참여기관 유형별 자격요건</h2>
-  <p class="section-lead">
-    「국가연구개발혁신법」 제2조 제3호 및 동법 시행령 제2조에 해당되는 기관이 연구개발기관으로 참여 가능합니다.
-  </p>
+              <div className="card mb-24">
+                <div className="card-title mb-16">평가 배점 구조 (서면/발표 동일)</div>
+                <div className="table-wrapper">
+                  <table>
+                    <thead>
+                      <tr><th>구분</th><th>평가항목</th><th>배점</th><th>세부 내용</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td rowSpan="2"><strong>연구계획</strong></td>
+                        <td>연구목표의 명확성 및 우수성</td>
+                        <td className="text-accent font-mono"><strong>20점</strong></td>
+                        <td>목표 구체성, 성능지표·목표·평가방법의 합리성</td>
+                      </tr>
+                      <tr>
+                        <td>연구방법의 창의성 및 수행계획 충실성</td>
+                        <td className="text-accent font-mono"><strong>20점</strong></td>
+                        <td>추진전략·방법 창의성, 마일스톤 타당성, 대중소 공동 계획</td>
+                      </tr>
+                      <tr>
+                        <td><strong>연구역량</strong></td>
+                        <td>연구자/연구개발기관의 역량</td>
+                        <td className="text-accent font-mono"><strong>20점</strong></td>
+                        <td>연구책임자·기관·인력 역량, 연구개발비 사용계획 적정성, 역할 분담</td>
+                      </tr>
+                      <tr style={{background: '#ecfdf5'}}>
+                        <td><strong>동반성장<br/>사업화 계획</strong></td>
+                        <td>연구개발 상생협력 및 성과 파급효과</td>
+                        <td className="text-success font-mono"><strong>40점</strong></td>
+                        <td>
+                          • 대중소 협력 지속성 및 구조 안정성<br/>
+                          • 중소·벤처 경쟁력 강화 계획 구체성<br/>
+                          • 성과 창출 및 목표 달성 가능성<br/>
+                          • 기술적·경제적 기대효과 및 파급효과
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colSpan="2" style={{textAlign:'right'}}><strong>합계</strong></td>
+                        <td className="font-mono"><strong>100점</strong></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
 
-  <h3>주관연구개발기관</h3>
-  <p style="margin-bottom:1rem;">
-    <strong>필수:</strong> 접수마감일 현재 <strong>기업부설연구소 또는 연구전담부서</strong> 보유 법인사업자.
-    선정 이후 연구개발기간 동안 계속 유지 의무. 연구책임자 = 주관기관 소속 / 동시수행과제 수 제한: 책임자 최대 3개, 연구자 최대 5개.
-  </p>
+              <Accordion title="평가 절차" icon="📝" defaultOpen={true}>
+                <div className="timeline">
+                  <div className="timeline-item">
+                    <div className="timeline-date">STEP 1</div>
+                    <div className="timeline-title">사전검토</div>
+                    <div className="timeline-desc">제출서류, 신청자격 및 지원요건, 부적합 대상 검토</div>
+                  </div>
+                  <div className="timeline-item">
+                    <div className="timeline-date">STEP 2</div>
+                    <div className="timeline-title">서면평가</div>
+                    <div className="timeline-desc">연구개발과제평가단 서면평가, 70점 이상 중 고득점 순 3배수 통과</div>
+                  </div>
+                  <div className="timeline-item">
+                    <div className="timeline-date">STEP 3</div>
+                    <div className="timeline-title">발표평가</div>
+                    <div className="timeline-desc">연구개발과제평가단 발표평가, 70점 이상 과제 통과</div>
+                  </div>
+                  <div className="timeline-item">
+                    <div className="timeline-date">STEP 4</div>
+                    <div className="timeline-title">사업심의위원회</div>
+                    <div className="timeline-desc">종합점수 (서면 40% + 발표 60%) 고득점 순 최종 선정</div>
+                  </div>
+                </div>
+              </Accordion>
 
-  <h3>공동연구개발기관</h3>
-  <p style="margin-bottom:1rem;">
-    주관기관과 분담하여 공동 수행. 산업계 주관 시 <strong>학계 2개 이상</strong> 공동 참여·협력 필수.
-    과제 종료연도 기준 산업계 공동연구기관 연구비 <strong>총 연구비의 40% 이상</strong> 증액 편성. 위탁연구개발비 사용 불가.
-  </p>
+              <Accordion title="AENA 기반 40점 공략 전략" icon="🎯">
+                <div className="table-wrapper">
+                  <table>
+                    <thead>
+                      <tr><th>평가 세부항목</th><th>AENA 강점</th><th>제안서 강조 포인트</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>대중소 협력 지속성</td>
+                        <td>KT ENA 장기 계약, SOOP 파트너십</td>
+                        <td>실제 운영 중인 협력 구조, 계약 근거 제시</td>
+                      </tr>
+                      <tr>
+                        <td>중소·벤처 경쟁력 강화</td>
+                        <td>STEP AI 기술 내재화</td>
+                        <td>SAM 플랫폼 독자 확장 계획, 글로벌 진출 로드맵</td>
+                      </tr>
+                      <tr>
+                        <td>성과 창출 가능성</td>
+                        <td>PoC 검증 완료 (53% 효율화)</td>
+                        <td>정량적 성과 지표, TRL 8 달성 근거</td>
+                      </tr>
+                      <tr>
+                        <td>기술적·경제적 파급효과</td>
+                        <td>K-콘텐츠 글로벌 경쟁력</td>
+                        <td>동남아 확장, 산업 파급효과 정량화</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </Accordion>
+            </section>
 
-  <h3>위탁연구개발기관</h3>
-  <p style="margin-bottom:1rem;">
-    주관기관으로부터 연구과제 일부를 위탁받아 수행. 위탁연구개발비: <strong>수정직접비의 40% 이내</strong>. 기관부담연구개발비 현금부담 면제.
-  </p>
+            {/* Section 4: Budget */}
+            <section className="section" id="budget">
+              <div className="section-header">
+                <div className="section-num">04</div>
+                <h2 className="section-title">연구개발비 구조</h2>
+              </div>
 
-  <h3>사전지원제외 대상 (하나라도 해당 시 탈락)</h3>
-  <table>
-    <thead><tr><th>제외 사유</th><th>적용 범위</th></tr></thead>
-    <tbody>
-      <tr><td>의무사항 불이행 (보고서, 기술료, 회수금, 환수금 등)</td><td>주관/공동/위탁 전체</td></tr>
-      <tr><td>국가연구개발사업 참여제한 중</td><td>주관/공동/위탁 전체</td></tr>
-      <tr><td>기업 부도</td><td>기업</td></tr>
-      <tr><td>국세/지방세 체납처분</td><td>기업</td></tr>
-      <tr><td>채무불이행자명부 등재</td><td>기업</td></tr>
-      <tr><td>파산·회생절차 개시 신청</td><td>기업</td></tr>
-      <tr><td>자본전액잠식</td><td>기업</td></tr>
-      <tr><td>감사의견 "의견거절" 또는 "부적정"</td><td>외부감사 기업</td></tr>
-    </tbody>
-  </table>
+              <div className="tabs">
+                <div className={`tab ${budgetTab === 'overview' ? 'active' : ''}`} onClick={() => setBudgetTab('overview')}>예산 개요</div>
+                <div className={`tab ${budgetTab === 'matching' ? 'active' : ''}`} onClick={() => setBudgetTab('matching')}>기관부담금</div>
+                <div className={`tab ${budgetTab === 'simulation' ? 'active' : ''}`} onClick={() => setBudgetTab('simulation')}>예산 시뮬레이션</div>
+              </div>
 
-  <h3>사후관리 대상 (2개 이상 해당 시)</h3>
-  <table>
-    <thead><tr><th>항목</th><th>기준</th></tr></thead>
-    <tbody>
-      <tr><td>부채비율</td><td>최근년도말 300% 이상</td></tr>
-      <tr><td>유동비율</td><td>최근년도말 100% 이하</td></tr>
-      <tr><td>자본잠식</td><td>부분자본잠식</td></tr>
-      <tr><td>이자보상비율</td><td>직전년도 1.0배 미만</td></tr>
-      <tr><td>영업이익</td><td>최근 3개년 계속 적자</td></tr>
-      <tr><td>감사의견</td><td>"한정" (외부감사 기업)</td></tr>
-    </tbody>
-  </table>
+              {budgetTab === 'overview' && (
+                <div>
+                  <div className="grid-3 mb-24">
+                    <div className="stat-card">
+                      <div className="stat-value">21.25억</div>
+                      <div className="stat-label">1단계 ('26년, 9개월)</div>
+                    </div>
+                    <div className="stat-card">
+                      <div className="stat-value">28억</div>
+                      <div className="stat-label">2단계 ('27년)</div>
+                    </div>
+                    <div className="stat-card">
+                      <div className="stat-value">28억</div>
+                      <div className="stat-label">3단계 ('28년)</div>
+                    </div>
+                  </div>
+                  <div className="card">
+                    <div className="card-title mb-16">연도별 예산 구조</div>
+                    <div className="table-wrapper">
+                      <table>
+                        <thead>
+                          <tr><th>단계</th><th>기간</th><th>정부지원금</th><th>비고</th></tr>
+                        </thead>
+                        <tbody>
+                          <tr><td>1단계</td><td>2026.4.1 ~ 12.31 (9개월)</td><td className="font-mono">21.25억원</td><td>확정</td></tr>
+                          <tr><td>2단계</td><td>2027.1.1 ~ 12.31 (12개월)</td><td className="font-mono">~28억원</td><td>국회 예산 확정 시</td></tr>
+                          <tr><td>3단계</td><td>2028.1.1 ~ 12.31 (12개월)</td><td className="font-mono">~28억원</td><td>국회 예산 확정 시</td></tr>
+                          <tr style={{background:'var(--bg)', fontWeight:600}}>
+                            <td colSpan="2">합계</td>
+                            <td className="font-mono text-accent">~77억원</td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              )}
 
-  <h3>정부지원 비율 및 기관부담 현금</h3>
-  <table>
-    <thead><tr><th>기업 유형</th><th>정부지원 비율</th><th>기관부담 현금</th></tr></thead>
-    <tbody>
-      <tr><td>중소기업</td><td>75% 이내</td><td>기관부담의 10% 이상</td></tr>
-      <tr><td>중견기업 (매출 3천억 미만)</td><td>75% 이하</td><td>13% 이상</td></tr>
-      <tr><td>중견기업 (매출 3천억 이상)</td><td>70% 이내</td><td>13% 이상</td></tr>
-      <tr><td>대기업·공기업</td><td>50% 이하</td><td>15% 이상</td></tr>
-      <tr><td>비영리 (대학 등)</td><td>100% 이내</td><td>필요시</td></tr>
-    </tbody>
-  </table>
+              {budgetTab === 'matching' && (
+                <div>
+                  <div className="alert alert-warning mb-24">
+                    <span className="alert-icon"><WarningIcon /></span>
+                    <div>
+                      <strong>주의:</strong> 대기업/공기업은 해당 기업 연구개발비의 <strong>50% 이상</strong>을 기관부담금으로 부담해야 합니다.
+                    </div>
+                  </div>
+                  <div className="card mb-16">
+                    <div className="card-title mb-16">기관유형별 부담 비율</div>
+                    <div className="table-wrapper">
+                      <table>
+                        <thead>
+                          <tr><th>기관 유형</th><th>기관부담연구개발비 비율</th><th>현금 최소 비율</th></tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><strong>중소기업</strong></td>
+                            <td>해당 기업 연구개발비의 <strong>25%</strong> 이상</td>
+                            <td>(현금+현물)의 <strong>10%</strong> 이상</td>
+                          </tr>
+                          <tr>
+                            <td><strong>중견기업</strong></td>
+                            <td>해당 기업 연구개발비의 <strong>30%</strong> 이상<br/><span className="text-muted">(매출 3천억 미만: 25%)</span></td>
+                            <td>(현금+현물)의 <strong>13%</strong> 이상</td>
+                          </tr>
+                          <tr style={{background:'#fef3c7'}}>
+                            <td><strong>대기업 / 공기업</strong></td>
+                            <td>해당 기업 연구개발비의 <strong>50%</strong> 이상</td>
+                            <td>(현금+현물)의 <strong>15%</strong> 이상</td>
+                          </tr>
+                          <tr>
+                            <td><strong>비영리법인</strong></td>
+                            <td colSpan="2">기관부담연구개발비 없음</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div className="card">
+                    <div className="card-title mb-16">현물 허용 대상</div>
+                    <ul className="checklist">
+                      <li><span className="check-icon success"><Check /></span><span>영리기관이 참여연구자에게 자체 자금으로 지급한 인건비</span></li>
+                      <li><span className="check-icon success"><Check /></span><span>보유하고 있는 연구시설·장비비</span></li>
+                      <li><span className="check-icon success"><Check /></span><span>연구활동비 내 기술도입비, 연구재료비</span></li>
+                    </ul>
+                  </div>
+                </div>
+              )}
 
-  <h3>신규 인력 채용 의무</h3>
-  <p style="margin-bottom:1rem;">
-    정부지원연구개발비 매 <strong>5억원 당 청년 1명</strong> (만 18~34세) 신규 채용. 1차년도 최소 1명 / 1년 이상 고용 유지 / 인건비계상률 100%.
-  </p>
+              {budgetTab === 'simulation' && (
+                <div>
+                  <div className="card">
+                    <div className="card-title mb-16">컨소시엄 예산 배분 시뮬레이션 (1단계 기준)</div>
+                    <p className="text-muted mb-16">총 정부지원금 21.25억 기준, 예상 배분 시나리오</p>
+                    <div className="table-wrapper">
+                      <table>
+                        <thead>
+                          <tr><th>기관</th><th>유형</th><th>정부지원금 (예상)</th><th>기관부담금</th><th>총 연구비</th></tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><strong>KT</strong></td>
+                            <td>대기업 (주관)</td>
+                            <td className="font-mono">8억</td>
+                            <td className="font-mono text-warning">8억 (50%)</td>
+                            <td className="font-mono">16억</td>
+                          </tr>
+                          <tr>
+                            <td><strong>STEP AI</strong></td>
+                            <td>벤처 (공동)</td>
+                            <td className="font-mono">8억</td>
+                            <td className="font-mono">2.67억 (25%)</td>
+                            <td className="font-mono">10.67억</td>
+                          </tr>
+                          <tr>
+                            <td><strong>SOOP</strong></td>
+                            <td>중견/중소 (공동)</td>
+                            <td className="font-mono">3억</td>
+                            <td className="font-mono">0.75~1억 (25~30%)</td>
+                            <td className="font-mono">~4억</td>
+                          </tr>
+                          <tr>
+                            <td><strong>서울대 AI대학원</strong></td>
+                            <td>비영리 (위탁)</td>
+                            <td className="font-mono">2.25억</td>
+                            <td className="font-mono text-success">없음</td>
+                            <td className="font-mono">2.25억</td>
+                          </tr>
+                          <tr style={{background:'var(--bg)', fontWeight:600}}>
+                            <td colSpan="2">합계</td>
+                            <td className="font-mono">21.25억</td>
+                            <td className="font-mono">~12.42억</td>
+                            <td className="font-mono">~33.67억</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div className="alert alert-info mt-16">
+                      <span className="alert-icon"><AlertIcon /></span>
+                      <div>
+                        <strong>참고:</strong> 위탁연구개발비는 직접비의 40% 이내로 제한됩니다. 
+                        SOOP의 기업 규모(중견/중소) 확인 후 정확한 부담비율 산정이 필요합니다.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </section>
 
-  <h3>선정평가</h3>
-  <table>
-    <thead><tr><th>평가항목</th><th>배점</th><th>세부</th></tr></thead>
-    <tbody>
-      <tr><td>수행계획 충실성</td><td><strong>30</strong></td><td>목표 명확성, 추진계획 구체성, 도전성</td></tr>
-      <tr><td>창의성</td><td><strong>20</strong></td><td>목표·방법의 창의성·혁신성</td></tr>
-      <tr><td>수행능력</td><td><strong>20</strong></td><td>연구책임자 및 팀 역량</td></tr>
-      <tr><td>성과 활용가능성</td><td><strong>30</strong></td><td>파급효과, 결과 활용방안</td></tr>
-    </tbody>
-  </table>
-  <p style="margin-top:0.75rem; font-size:13px; color:var(--text-light);">
-    합계 100점 / 가점 +5점 / 감점 -3점 / <strong>60점 이상 지원가능</strong>
-  </p>
-</section>
+            {/* Section 5: Consortium */}
+            <section className="section" id="consortium">
+              <div className="section-header">
+                <div className="section-num">05</div>
+                <h2 className="section-title">컨소시엄 전략</h2>
+              </div>
 
-<!-- 06. 컨소시엄 구성 -->
-<div class="divider"></div>
-<section class="section" id="consortium">
-  <div class="section-num">06</div>
-  <h2>제안 컨소시엄 구조</h2>
+              <Accordion title="컨소시엄 구조도" icon="🏗️" defaultOpen={true}>
+                <div className="consortium-diagram">
+                  <div className="consortium-row">
+                    <div className="consortium-box lead">
+                      <div className="consortium-label">주관기관</div>
+                      <div className="consortium-name">KT</div>
+                      <div className="consortium-role">사업화 채널, 글로벌 네트워크<br/>TRL 8 실증 환경</div>
+                    </div>
+                  </div>
+                  <div className="consortium-arrow">↓ 협력 ↓</div>
+                  <div className="consortium-row">
+                    <div className="consortium-box partner">
+                      <div className="consortium-label">공동 (핵심기술)</div>
+                      <div className="consortium-name">STEP AI</div>
+                      <div className="consortium-role">AI 핵심 기술 개발<br/>SAM/AENA 플랫폼</div>
+                    </div>
+                    <div className="consortium-box partner">
+                      <div className="consortium-label">공동 (실증)</div>
+                      <div className="consortium-name">SOOP</div>
+                      <div className="consortium-role">스트리밍 플랫폼<br/>실시간 서비스 실증</div>
+                    </div>
+                  </div>
+                  <div className="consortium-arrow">↓ 연구지원 ↓</div>
+                  <div className="consortium-row">
+                    <div className="consortium-box support">
+                      <div className="consortium-label">위탁 (연구)</div>
+                      <div className="consortium-name">서울대 AI대학원</div>
+                      <div className="consortium-role">알고리즘 연구<br/>학술 검증</div>
+                    </div>
+                  </div>
+                </div>
+              </Accordion>
 
-  <table>
-    <thead><tr><th>역할</th><th>기관</th><th>담당</th><th>상태</th></tr></thead>
-    <tbody>
-      <tr>
-        <td>주관</td><td>KT 또는 KT알티미디어</td>
-        <td>총괄관리, AI 인프라, 연구책임</td>
-        <td><span class="status-badge need">협의 필요</span></td>
-      </tr>
-      <tr>
-        <td>공동</td><td>KT알티미디어 또는 KT</td>
-        <td>IPTV/미디어 기술, AI 편집 엔진</td>
-        <td><span class="status-badge need">협의 필요</span></td>
-      </tr>
-      <tr>
-        <td>공동</td><td>KT ENA</td>
-        <td>실증, 콘텐츠 데이터, 현업 피드백</td>
-        <td><span class="status-badge need">협의 필요</span></td>
-      </tr>
-      <tr>
-        <td>공동 (학계1)</td><td>—</td>
-        <td>멀티모달 AI, 역프롬프트</td>
-        <td><span class="status-badge open">섭외 필요</span></td>
-      </tr>
-      <tr>
-        <td>공동 (학계2)</td><td>—</td>
-        <td>영상 품질 평가, 일관성 메트릭</td>
-        <td><span class="status-badge open">섭외 필요</span></td>
-      </tr>
-      <tr>
-        <td>미정</td><td>STEP AI</td>
-        <td>AENA 기반 UI/UX 설계, 요구사항 분석, 워크플로우 기획</td>
-        <td><span class="status-badge check">자격확인 필요</span></td>
-      </tr>
-    </tbody>
-  </table>
+              <Accordion title="기관별 역할 및 Why 참여해야 하는가" icon="🎯" defaultOpen={true}>
+                <div className="grid-2">
+                  <div className="card">
+                    <div className="card-header">
+                      <div className="card-title">KT (주관)</div>
+                      <span className="card-badge badge-primary">대기업</span>
+                    </div>
+                    <p><strong>역할:</strong></p>
+                    <ul style={{paddingLeft:'20px', marginBottom:'12px'}}>
+                      <li>사업 총괄 및 R&D 전 과정 참여</li>
+                      <li>KT ENA 기반 실증 환경 제공</li>
+                      <li>글로벌 네트워크·유통 채널 활용</li>
+                      <li>사업화 및 시장 확산 주도</li>
+                    </ul>
+                    <p><strong>Why 참여?</strong></p>
+                    <ul style={{paddingLeft:'20px'}}>
+                      <li>AI 미디어 기술 내재화</li>
+                      <li>OTT/방송 경쟁력 강화</li>
+                      <li>정부 R&D 매칭 투자 효과</li>
+                    </ul>
+                  </div>
+                  <div className="card">
+                    <div className="card-header">
+                      <div className="card-title">STEP AI (공동)</div>
+                      <span className="card-badge badge-success">벤처</span>
+                    </div>
+                    <p><strong>역할:</strong></p>
+                    <ul style={{paddingLeft:'20px', marginBottom:'12px'}}>
+                      <li>AI 핵심 기술 설계·개발 주도</li>
+                      <li>SAM/AENA 플랫폼 고도화</li>
+                      <li>기술 내재화 및 독자 사업 확장</li>
+                    </ul>
+                    <p><strong>Why 참여?</strong></p>
+                    <ul style={{paddingLeft:'20px'}}>
+                      <li>대기업 협력 통한 기술 검증</li>
+                      <li>글로벌 진출 발판</li>
+                      <li>정부 R&D 자금 확보</li>
+                      <li>중소·벤처 성장 스토리 구축</li>
+                    </ul>
+                  </div>
+                  <div className="card">
+                    <div className="card-header">
+                      <div className="card-title">SOOP (공동)</div>
+                      <span className="card-badge badge-warning">중견/중소 확인 필요</span>
+                    </div>
+                    <p><strong>역할:</strong></p>
+                    <ul style={{paddingLeft:'20px', marginBottom:'12px'}}>
+                      <li>실시간 스트리밍 실증 환경 제공</li>
+                      <li>크리에이터 기반 서비스 적용</li>
+                      <li>다양한 미디어 채널 커버</li>
+                    </ul>
+                    <p><strong>Why 참여?</strong></p>
+                    <ul style={{paddingLeft:'20px'}}>
+                      <li>AI 기반 콘텐츠 제작 효율화</li>
+                      <li>크리에이터 지원 도구 확보</li>
+                      <li>KT + 방송(ENA) + 스트리밍(SOOP) 시너지</li>
+                    </ul>
+                  </div>
+                  <div className="card">
+                    <div className="card-header">
+                      <div className="card-title">서울대 AI대학원 (위탁)</div>
+                      <span className="card-badge badge-success">비영리</span>
+                    </div>
+                    <p><strong>역할:</strong></p>
+                    <ul style={{paddingLeft:'20px', marginBottom:'12px'}}>
+                      <li>AI 알고리즘 기초 연구</li>
+                      <li>기술 객관성·실현 가능성 검증</li>
+                      <li>학술 논문 및 특허 창출</li>
+                    </ul>
+                    <p><strong>Why 참여?</strong></p>
+                    <ul style={{paddingLeft:'20px'}}>
+                      <li>산학 협력 연구 기회</li>
+                      <li>실제 서비스 데이터 기반 연구</li>
+                      <li>연구비 확보 (기관부담금 없음)</li>
+                    </ul>
+                  </div>
+                </div>
+              </Accordion>
 
-  <div class="info-box">
-    <strong>STEP AI 참여 방식 — 미정</strong><br>
-    기업부설연구소·연구전담부서 미보유. 혁신법 시행령 제2조 "연구개발기관" 해당 여부 IITP 확인 후 결정.<br>
-    옵션: 공동연구개발기관 / 위탁연구개발기관 / 연구개발기관 외 기관 (외부전문기술활용비) / 기존 계약 관계
-  </div>
+              <Accordion title="과제 주제 제안" icon="💡">
+                <div className="card">
+                  <div className="card-header">
+                    <div className="card-title">제안 과제명</div>
+                  </div>
+                  <p style={{fontSize:'18px', fontWeight:600, color:'var(--accent)', marginBottom:'16px'}}>
+                    "K-영상콘텐츠 글로벌 경쟁력 강화를 위한 AI 기반 미디어 프로덕션 자동화 플랫폼 개발"
+                  </p>
+                  <div className="table-wrapper">
+                    <table>
+                      <thead>
+                        <tr><th>키워드</th><th>반영 내용</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr><td>K-영상콘텐츠</td><td>영상 트랙 + K-Culture 사업 취지 직접 반영</td></tr>
+                        <tr><td>글로벌 경쟁력</td><td>평가지표 "파급효과" 어필</td></tr>
+                        <tr><td>AI 기반</td><td>기술 핵심 명시</td></tr>
+                        <tr><td>프로덕션 자동화</td><td>AENA 핵심 가치 (생산성 향상)</td></tr>
+                        <tr><td>플랫폼</td><td>단순 툴이 아닌 확장 가능한 구조 (SAM)</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </Accordion>
+            </section>
 
-  <h3>기술적 강점</h3>
-  <p style="margin-bottom:1rem;">
-    AENA라는 작동하는 PoC 보유. 실증 기반 제안 가능. KT 그룹 AI 인프라 + 방송 콘텐츠 아카이브를 실증 데이터로 활용.
-  </p>
+            {/* Section 6: Roadmap */}
+            <section className="section" id="roadmap">
+              <div className="section-header">
+                <div className="section-num">06</div>
+                <h2 className="section-title">추진 로드맵</h2>
+              </div>
 
-  <h3>구조적 강점</h3>
-  <p style="margin-bottom:1rem;">
-    KT 그룹 주관으로 신뢰도·인프라·실증 환경 일체 확보. 학계 2곳 요건 충족. STEP AI AENA 실무 경험으로 개발 역량 보강.
-  </p>
+              <div className="card mb-24">
+                <div className="card-title mb-16">접수 마감까지 (D-22)</div>
+                <div className="progress-container">
+                  <div className="progress-bar">
+                    <div className="progress-fill" style={{width: '15%'}}></div>
+                  </div>
+                  <div className="progress-labels">
+                    <span>오늘 (2/3)</span>
+                    <span>마감 (2/25 14:00)</span>
+                  </div>
+                </div>
+              </div>
 
-  <h3>확인/결정 필요사항</h3>
-  <table>
-    <thead><tr><th>항목</th><th>내용</th></tr></thead>
-    <tbody>
-      <tr><td>주관기관 확정</td><td>KT vs KT알티미디어</td></tr>
-      <tr><td>KT ENA 참여</td><td>공동연구기관 참여 의향 확인</td></tr>
-      <tr><td>학계 섭외</td><td>2곳 이상 필수</td></tr>
-      <tr><td>STEP AI 자격</td><td>IITP 확인 (이금희 팀장)</td></tr>
-      <tr><td>세부2·3 수행기관</td><td>별도 확보 필요</td></tr>
-      <tr><td>예산 배분</td><td>컨소시엄 합의</td></tr>
-    </tbody>
-  </table>
-</section>
+              <Accordion title="제안서 제출까지 액션 플랜" icon="📅" defaultOpen={true}>
+                <div className="timeline">
+                  <div className="timeline-item current">
+                    <div className="timeline-date">W1: 2/3 ~ 2/9</div>
+                    <div className="timeline-title">컨소시엄 확정 & 전략 정렬</div>
+                    <div className="timeline-desc">
+                      • KT 내부 의사결정 (주관 확정)<br/>
+                      • SOOP 참여 여부 및 기업 규모 확인<br/>
+                      • 서울대 AI대학원 접촉<br/>
+                      • 역할 분담 및 예산 배분 협의
+                    </div>
+                  </div>
+                  <div className="timeline-item">
+                    <div className="timeline-date">W2: 2/10 ~ 2/16</div>
+                    <div className="timeline-title">연구개발계획서 초안 작성</div>
+                    <div className="timeline-desc">
+                      • PART1 (표지/요약문) 작성<br/>
+                      • PART2 (본문1) 30페이지 작성<br/>
+                      • 성능지표, 마일스톤 정의<br/>
+                      • 기관별 R&D 범위 확정
+                    </div>
+                  </div>
+                  <div className="timeline-item">
+                    <div className="timeline-date">W3: 2/17 ~ 2/21</div>
+                    <div className="timeline-title">내부 검토 & 수정</div>
+                    <div className="timeline-desc">
+                      • 컨소시엄 전체 리뷰<br/>
+                      • 평가지표 기반 보완<br/>
+                      • 제출서류 취합<br/>
+                      • IRIS 입력 시작
+                    </div>
+                  </div>
+                  <div className="timeline-item">
+                    <div className="timeline-date">2/22 ~ 2/24</div>
+                    <div className="timeline-title">최종 점검 & 제출</div>
+                    <div className="timeline-desc">
+                      • IRIS 최종확인 및 데이터 검증<br/>
+                      • 제출서류 누락 체크<br/>
+                      • <strong>2/24(화) 제출완료 목표</strong> (마감 1일 전)
+                    </div>
+                  </div>
+                  <div className="timeline-item">
+                    <div className="timeline-date">2/25 (수) 14:00</div>
+                    <div className="timeline-title">접수 마감</div>
+                    <div className="timeline-desc">마감 이후 수정 불가</div>
+                  </div>
+                </div>
+              </Accordion>
 
-<!-- 07. 액션 플랜 -->
-<div class="divider"></div>
-<section class="section" id="action">
-  <div class="section-num">07</div>
-  <h2>마감까지의 실행 계획</h2>
-  <p class="section-lead">
-    <strong>접수 마감: 2026. 2. 12 (목) 15:00 — IRIS 전산접수</strong><br>
-    마감 당일 접속 폭주 가능. 하루 전 제출 완료 권장.
-  </p>
+              <Accordion title="R&D 단계별 마일스톤 (3년)" icon="🚀">
+                <div className="table-wrapper">
+                  <table>
+                    <thead>
+                      <tr><th>단계</th><th>기간</th><th>핵심 목표</th><th>산출물</th><th>TRL</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>1단계</strong></td>
+                        <td>2026.4~12<br/>(9개월)</td>
+                        <td>
+                          • 핵심 기술 설계 완료<br/>
+                          • 프로토타입 개발<br/>
+                          • KT ENA 파일럿 적용
+                        </td>
+                        <td>
+                          • 시스템 설계서<br/>
+                          • 프로토타입<br/>
+                          • 파일럿 결과 보고서
+                        </td>
+                        <td className="font-mono">5 → 6</td>
+                      </tr>
+                      <tr>
+                        <td><strong>2단계</strong></td>
+                        <td>2027.1~12<br/>(12개월)</td>
+                        <td>
+                          • 핵심 기능 고도화<br/>
+                          • 멀티채널 실증<br/>
+                          • SOOP 서비스 연동
+                        </td>
+                        <td>
+                          • 고도화 버전<br/>
+                          • 실증 결과 보고서<br/>
+                          • 특허 출원
+                        </td>
+                        <td className="font-mono">6 → 7</td>
+                      </tr>
+                      <tr style={{background:'#ecfdf5'}}>
+                        <td><strong>3단계</strong></td>
+                        <td>2028.1~12<br/>(12개월)</td>
+                        <td>
+                          • 상용 시스템 완성<br/>
+                          • 글로벌 서비스 런칭<br/>
+                          • 사업화 본격화
+                        </td>
+                        <td>
+                          • 상용 플랫폼<br/>
+                          • 글로벌 PoC<br/>
+                          • 사업화 실적
+                        </td>
+                        <td className="font-mono text-success"><strong>7 → 8+</strong></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </Accordion>
 
-  <div class="timeline">
-    <div class="tl-item">
-      <div class="tl-date">
-        <div class="day">2/2</div>
-        <div class="dow">월요일</div>
-      </div>
-      <div class="tl-content">
-        <h4>KT · KT알티미디어 화상회의</h4>
-        <p>참여 의향 확인, 주관기관 협의, R&R 초안, 학계 후보 공유</p>
-      </div>
-    </div>
+              <Accordion title="확인 필요 사항 (Action Items)" icon="✅">
+                <ul className="checklist">
+                  <li>
+                    <span className="check-icon warning">!</span>
+                    <span><strong>SOOP 기업 규모 확인</strong> — 중견/중소 여부에 따라 기관부담비율 상이 (25% vs 30%)</span>
+                  </li>
+                  <li>
+                    <span className="check-icon warning">!</span>
+                    <span><strong>KT 내 담당 조직 확정</strong> — KT 본사 / KT ENA / KT알티미디어 중 주관 주체</span>
+                  </li>
+                  <li>
+                    <span className="check-icon warning">!</span>
+                    <span><strong>서울대 AI대학원 접촉</strong> — 위탁연구 참여 의향 및 연구 범위 협의</span>
+                  </li>
+                  <li>
+                    <span className="check-icon warning">!</span>
+                    <span><strong>예산 배분 협의</strong> — 기관별 정부지원금 및 기관부담금 확정</span>
+                  </li>
+                  <li>
+                    <span className="check-icon warning">!</span>
+                    <span><strong>성과 귀속 구조 협의</strong> — IP 소유권, 기술이전, 사업화 수익 배분</span>
+                  </li>
+                </ul>
+              </Accordion>
+            </section>
 
-    <div class="tl-item">
-      <div class="tl-date">
-        <div class="day">2/3–4</div>
-        <div class="dow">화–수</div>
-      </div>
-      <div class="tl-content">
-        <h4>IITP 담당PM 확인</h4>
-        <p>STEP AI 참여 자격 (이금희 팀장) / 위탁·공동 가능 여부</p>
-      </div>
-    </div>
+          </main>
 
-    <div class="tl-item">
-      <div class="tl-date">
-        <div class="day">2/4–5</div>
-        <div class="dow">수–목</div>
-      </div>
-      <div class="tl-content">
-        <h4>컨소시엄 확정</h4>
-        <p>주관 확정, 학계 2곳 섭외, 세부2·3 기관, 예산 배분</p>
-      </div>
-    </div>
+          {/* Footer */}
+          <footer className="footer">
+            <p className="footer-text">
+              STEP AI Inc. | 2026 K-Culture 대중소 공동도약 컨소시엄 전략 문서<br/>
+              Last Updated: 2026.02.03 | Confidential
+            </p>
+          </footer>
+        </div>
+      );
+    };
 
-    <div class="tl-item">
-      <div class="tl-date">
-        <div class="day">2/5–10</div>
-        <div class="dow">목–월</div>
-      </div>
-      <div class="tl-content">
-        <h4>핵심 문서 작성</h4>
-        <p>연구개발계획서 (붙임3-1, 50p) / 총괄계획서 (붙임3-2) / 기술기여도 (붙임3-6) / 서명 서류</p>
-      </div>
-    </div>
-
-    <div class="tl-item">
-      <div class="tl-date">
-        <div class="day">2/11</div>
-        <div class="dow">수요일</div>
-      </div>
-      <div class="tl-content">
-        <h4>IRIS 전산접수 완료</h4>
-        <p>마감 하루 전 제출 목표. 누락·오류 최종 점검.</p>
-      </div>
-    </div>
-
-    <div class="tl-item highlight">
-      <div class="tl-date">
-        <div class="day">2/12</div>
-        <div class="dow">목요일</div>
-      </div>
-      <div class="tl-content">
-        <h4>접수 마감 15:00</h4>
-        <p>마감 이후 수정·등록 불가. 비상 대비.</p>
-      </div>
-    </div>
-  </div>
-
-  <h3>제출 서류</h3>
-  <table>
-    <thead><tr><th>#</th><th>서류명</th><th>대상</th><th>형식</th></tr></thead>
-    <tbody>
-      <tr><td>1</td><td>연구개발계획서</td><td>주관</td><td><code>HWP</code></td></tr>
-      <tr><td>2</td><td>총괄 연구개발계획서</td><td>총괄/세부1 주관</td><td><code>HWP</code></td></tr>
-      <tr><td>3</td><td>신청자격 적정성 및 자기진단서</td><td>전체</td><td><code>PDF</code></td></tr>
-      <tr><td>4</td><td>기관 대표 참여의사 확인서·동의서</td><td>전체</td><td><code>PDF</code></td></tr>
-      <tr><td>5</td><td>참여연구자 개인정보 동의서</td><td>전체 책임자</td><td><code>PDF</code></td></tr>
-      <tr><td>6</td><td>기술기여도 산정 근거</td><td>기술료 의무기관</td><td><code>PDF</code></td></tr>
-      <tr><td>7</td><td>동시수행과제수 준수 확인서</td><td>전체</td><td><code>IRIS</code></td></tr>
-      <tr><td>8</td><td>연구책임자 과제 목록</td><td>주관</td><td><code>IRIS</code></td></tr>
-      <tr><td>9</td><td>연구개발비 사용 신청서</td><td>해당시</td><td><code>IRIS</code></td></tr>
-      <tr><td>10</td><td>사업자등록증</td><td>전체</td><td><code>IRIS</code></td></tr>
-      <tr><td>11</td><td>국세·지방세 완납 증명</td><td>영리기관</td><td><code>IRIS</code></td></tr>
-      <tr><td>12</td><td>회계감사보고서·재무제표</td><td>영리기관</td><td><code>IRIS</code></td></tr>
-      <tr><td>13</td><td>우대사항 증빙 (선택)</td><td>해당시</td><td><code>IRIS</code></td></tr>
-    </tbody>
-  </table>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  Confidential — 2026. 2. 2 (월) 기준 · 내부 협의용. 외부 배포 금지.
-</footer>
-
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
 </body>
 </html>
