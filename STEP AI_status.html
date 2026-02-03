@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STEP AI | 정부지원사업 진행 현황</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Playfair+Display:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0f172a;
+      --secondary: #1e293b;
+      --accent: #3b82f6;
+      --accent-light: #60a5fa;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --purple: #8b5cf6;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-2: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+      --gradient-3: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+      --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .app {
+      min-height: 100vh;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: var(--gradient-2);
+      color: white;
+      padding: 60px 24px 50px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.5;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .logo span {
+      color: var(--accent-light);
+    }
+
+    .hero-date {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      opacity: 0.85;
+    }
+
+    /* Summary Stats */
+    .summary-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      max-width: 1200px;
+      margin: -40px auto 0;
+      padding: 0 24px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .summary-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+    }
+
+    .summary-card .value {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .summary-card .label {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .summary-card.accent .value { color: var(--accent); }
+    .summary-card.success .value { color: var(--success); }
+    .summary-card.warning .value { color: var(--warning); }
+    .summary-card.purple .value { color: var(--purple); }
+
+    /* Main Content */
+    .main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title .icon {
+      font-size: 24px;
+    }
+
+    /* Filter Tabs */
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+    }
+
+    .filter-tab {
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .filter-tab:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .filter-tab.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    /* Project Card */
+    .project-card {
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .project-card:hover {
+      box-shadow: var(--shadow-lg);
+      border-color: var(--accent-light);
+    }
+
+    .project-card-header {
+      padding: 20px 24px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      cursor: pointer;
+    }
+
+    .project-info {
+      flex: 1;
+    }
+
+    .project-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .project-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .project-status {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    /* Status Badge */
+    .status-badge {
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .status-preparing { background: #f3f4f6; color: #6b7280; }
+    .status-writing { background: #dbeafe; color: #1d4ed8; }
+    .status-submitted { background: #fef3c7; color: #b45309; }
+    .status-evaluating { background: #e9d5ff; color: #7c3aed; }
+    .status-selected { background: #d1fae5; color: #047857; }
+    .status-ongoing { background: #cffafe; color: #0891b2; }
+    .status-completed { background: #f3f4f6; color: #374151; }
+    .status-rejected { background: #fee2e2; color: #b91c1c; }
+
+    /* D-Day */
+    .dday {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .dday.urgent { color: var(--danger); }
+    .dday.soon { color: var(--warning); }
+    .dday.normal { color: var(--text-muted); }
+
+    /* Progress */
+    .project-progress {
+      padding: 0 24px 20px;
+    }
+
+    .progress-bar {
+      height: 6px;
+      background: var(--border);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 100px;
+      transition: width 0.5s ease;
+    }
+
+    .progress-fill.blue { background: var(--accent); }
+    .progress-fill.green { background: var(--success); }
+    .progress-fill.yellow { background: var(--warning); }
+    .progress-fill.purple { background: var(--purple); }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Expanded Content */
+    .project-details {
+      padding: 0 24px 24px;
+      display: none;
+    }
+
+    .project-details.open {
+      display: block;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .detail-box {
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .detail-box-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .detail-list {
+      list-style: none;
+    }
+
+    .detail-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .detail-list li:last-child {
+      border-bottom: none;
+    }
+
+    .detail-list .label {
+      color: var(--text-muted);
+    }
+
+    .detail-list .value {
+      font-weight: 500;
+    }
+
+    /* Timeline Mini */
+    .timeline-mini {
+      display: flex;
+      gap: 4px;
+    }
+
+    .timeline-step {
+      flex: 1;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--border);
+    }
+
+    .timeline-step.done { background: var(--success); }
+    .timeline-step.current { background: var(--accent); }
+
+    /* Task List */
+    .task-list {
+      list-style: none;
+    }
+
+    .task-list li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .task-list li:last-child {
+      border-bottom: none;
+    }
+
+    .task-check {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .task-check.done {
+      background: var(--success);
+      color: white;
+    }
+
+    .task-check.pending {
+      background: var(--border);
+    }
+
+    .task-check.current {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* Calendar Section */
+    .calendar-wrapper {
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 24px;
+    }
+
+    .calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .calendar-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .calendar-nav {
+      display: flex;
+      gap: 8px;
+    }
+
+    .calendar-nav button {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .calendar-nav button:hover {
+      background: var(--bg);
+      border-color: var(--accent);
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    .calendar-day-header {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      padding: 8px;
+    }
+
+    .calendar-day {
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .calendar-day:hover {
+      background: var(--bg);
+    }
+
+    .calendar-day.today {
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+    }
+
+    .calendar-day.has-event::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--danger);
+    }
+
+    .calendar-day.other-month {
+      color: var(--text-muted);
+      opacity: 0.5;
+    }
+
+    /* Upcoming Events */
+    .upcoming-events {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .event-item {
+      display: flex;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .event-item:last-child {
+      border-bottom: none;
+    }
+
+    .event-date {
+      width: 50px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .event-date .day {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .event-date .month {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .event-info {
+      flex: 1;
+    }
+
+    .event-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .event-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--primary);
+      color: white;
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .footer-text {
+      opacity: 0.6;
+      font-size: 13px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 40px 20px 60px;
+      }
+
+      .hero h1 {
+        font-size: 24px;
+      }
+
+      .summary-stats {
+        grid-template-columns: repeat(2, 1fr);
+        margin-top: -30px;
+        padding: 0 16px;
+      }
+
+      .summary-card {
+        padding: 16px;
+      }
+
+      .summary-card .value {
+        font-size: 28px;
+      }
+
+      .main {
+        padding: 32px 16px 60px;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .filter-tabs {
+        overflow-x: auto;
+        width: 100%;
+        padding-bottom: 4px;
+      }
+
+      .project-card-header {
+        flex-direction: column;
+        padding: 16px;
+      }
+
+      .project-status {
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .details-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Utility */
+    .text-muted { color: var(--text-muted); }
+    .text-accent { color: var(--accent); }
+    .text-success { color: var(--success); }
+    .text-warning { color: var(--warning); }
+    .text-danger { color: var(--danger); }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    // Icons
+    const ChevronDown = () => (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    );
+
+    const ChevronLeft = () => (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+    );
+
+    const ChevronRight = () => (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
+    );
+
+    const Check = () => (
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+        <path d="M20 6L9 17l-5-5"/>
+      </svg>
+    );
+
+    // Project Data
+    const projects = [
+      {
+        id: 1,
+        title: 'K-Culture 대중소 공동도약 (영상 트랙)',
+        agency: 'KOCCA',
+        program: 'K-Culture 글로벌 스타트업 육성',
+        status: 'writing',
+        statusText: '제안서 작성 중',
+        deadline: '2026-02-25',
+        dday: 22,
+        budget: '77억 (3년)',
+        budget1y: '21.25억',
+        progress: 25,
+        role: '공동연구기관',
+        partner: 'KT (주관), SOOP, 서울대',
+        tasks: [
+          { text: '사업 분석 및 전략 수립', done: true },
+          { text: 'KT 내부 협의', done: true },
+          { text: '컨소시엄 구성 확정', done: false, current: true },
+          { text: '제안서 초안 작성', done: false },
+          { text: '내부 검토 및 수정', done: false },
+          { text: 'IRIS 제출', done: false },
+        ],
+        milestones: ['준비', '작성', '검토', '제출'],
+        currentMilestone: 1,
+      },
+      {
+        id: 2,
+        title: 'AI 기반 실시간 영상 편집 기술 개발',
+        agency: 'IITP',
+        program: '디지털미디어이노베이션',
+        status: 'evaluating',
+        statusText: '평가 진행 중',
+        deadline: '2026-01-15',
+        dday: -19,
+        budget: '45억 (2년)',
+        budget1y: '20억',
+        progress: 100,
+        role: '주관연구기관',
+        partner: '단독',
+        tasks: [
+          { text: '제안서 작성', done: true },
+          { text: '제출 완료', done: true },
+          { text: '서면평가', done: true },
+          { text: '발표평가 준비', done: false, current: true },
+          { text: '발표평가', done: false },
+          { text: '최종 선정', done: false },
+        ],
+        milestones: ['제출', '서면', '발표', '선정'],
+        currentMilestone: 2,
+      },
+      {
+        id: 3,
+        title: '클라우드 기반 미디어 워크플로우 자동화',
+        agency: 'NIA',
+        program: '클라우드 플래그십',
+        status: 'selected',
+        statusText: '선정',
+        deadline: '2025-11-30',
+        dday: null,
+        budget: '30억 (2년)',
+        budget1y: '15억',
+        progress: 100,
+        role: '공동연구기관',
+        partner: 'AWS코리아 (주관)',
+        tasks: [
+          { text: '협약 체결', done: true },
+          { text: '착수 보고', done: true },
+          { text: '1차 마일스톤', done: false, current: true },
+          { text: '중간 보고', done: false },
+          { text: '최종 보고', done: false },
+        ],
+        milestones: ['협약', '착수', '중간', '최종'],
+        currentMilestone: 1,
+      },
+      {
+        id: 4,
+        title: '생성형 AI 콘텐츠 품질 검증 시스템',
+        agency: 'KOCCA',
+        program: 'CT R&D',
+        status: 'ongoing',
+        statusText: '수행 중',
+        deadline: '2026-12-31',
+        dday: null,
+        budget: '25억 (3년)',
+        budget1y: '8억',
+        progress: 35,
+        role: '주관연구기관',
+        partner: 'SBS, 카이스트',
+        tasks: [
+          { text: '1차년도 착수', done: true },
+          { text: '프로토타입 개발', done: true },
+          { text: '베타 테스트', done: false, current: true },
+          { text: '1차년도 종료', done: false },
+        ],
+        milestones: ['1차년도', '2차년도', '3차년도', '완료'],
+        currentMilestone: 0,
+      },
+      {
+        id: 5,
+        title: 'XR 기반 가상 프로덕션 플랫폼',
+        agency: 'MSIT',
+        program: '실감콘텐츠 핵심기술',
+        status: 'preparing',
+        statusText: '준비 중',
+        deadline: '2026-03-15',
+        dday: 40,
+        budget: '50억 (3년)',
+        budget1y: '15억',
+        progress: 10,
+        role: '미정',
+        partner: '컨소시엄 구성 중',
+        tasks: [
+          { text: '공고 분석', done: true },
+          { text: '컨소시엄 구성', done: false, current: true },
+          { text: '제안서 작성', done: false },
+          { text: '제출', done: false },
+        ],
+        milestones: ['분석', '구성', '작성', '제출'],
+        currentMilestone: 0,
+      },
+    ];
+
+    const upcomingEvents = [
+      { date: '2026-02-10', day: 10, month: '2월', title: 'K-Culture 컨소시엄 미팅', desc: 'KT, SOOP 역할 분담 협의' },
+      { date: '2026-02-18', day: 18, month: '2월', title: 'IITP 발표평가', desc: 'AI 영상 편집 기술 발표' },
+      { date: '2026-02-25', day: 25, month: '2월', title: 'K-Culture 마감', desc: 'IRIS 제출 마감 14:00' },
+      { date: '2026-03-05', day: 5, month: '3월', title: 'NIA 1차 마일스톤', desc: '중간 점검 보고서 제출' },
+    ];
+
+    // Status counts
+    const statusCounts = {
+      total: projects.length,
+      ongoing: projects.filter(p => p.status === 'ongoing' || p.status === 'selected').length,
+      preparing: projects.filter(p => p.status === 'preparing' || p.status === 'writing').length,
+      evaluating: projects.filter(p => p.status === 'evaluating').length,
+    };
+
+    const getStatusClass = (status) => {
+      const map = {
+        preparing: 'status-preparing',
+        writing: 'status-writing',
+        submitted: 'status-submitted',
+        evaluating: 'status-evaluating',
+        selected: 'status-selected',
+        ongoing: 'status-ongoing',
+        completed: 'status-completed',
+        rejected: 'status-rejected',
+      };
+      return map[status] || 'status-preparing';
+    };
+
+    const getDdayClass = (dday) => {
+      if (dday === null) return 'normal';
+      if (dday <= 7) return 'urgent';
+      if (dday <= 14) return 'soon';
+      return 'normal';
+    };
+
+    const getDdayText = (dday) => {
+      if (dday === null) return '-';
+      if (dday < 0) return `D+${Math.abs(dday)}`;
+      if (dday === 0) return 'D-Day';
+      return `D-${dday}`;
+    };
+
+    const getProgressColor = (status) => {
+      if (status === 'ongoing' || status === 'selected') return 'green';
+      if (status === 'evaluating') return 'purple';
+      if (status === 'writing') return 'blue';
+      return 'yellow';
+    };
+
+    // Components
+    const ProjectCard = ({ project }) => {
+      const [isOpen, setIsOpen] = useState(false);
+
+      return (
+        <div className="project-card">
+          <div className="project-card-header" onClick={() => setIsOpen(!isOpen)}>
+            <div className="project-info">
+              <div className="project-title">
+                {project.title}
+                <span style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.3s' }}>
+                  <ChevronDown />
+                </span>
+              </div>
+              <div className="project-meta">
+                <div className="project-meta-item">
+                  <span>🏛️</span>
+                  <span>{project.agency}</span>
+                </div>
+                <div className="project-meta-item">
+                  <span>📋</span>
+                  <span>{project.program}</span>
+                </div>
+                <div className="project-meta-item">
+                  <span>💰</span>
+                  <span>{project.budget}</span>
+                </div>
+                <div className="project-meta-item">
+                  <span>🤝</span>
+                  <span>{project.role}</span>
+                </div>
+              </div>
+            </div>
+            <div className="project-status">
+              <span className={`status-badge ${getStatusClass(project.status)}`}>
+                {project.statusText}
+              </span>
+              {project.dday !== null && (
+                <span className={`dday ${getDdayClass(project.dday)}`}>
+                  {getDdayText(project.dday)}
+                </span>
+              )}
+            </div>
+          </div>
+
+          <div className="project-progress">
+            <div className="progress-bar">
+              <div
+                className={`progress-fill ${getProgressColor(project.status)}`}
+                style={{ width: `${project.progress}%` }}
+              ></div>
+            </div>
+            <div className="progress-label">
+              <span>진행률</span>
+              <span>{project.progress}%</span>
+            </div>
+          </div>
+
+          <div className={`project-details ${isOpen ? 'open' : ''}`}>
+            <div className="details-grid">
+              <div className="detail-box">
+                <div className="detail-box-title">과제 정보</div>
+                <ul className="detail-list">
+                  <li>
+                    <span className="label">전문기관</span>
+                    <span className="value">{project.agency}</span>
+                  </li>
+                  <li>
+                    <span className="label">사업명</span>
+                    <span className="value">{project.program}</span>
+                  </li>
+                  <li>
+                    <span className="label">총 예산</span>
+                    <span className="value">{project.budget}</span>
+                  </li>
+                  <li>
+                    <span className="label">1차년도</span>
+                    <span className="value">{project.budget1y}</span>
+                  </li>
+                  <li>
+                    <span className="label">참여형태</span>
+                    <span className="value">{project.role}</span>
+                  </li>
+                  <li>
+                    <span className="label">컨소시엄</span>
+                    <span className="value">{project.partner}</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="detail-box">
+                <div className="detail-box-title">진행 현황</div>
+                <div className="timeline-mini" style={{ marginBottom: '16px' }}>
+                  {project.milestones.map((m, i) => (
+                    <div
+                      key={i}
+                      className={`timeline-step ${i < project.currentMilestone ? 'done' : ''} ${i === project.currentMilestone ? 'current' : ''}`}
+                      title={m}
+                    ></div>
+                  ))}
+                </div>
+                <ul className="task-list">
+                  {project.tasks.map((task, i) => (
+                    <li key={i}>
+                      <span className={`task-check ${task.done ? 'done' : ''} ${task.current ? 'current' : 'pending'}`}>
+                        {task.done && <Check />}
+                        {task.current && '●'}
+                      </span>
+                      <span style={{ color: task.done ? 'var(--text-muted)' : 'inherit', textDecoration: task.done ? 'line-through' : 'none' }}>
+                        {task.text}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    const Calendar = () => {
+      const days = ['일', '월', '화', '수', '목', '금', '토'];
+      const today = 3; // 2026년 2월 3일
+
+      // 2026년 2월 달력 (일요일 시작)
+      const calendarDays = [
+        { day: 1, month: 'current' },
+        { day: 2, month: 'current' },
+        { day: 3, month: 'current', today: true },
+        { day: 4, month: 'current' },
+        { day: 5, month: 'current' },
+        { day: 6, month: 'current' },
+        { day: 7, month: 'current' },
+        { day: 8, month: 'current' },
+        { day: 9, month: 'current' },
+        { day: 10, month: 'current', hasEvent: true },
+        { day: 11, month: 'current' },
+        { day: 12, month: 'current' },
+        { day: 13, month: 'current' },
+        { day: 14, month: 'current' },
+        { day: 15, month: 'current' },
+        { day: 16, month: 'current' },
+        { day: 17, month: 'current' },
+        { day: 18, month: 'current', hasEvent: true },
+        { day: 19, month: 'current' },
+        { day: 20, month: 'current' },
+        { day: 21, month: 'current' },
+        { day: 22, month: 'current' },
+        { day: 23, month: 'current' },
+        { day: 24, month: 'current' },
+        { day: 25, month: 'current', hasEvent: true },
+        { day: 26, month: 'current' },
+        { day: 27, month: 'current' },
+        { day: 28, month: 'current' },
+      ];
+
+      return (
+        <div className="calendar-wrapper">
+          <div className="calendar-header">
+            <div className="calendar-title">2026년 2월</div>
+            <div className="calendar-nav">
+              <button><ChevronLeft /></button>
+              <button><ChevronRight /></button>
+            </div>
+          </div>
+          <div className="calendar-grid">
+            {days.map(day => (
+              <div key={day} className="calendar-day-header">{day}</div>
+            ))}
+            {calendarDays.map((d, i) => (
+              <div
+                key={i}
+                className={`calendar-day ${d.today ? 'today' : ''} ${d.hasEvent ? 'has-event' : ''} ${d.month === 'other' ? 'other-month' : ''}`}
+              >
+                {d.day}
+              </div>
+            ))}
+          </div>
+          <div className="upcoming-events">
+            <div className="detail-box-title">다가오는 일정</div>
+            {upcomingEvents.map((event, i) => (
+              <div key={i} className="event-item">
+                <div className="event-date">
+                  <div className="day">{event.day}</div>
+                  <div className="month">{event.month}</div>
+                </div>
+                <div className="event-info">
+                  <div className="event-title">{event.title}</div>
+                  <div className="event-desc">{event.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    };
+
+    // Main App
+    const App = () => {
+      const [filter, setFilter] = useState('all');
+
+      const filteredProjects = projects.filter(p => {
+        if (filter === 'all') return true;
+        if (filter === 'ongoing') return p.status === 'ongoing' || p.status === 'selected';
+        if (filter === 'preparing') return p.status === 'preparing' || p.status === 'writing';
+        if (filter === 'evaluating') return p.status === 'evaluating';
+        return true;
+      });
+
+      return (
+        <div className="app">
+          {/* Hero */}
+          <header className="hero">
+            <div className="hero-content">
+              <div className="hero-top">
+                <div className="logo">STEP <span>AI</span></div>
+                <div className="hero-date">2026.02.03 (월)</div>
+              </div>
+              <h1>정부지원사업 진행 현황</h1>
+              <p className="hero-subtitle">Government Funded R&D Projects Dashboard</p>
+            </div>
+          </header>
+
+          {/* Summary Stats */}
+          <div className="summary-stats">
+            <div className="summary-card accent">
+              <div className="value">{statusCounts.total}</div>
+              <div className="label">전체 과제</div>
+            </div>
+            <div className="summary-card success">
+              <div className="value">{statusCounts.ongoing}</div>
+              <div className="label">수행 중</div>
+            </div>
+            <div className="summary-card warning">
+              <div className="value">{statusCounts.preparing}</div>
+              <div className="label">준비/작성 중</div>
+            </div>
+            <div className="summary-card purple">
+              <div className="value">{statusCounts.evaluating}</div>
+              <div className="label">평가 진행 중</div>
+            </div>
+          </div>
+
+          {/* Main Content */}
+          <main className="main">
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: '32px' }}>
+              <div>
+                {/* Projects Section */}
+                <section className="section">
+                  <div className="section-header">
+                    <h2 className="section-title">
+                      <span className="icon">📊</span>
+                      과제 목록
+                    </h2>
+                    <div className="filter-tabs">
+                      <div className={`filter-tab ${filter === 'all' ? 'active' : ''}`} onClick={() => setFilter('all')}>전체</div>
+                      <div className={`filter-tab ${filter === 'ongoing' ? 'active' : ''}`} onClick={() => setFilter('ongoing')}>수행 중</div>
+                      <div className={`filter-tab ${filter === 'preparing' ? 'active' : ''}`} onClick={() => setFilter('preparing')}>준비 중</div>
+                      <div className={`filter-tab ${filter === 'evaluating' ? 'active' : ''}`} onClick={() => setFilter('evaluating')}>평가 중</div>
+                    </div>
+                  </div>
+
+                  {filteredProjects.map(project => (
+                    <ProjectCard key={project.id} project={project} />
+                  ))}
+                </section>
+              </div>
+
+              <div>
+                {/* Calendar Section */}
+                <section className="section">
+                  <div className="section-header">
+                    <h2 className="section-title">
+                      <span className="icon">📅</span>
+                      일정
+                    </h2>
+                  </div>
+                  <Calendar />
+                </section>
+              </div>
+            </div>
+          </main>
+
+          {/* Footer */}
+          <footer className="footer">
+            <p className="footer-text">
+              STEP AI Inc. | Government R&D Project Dashboard<br/>
+              Last Updated: 2026.02.03 | Internal Use Only
+            </p>
+          </footer>
+        </div>
+      );
+    };
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>
