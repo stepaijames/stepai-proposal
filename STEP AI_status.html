@@ -4,21 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>STEP AI 정부지원사업 현황</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0a0a0f;
-      --surface: #12121a;
-      --surface-alt: #1a1a24;
-      --border: #2a2a3a;
-      --text: #e8e8ed;
-      --text-dim: #8888a0;
-      --accent: #6366f1;
-      --accent-glow: rgba(99, 102, 241, 0.3);
+      --bg: #f8fafc;
+      --white: #ffffff;
+      --border: #e2e8f0;
+      --border-light: #f1f5f9;
+      --text: #1e293b;
+      --text-secondary: #64748b;
+      --text-muted: #94a3b8;
+      --primary: #3b82f6;
+      --primary-light: #eff6ff;
       --success: #10b981;
+      --success-light: #ecfdf5;
       --warning: #f59e0b;
+      --warning-light: #fffbeb;
       --danger: #ef4444;
-      --info: #3b82f6;
+      --danger-light: #fef2f2;
+      --purple: #8b5cf6;
+      --purple-light: #f5f3ff;
     }
 
     * {
@@ -28,63 +33,135 @@
     }
 
     body {
-      font-family: 'Noto Sans KR', sans-serif;
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.7;
-      min-height: 100vh;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 24px;
+      line-height: 1.6;
     }
 
     /* Header */
     .header {
-      text-align: center;
-      margin-bottom: 48px;
-      padding-bottom: 32px;
+      background: var(--white);
       border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
-    .header h1 {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 2.2rem;
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .logo {
+      font-size: 1.25rem;
       font-weight: 700;
-      margin-bottom: 12px;
-      background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--text);
     }
 
-    .header .subtitle {
-      color: var(--text-dim);
-      font-size: 0.95rem;
+    .logo span {
+      color: var(--primary);
     }
 
-    .header .update-date {
-      display: inline-block;
-      margin-top: 16px;
-      padding: 6px 16px;
-      background: var(--surface);
-      border: 1px solid var(--border);
+    .update-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: var(--primary-light);
+      color: var(--primary);
       border-radius: 20px;
-      font-size: 0.85rem;
-      color: var(--text-dim);
+      font-size: 0.8rem;
+      font-weight: 500;
     }
 
-    /* Summary Cards */
+    /* Navigation */
+    .nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      gap: 4px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 16px;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 500;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .nav-link.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    .nav-badge {
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .nav-badge.urgent {
+      background: var(--danger-light);
+      color: var(--danger);
+    }
+
+    .nav-badge.warning {
+      background: var(--warning-light);
+      color: var(--warning);
+    }
+
+    .nav-badge.normal {
+      background: var(--success-light);
+      color: var(--success);
+    }
+
+    /* Main Content */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+
+    /* Summary Section */
+    .summary-section {
+      margin-bottom: 40px;
+    }
+
     .summary-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 16px;
-      margin-bottom: 48px;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 800px) {
       .summary-grid {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -97,237 +174,201 @@
     }
 
     .summary-card {
-      background: var(--surface);
+      background: var(--white);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 20px;
       text-align: center;
     }
 
-    .summary-card .number {
-      font-size: 2.5rem;
-      font-weight: 900;
-      line-height: 1;
-      margin-bottom: 8px;
+    .summary-card .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      font-size: 1.5rem;
     }
+
+    .summary-card.total .icon { background: var(--primary-light); }
+    .summary-card.urgent .icon { background: var(--danger-light); }
+    .summary-card.progress .icon { background: var(--warning-light); }
+    .summary-card.done .icon { background: var(--success-light); }
+
+    .summary-card .number {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .summary-card.total .number { color: var(--primary); }
+    .summary-card.urgent .number { color: var(--danger); }
+    .summary-card.progress .number { color: var(--warning); }
+    .summary-card.done .number { color: var(--success); }
 
     .summary-card .label {
       font-size: 0.85rem;
-      color: var(--text-dim);
+      color: var(--text-secondary);
     }
 
-    .summary-card.total .number { color: var(--accent); }
-    .summary-card.urgent .number { color: var(--danger); }
-    .summary-card.progress .number { color: var(--warning); }
-    .summary-card.ready .number { color: var(--success); }
-
-    /* Timeline Section */
-    .section-title {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 24px;
-      padding-left: 16px;
-      border-left: 4px solid var(--accent);
-    }
-
-    /* Project Cards */
-    .project-list {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+    /* Project Section */
+    .project-section {
       margin-bottom: 48px;
+      scroll-margin-top: 140px;
     }
 
     .project-card {
-      background: var(--surface);
+      background: var(--white);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 24px;
-      position: relative;
       overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .project-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    }
-
-    .project-card.priority-high {
-      border-left: 4px solid var(--danger);
-    }
-
-    .project-card.priority-medium {
-      border-left: 4px solid var(--warning);
-    }
-
-    .project-card.priority-low {
-      border-left: 4px solid var(--success);
     }
 
     .project-header {
+      padding: 24px;
+      border-bottom: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 16px;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 16px;
     }
 
-    .project-title {
-      font-size: 1.2rem;
+    .project-title-group h2 {
+      font-size: 1.3rem;
       font-weight: 700;
-    }
-
-    .project-org {
-      font-size: 0.85rem;
-      color: var(--text-dim);
-      margin-top: 4px;
-    }
-
-    .deadline-badge {
+      margin-bottom: 4px;
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-weight: 700;
+    }
+
+    .project-title-group .org {
       font-size: 0.9rem;
+      color: var(--text-secondary);
     }
 
-    .deadline-badge.urgent {
-      background: rgba(239, 68, 68, 0.15);
-      color: #f87171;
-      border: 1px solid rgba(239, 68, 68, 0.3);
+    .deadline-box {
+      text-align: right;
     }
 
-    .deadline-badge.warning {
-      background: rgba(245, 158, 11, 0.15);
-      color: #fbbf24;
-      border: 1px solid rgba(245, 158, 11, 0.3);
-    }
-
-    .deadline-badge.normal {
-      background: rgba(16, 185, 129, 0.15);
-      color: #34d399;
-      border: 1px solid rgba(16, 185, 129, 0.3);
-    }
-
-    .d-day {
+    .deadline-box .date {
       font-size: 1.1rem;
-      font-weight: 900;
-    }
-
-    .project-meta {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-bottom: 20px;
-      padding: 16px;
-      background: var(--surface-alt);
-      border-radius: 10px;
-    }
-
-    .meta-item {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .meta-label {
-      font-size: 0.75rem;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .meta-value {
-      font-size: 0.95rem;
-      font-weight: 500;
-    }
-
-    .meta-value.money {
-      color: var(--success);
       font-weight: 700;
+      margin-bottom: 4px;
     }
 
-    /* Status & Requirements */
-    .project-status {
-      margin-bottom: 16px;
-    }
-
-    .status-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 8px;
-    }
-
-    .status-label {
-      font-size: 0.85rem;
-      color: var(--text-dim);
-      min-width: 80px;
-    }
-
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    .deadline-box .d-day {
+      display: inline-block;
       padding: 4px 12px;
       border-radius: 6px;
-      font-size: 0.8rem;
-      font-weight: 500;
-    }
-
-    .status-badge.done {
-      background: rgba(16, 185, 129, 0.15);
-      color: #34d399;
-    }
-
-    .status-badge.in-progress {
-      background: rgba(245, 158, 11, 0.15);
-      color: #fbbf24;
-    }
-
-    .status-badge.pending {
-      background: rgba(136, 136, 160, 0.15);
-      color: var(--text-dim);
-    }
-
-    .status-badge.risk {
-      background: rgba(239, 68, 68, 0.15);
-      color: #f87171;
-    }
-
-    /* Requirements Checklist */
-    .requirements {
-      padding: 16px;
-      background: var(--surface-alt);
-      border-radius: 10px;
-    }
-
-    .requirements-title {
       font-size: 0.85rem;
       font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--text-dim);
     }
 
-    .req-item {
+    .deadline-box .d-day.urgent {
+      background: var(--danger-light);
+      color: var(--danger);
+    }
+
+    .deadline-box .d-day.warning {
+      background: var(--warning-light);
+      color: var(--warning);
+    }
+
+    .deadline-box .d-day.normal {
+      background: var(--success-light);
+      color: var(--success);
+    }
+
+    .project-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    @media (max-width: 800px) {
+      .project-body {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .project-col {
+      padding: 24px;
+    }
+
+    .project-col:first-child {
+      border-right: 1px solid var(--border);
+    }
+
+    @media (max-width: 800px) {
+      .project-col:first-child {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+    }
+
+    .col-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
+      gap: 6px;
+    }
+
+    /* Info Grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .info-item {
+      padding: 12px;
+      background: var(--bg);
+      border-radius: 8px;
+    }
+
+    .info-item .label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .info-item .value {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .info-item .value.money {
+      color: var(--success);
+    }
+
+    /* Checklist */
+    .checklist {
+      list-style: none;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
       gap: 10px;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-light);
       font-size: 0.9rem;
     }
 
-    .req-item:last-child {
+    .checklist li:last-child {
       border-bottom: none;
     }
 
-    .req-check {
+    .check-icon {
       width: 20px;
       height: 20px;
       border-radius: 50%;
@@ -336,529 +377,676 @@
       justify-content: center;
       font-size: 0.7rem;
       flex-shrink: 0;
+      margin-top: 2px;
     }
 
-    .req-check.pass {
+    .check-icon.done {
       background: var(--success);
-      color: #fff;
+      color: white;
     }
 
-    .req-check.fail {
-      background: var(--danger);
-      color: #fff;
+    .check-icon.pending {
+      background: var(--warning);
+      color: white;
     }
 
-    .req-check.unknown {
-      background: var(--text-dim);
-      color: #fff;
+    .check-icon.todo {
+      background: var(--border);
+      color: var(--text-muted);
     }
 
-    /* Action Items */
-    .action-section {
-      margin-top: 16px;
-      padding-top: 16px;
+    .check-text.done {
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    /* Action Section */
+    .project-actions {
+      padding: 20px 24px;
+      background: var(--primary-light);
       border-top: 1px solid var(--border);
     }
 
     .action-title {
       font-size: 0.85rem;
       font-weight: 700;
-      margin-bottom: 8px;
-      color: var(--warning);
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .action-list {
-      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
-    .action-list li {
-      position: relative;
-      padding-left: 20px;
-      margin-bottom: 6px;
-      font-size: 0.9rem;
-      color: var(--text-dim);
-    }
-
-    .action-list li::before {
-      content: "→";
-      position: absolute;
-      left: 0;
-      color: var(--warning);
-    }
-
-    /* Schedule Timeline */
-    .schedule-section {
-      margin-bottom: 48px;
-    }
-
-    .schedule-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--surface);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .schedule-table th,
-    .schedule-table td {
-      padding: 14px 16px;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .schedule-table th {
-      background: var(--surface-alt);
-      font-weight: 600;
+    .action-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
       font-size: 0.85rem;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      color: var(--text);
     }
 
-    .schedule-table tr:last-child td {
-      border-bottom: none;
+    .action-item .date {
+      color: var(--text-muted);
+      font-size: 0.8rem;
     }
 
-    .schedule-table tr:hover td {
-      background: var(--surface-alt);
-    }
-
-    .schedule-date {
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .schedule-date.past {
-      color: var(--text-dim);
-      text-decoration: line-through;
-    }
-
-    .schedule-date.today {
-      color: var(--accent);
-    }
-
-    .schedule-date.upcoming {
-      color: var(--warning);
-    }
-
-    /* Footer */
-    .footer {
-      text-align: center;
-      padding: 32px;
-      color: var(--text-dim);
-      font-size: 0.85rem;
-      border-top: 1px solid var(--border);
-    }
-
-    .footer a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    /* Consortium Info */
+    /* Consortium Box */
     .consortium-box {
       margin-top: 16px;
       padding: 16px;
-      background: rgba(99, 102, 241, 0.1);
-      border: 1px solid rgba(99, 102, 241, 0.3);
+      background: var(--purple-light);
       border-radius: 10px;
+      border: 1px solid rgba(139, 92, 246, 0.2);
     }
 
     .consortium-title {
       font-size: 0.85rem;
       font-weight: 700;
+      color: var(--purple);
       margin-bottom: 10px;
-      color: var(--accent);
     }
 
     .consortium-row {
       display: flex;
       gap: 8px;
       margin-bottom: 6px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
 
     .consortium-role {
-      min-width: 100px;
-      color: var(--text-dim);
+      min-width: 90px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Status Badge */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .status-badge.in-progress {
+      background: var(--warning-light);
+      color: var(--warning);
+    }
+
+    .status-badge.ready {
+      background: var(--success-light);
+      color: var(--success);
+    }
+
+    .status-badge.pending {
+      background: var(--bg);
+      color: var(--text-muted);
+    }
+
+    /* Documents Section */
+    .documents-section {
+      margin-top: 16px;
+    }
+
+    .doc-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .doc-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: var(--bg);
+      border-radius: 6px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .doc-item.ready {
+      background: var(--success-light);
+      color: var(--success);
+    }
+
+    .doc-item.needed {
+      background: var(--warning-light);
+      color: var(--warning);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 32px 24px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+      background: var(--white);
+    }
+
+    .footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Header -->
-    <header class="header">
-      <h1>STEP AI 정부지원사업 현황</h1>
-      <p class="subtitle">2026년 상반기 지원사업 진행 대시보드 — 내부 공유용</p>
-      <span class="update-date">📅 업데이트: 2026. 2. 3 (화) 기준</span>
-    </header>
 
-    <!-- Summary Cards -->
-    <div class="summary-grid">
-      <div class="summary-card total">
-        <div class="number">4</div>
-        <div class="label">진행 중인 사업</div>
-      </div>
-      <div class="summary-card urgent">
-        <div class="number">1</div>
-        <div class="label">D-10 이내</div>
-      </div>
-      <div class="summary-card progress">
-        <div class="number">2</div>
-        <div class="label">준비 진행 중</div>
-      </div>
-      <div class="summary-card ready">
-        <div class="number">1</div>
-        <div class="label">협의 단계</div>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">STEP <span>AI</span> 정부지원사업 현황</div>
+      <div class="update-badge">
+        📅 2026. 2. 3 (화) 업데이트
       </div>
     </div>
+  </header>
 
-    <!-- Schedule Overview -->
-    <section class="schedule-section">
-      <h2 class="section-title">마감 일정 순서</h2>
-      <table class="schedule-table">
-        <thead>
-          <tr>
-            <th>마감일</th>
-            <th>D-Day</th>
-            <th>사업명</th>
-            <th>지원금</th>
-            <th>상태</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="schedule-date upcoming">2/13 (목) 16:00</td>
-            <td><span class="deadline-badge urgent"><span class="d-day">D-10</span></span></td>
-            <td>초기창업패키지 (일반형)</td>
-            <td>최대 1억</td>
-            <td><span class="status-badge in-progress">● 준비 중</span></td>
-          </tr>
-          <tr>
-            <td class="schedule-date upcoming">2/25 (수) 14:00</td>
-            <td><span class="deadline-badge warning"><span class="d-day">D-22</span></span></td>
-            <td>K-Culture 대중소 공동도약 ⭐</td>
-            <td>21.25억 (1차)</td>
-            <td><span class="status-badge in-progress">● KT 협의 중</span></td>
-          </tr>
-          <tr>
-            <td class="schedule-date upcoming">2/27 (금) 16:00</td>
-            <td><span class="deadline-badge warning"><span class="d-day">D-24</span></span></td>
-            <td>KOCCA 기업창작전담부서</td>
-            <td>세제혜택</td>
-            <td><span class="status-badge in-progress">● To-Do 진행</span></td>
-          </tr>
-          <tr>
-            <td class="schedule-date">3/4 (수) 14:00</td>
-            <td><span class="deadline-badge normal"><span class="d-day">D-29</span></span></td>
-            <td>방송영상콘텐츠제작지원 (다큐)</td>
-            <td>최대 1.5억</td>
-            <td><span class="status-badge pending">○ 검토 필요</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#startup" class="nav-link">
+        초기창업패키지
+        <span class="nav-badge urgent">D-10</span>
+      </a>
+      <a href="#kculture" class="nav-link">
+        대중소 공동도약 ⭐
+        <span class="nav-badge warning">D-22</span>
+      </a>
+      <a href="#kocca" class="nav-link">
+        창작전담부서
+        <span class="nav-badge warning">D-24</span>
+      </a>
+      <a href="#broadcast" class="nav-link">
+        방송콘텐츠 다큐
+        <span class="nav-badge normal">D-29</span>
+      </a>
+    </div>
+  </nav>
 
-    <!-- Project Details -->
-    <section>
-      <h2 class="section-title">사업별 상세 현황</h2>
-      <div class="project-list">
+  <!-- Main Content -->
+  <main class="container">
 
-        <!-- 1. 초기창업패키지 -->
-        <article class="project-card priority-high">
-          <div class="project-header">
-            <div>
-              <h3 class="project-title">1. 초기창업패키지 (일반형)</h3>
-              <p class="project-org">중소벤처기업부 / 창업진흥원</p>
-            </div>
-            <div class="deadline-badge urgent">
-              <span>마감 2/13 (목) 16:00</span>
-              <span class="d-day">D-10</span>
-            </div>
-          </div>
-
-          <div class="project-meta">
-            <div class="meta-item">
-              <span class="meta-label">지원금</span>
-              <span class="meta-value money">평균 0.5억 / 최대 1억</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">제출처</span>
-              <span class="meta-value">K-Startup 온라인</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">지역</span>
-              <span class="meta-value">서울 강남 (수도권)</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">형태</span>
-              <span class="meta-value">법인</span>
-            </div>
-          </div>
-
-          <div class="project-status">
-            <div class="status-row">
-              <span class="status-label">진행상태</span>
-              <span class="status-badge in-progress">● 자격요건 정리 완료</span>
-            </div>
-          </div>
-
-          <div class="requirements">
-            <div class="requirements-title">✓ 자격요건 체크</div>
-            <div class="req-item">
-              <span class="req-check pass">✓</span>
-              <span>대표자 기존 법인 현황 정리</span>
-            </div>
-            <div class="req-item">
-              <span class="req-check pass">✓</span>
-              <span>창업 인정 가능 여부 확인</span>
-            </div>
-            <div class="req-item">
-              <span class="req-check unknown">?</span>
-              <span>신청서 작성</span>
-            </div>
-          </div>
-
-          <div class="action-section">
-            <div class="action-title">📌 다음 액션</div>
-            <ul class="action-list">
-              <li>K-Startup 신청서 작성 시작</li>
-              <li>사업계획서 초안 준비</li>
-            </ul>
-          </div>
-        </article>
-
-        <!-- 2. 대중소 공동도약 -->
-        <article class="project-card priority-medium">
-          <div class="project-header">
-            <div>
-              <h3 class="project-title">2. K-Culture 대중소 공동도약 ⭐</h3>
-              <p class="project-org">문화체육관광부 / 한국콘텐츠진흥원</p>
-            </div>
-            <div class="deadline-badge warning">
-              <span>마감 2/25 (수) 14:00</span>
-              <span class="d-day">D-22</span>
-            </div>
-          </div>
-
-          <div class="project-meta">
-            <div class="meta-item">
-              <span class="meta-label">지원금 (1차년도)</span>
-              <span class="meta-value money">21.25억원 이내</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">총 지원금 (3년)</span>
-              <span class="meta-value money">약 77억원</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">제출처</span>
-              <span class="meta-value">IRIS (iris.go.kr)</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">분야</span>
-              <span class="meta-value">영상 (영화, 방송, 드라마 등)</span>
-            </div>
-          </div>
-
-          <div class="consortium-box">
-            <div class="consortium-title">🤝 컨소시엄 구성 (협의 중)</div>
-            <div class="consortium-row">
-              <span class="consortium-role">대기업/중견:</span>
-              <span>KT ENA (협의 중)</span>
-            </div>
-            <div class="consortium-row">
-              <span class="consortium-role">중소기업:</span>
-              <span><strong>STEP AI</strong> — 기술 기획 및 구현 주도</span>
-            </div>
-            <div class="consortium-row">
-              <span class="consortium-role">위탁 (선택):</span>
-              <span>비영리법인만 가능 (대학, 출연연)</span>
-            </div>
-          </div>
-
-          <div class="project-status" style="margin-top: 16px;">
-            <div class="status-row">
-              <span class="status-label">진행상태</span>
-              <span class="status-badge in-progress">● KT ENA 협의 진행 중</span>
-            </div>
-          </div>
-
-          <div class="requirements">
-            <div class="requirements-title">✓ 자격요건 (대중소 필수)</div>
-            <div class="req-item">
-              <span class="req-check pass">✓</span>
-              <span>대기업/중견 + 중소/벤처 컨소시엄 필수</span>
-            </div>
-            <div class="req-item">
-              <span class="req-check pass">✓</span>
-              <span>STEP AI = 중소기업 → 주관/공동연구기관 자격 OK</span>
-            </div>
-            <div class="req-item">
-              <span class="req-check unknown">?</span>
-              <span>KT ENA 참여 의향 최종 확정</span>
-            </div>
-            <div class="req-item">
-              <span class="req-check unknown">?</span>
-              <span>중소기업확인서 제출</span>
-            </div>
-          </div>
-
-          <div class="action-section">
-            <div class="action-title">📌 다음 액션</div>
-            <ul class="action-list">
-              <li>KT ENA 컨소시엄 참여 최종 확정</li>
-              <li>역할분담(R&R) 협의</li>
-              <li>연구개발계획서 공동 작성</li>
-              <li>IRIS 접수 (2/25 마감)</li>
-            </ul>
-          </div>
-        </article>
-
-        <!-- 3. 기업창작전담부서 -->
-        <article class="project-card priority-medium">
-          <div class="project-header">
-            <div>
-              <h3 class="project-title">3. KOCCA 기업창작전담부서 인정</h3>
-              <p class="project-org">문화체육관광부 / 한국콘텐츠진흥원</p>
-            </div>
-            <div class="deadline-badge warning">
-              <span>마감 2/27 (금) 16:00</span>
-              <span class="d-day">D-24</span>
-            </div>
-          </div>
-
-          <div class="project-meta">
-            <div class="meta-item">
-              <span class="meta-label">혜택</span>
-              <span class="meta-value">법인세 세액공제, 벤처기업 요건</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">제출처</span>
-              <span class="meta-value">rnd.kocca.kr/c-lab</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">전담부서명</span>
-              <span class="meta-value">STEP AI 창작전담부서</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">창작전담요원</span>
-              <span class="meta-value">장혜수 (제작팀장, 석사)</span>
-            </div>
-          </div>
-
-          <div class="project-status">
-            <div class="status-row">
-              <span class="status-label">진행상태</span>
-              <span class="status-badge in-progress">● To-Do 진행 중</span>
-            </div>
-          </div>
-
-          <div class="requirements">
-            <div class="requirements-title">✓ 자격요건 체크</div>
-            <div class="req-item">
-              <span class="req-check pass">✓</span>
-              <span>창작전담요원 1명 이상 (장혜수, 석사)</span>
-            </div>
-            <div class="req-item">
-              <span class="req-check pass">✓</span>
-              <span>중소기업 확인</span>
-            </div>
-            <div class="req-item">
-              <span class="req-check unknown">?</span>
-              <span>현판 주문 및 부착</span>
-            </div>
-            <div class="req-item">
-              <span class="req-check unknown">?</span>
-              <span>온라인 현장점검 영상 촬영</span>
-            </div>
-          </div>
-
-          <div class="action-section">
-            <div class="action-title">📌 다음 액션 (To-Do)</div>
-            <ul class="action-list">
-              <li>2/3: 현판 주문 ("STEP AI 창작전담부서")</li>
-              <li>2/7: 온라인 서류 발급 (사업자등록증, 4대보험, 중소기업확인서)</li>
-              <li>2/14: 현판 부착 + 사진/영상 촬영</li>
-              <li>2/25: 온라인 신청 + 제출</li>
-            </ul>
-          </div>
-        </article>
-
-        <!-- 4. 방송영상콘텐츠 -->
-        <article class="project-card priority-low">
-          <div class="project-header">
-            <div>
-              <h3 class="project-title">4. 방송영상콘텐츠제작지원 (다큐멘터리)</h3>
-              <p class="project-org">한국콘텐츠진흥원 (KOCCA)</p>
-            </div>
-            <div class="deadline-badge normal">
-              <span>마감 3/4 (수) 14:00</span>
-              <span class="d-day">D-29</span>
-            </div>
-          </div>
-
-          <div class="project-meta">
-            <div class="meta-item">
-              <span class="meta-label">지원금</span>
-              <span class="meta-value money">최대 1.5억원</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">자부담</span>
-              <span class="meta-value">총사업비 10% 이상 (현금)</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">제출처</span>
-              <span class="meta-value">e나라도움</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">협약기간</span>
-              <span class="meta-value">협약체결일 ~ 2026.10.31</span>
-            </div>
-          </div>
-
-          <div class="project-status">
-            <div class="status-row">
-              <span class="status-label">진행상태</span>
-              <span class="status-badge pending">○ 적합성 검토 필요</span>
-            </div>
-          </div>
-
-          <div class="requirements">
-            <div class="requirements-title">✓ 자격요건 체크</div>
-            <div class="req-item">
-              <span class="req-check pass">✓</span>
-              <span>중소기업확인서 보유</span>
-            </div>
-            <div class="req-item">
-              <span class="req-check pass">✓</span>
-              <span>방송영상독립제작사신고필증 보유</span>
-            </div>
-            <div class="req-item">
-              <span class="req-check unknown">?</span>
-              <span>다큐멘터리 제작 계획 수립</span>
-            </div>
-          </div>
-
-          <div class="action-section">
-            <div class="action-title">📌 검토 필요사항</div>
-            <ul class="action-list">
-              <li>STEP AI 사업 방향과의 적합성 검토 (AI 플랫폼 vs. 방송 콘텐츠 직접 제작)</li>
-              <li>다큐멘터리 주제/기획안 구상 필요</li>
-              <li>제작 인력 및 협력사 확보</li>
-            </ul>
-          </div>
-        </article>
-
+    <!-- Summary -->
+    <section class="summary-section">
+      <div class="summary-grid">
+        <div class="summary-card total">
+          <div class="icon">📋</div>
+          <div class="number">4</div>
+          <div class="label">진행 중인 사업</div>
+        </div>
+        <div class="summary-card urgent">
+          <div class="icon">🚨</div>
+          <div class="number">1</div>
+          <div class="label">D-10 이내 긴급</div>
+        </div>
+        <div class="summary-card progress">
+          <div class="icon">🔄</div>
+          <div class="number">2</div>
+          <div class="label">준비 진행 중</div>
+        </div>
+        <div class="summary-card done">
+          <div class="icon">✅</div>
+          <div class="number">1</div>
+          <div class="label">협의 단계</div>
+        </div>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <p>STEP AI Inc. — 내부 공유용 문서</p>
-      <p style="margin-top: 8px;">
-        <a href="index.html">← 대중소 제안서 페이지</a>
-      </p>
-    </footer>
-  </div>
+    <!-- 1. 초기창업패키지 -->
+    <section class="project-section" id="startup">
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-title-group">
+            <h2>
+              <span>1. 초기창업패키지 (일반형)</span>
+              <span class="status-badge in-progress">● 준비 중</span>
+            </h2>
+            <p class="org">중소벤처기업부 / 창업진흥원</p>
+          </div>
+          <div class="deadline-box">
+            <div class="date">2/13 (목) 16:00</div>
+            <span class="d-day urgent">D-10</span>
+          </div>
+        </div>
+
+        <div class="project-body">
+          <div class="project-col">
+            <div class="col-title">📌 기본 정보</div>
+            <div class="info-grid">
+              <div class="info-item">
+                <div class="label">지원금</div>
+                <div class="value money">최대 1억원</div>
+              </div>
+              <div class="info-item">
+                <div class="label">제출처</div>
+                <div class="value">K-Startup</div>
+              </div>
+              <div class="info-item">
+                <div class="label">지역</div>
+                <div class="value">서울 강남 (수도권)</div>
+              </div>
+              <div class="info-item">
+                <div class="label">형태</div>
+                <div class="value">법인</div>
+              </div>
+            </div>
+
+            <div class="documents-section">
+              <div class="col-title" style="margin-top:20px;">📄 준비 서류</div>
+              <div class="doc-list">
+                <span class="doc-item ready">✓ 사업자등록증</span>
+                <span class="doc-item ready">✓ 법인등기부등본</span>
+                <span class="doc-item needed">⏳ 사업계획서</span>
+                <span class="doc-item needed">⏳ 창업 인정 서류</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-col">
+            <div class="col-title">✅ 자격요건 체크</div>
+            <ul class="checklist">
+              <li>
+                <span class="check-icon done">✓</span>
+                <span class="check-text done">대표자 기존 법인 현황 정리</span>
+              </li>
+              <li>
+                <span class="check-icon done">✓</span>
+                <span class="check-text done">창업 인정 가능 여부 확인</span>
+              </li>
+              <li>
+                <span class="check-icon pending">!</span>
+                <span class="check-text">신청서 작성</span>
+              </li>
+              <li>
+                <span class="check-icon todo">○</span>
+                <span class="check-text">사업계획서 초안 작성</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="project-actions">
+          <div class="action-title">🎯 다음 액션</div>
+          <div class="action-list">
+            <div class="action-item">
+              <span>K-Startup 신청서 작성 시작</span>
+              <span class="date">~2/7</span>
+            </div>
+            <div class="action-item">
+              <span>사업계획서 초안 준비</span>
+              <span class="date">~2/10</span>
+            </div>
+            <div class="action-item">
+              <span>최종 제출</span>
+              <span class="date">2/13</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. 대중소 공동도약 -->
+    <section class="project-section" id="kculture">
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-title-group">
+            <h2>
+              <span>2. K-Culture 대중소 공동도약 ⭐</span>
+              <span class="status-badge in-progress">● KT 협의 중</span>
+            </h2>
+            <p class="org">문화체육관광부 / 한국콘텐츠진흥원</p>
+          </div>
+          <div class="deadline-box">
+            <div class="date">2/25 (수) 14:00</div>
+            <span class="d-day warning">D-22</span>
+          </div>
+        </div>
+
+        <div class="project-body">
+          <div class="project-col">
+            <div class="col-title">📌 기본 정보</div>
+            <div class="info-grid">
+              <div class="info-item">
+                <div class="label">1차년도 지원금</div>
+                <div class="value money">21.25억원</div>
+              </div>
+              <div class="info-item">
+                <div class="label">총 지원금 (3년)</div>
+                <div class="value money">약 77억원</div>
+              </div>
+              <div class="info-item">
+                <div class="label">제출처</div>
+                <div class="value">IRIS</div>
+              </div>
+              <div class="info-item">
+                <div class="label">분야</div>
+                <div class="value">영상</div>
+              </div>
+            </div>
+
+            <div class="consortium-box">
+              <div class="consortium-title">🤝 컨소시엄 구성 (협의 중)</div>
+              <div class="consortium-row">
+                <span class="consortium-role">대기업/중견:</span>
+                <span>KT ENA (협의 중)</span>
+              </div>
+              <div class="consortium-row">
+                <span class="consortium-role">중소기업:</span>
+                <span><strong>STEP AI</strong> — 기술 기획 및 구현 주도</span>
+              </div>
+              <div class="consortium-row">
+                <span class="consortium-role">위탁 (선택):</span>
+                <span>비영리법인만 가능</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-col">
+            <div class="col-title">✅ 자격요건 체크</div>
+            <ul class="checklist">
+              <li>
+                <span class="check-icon done">✓</span>
+                <span class="check-text done">대기업/중견 + 중소/벤처 컨소시엄 필수</span>
+              </li>
+              <li>
+                <span class="check-icon done">✓</span>
+                <span class="check-text done">STEP AI = 중소기업 → 자격 OK</span>
+              </li>
+              <li>
+                <span class="check-icon pending">!</span>
+                <span class="check-text">KT ENA 참여 의향 최종 확정</span>
+              </li>
+              <li>
+                <span class="check-icon todo">○</span>
+                <span class="check-text">중소기업확인서 제출</span>
+              </li>
+              <li>
+                <span class="check-icon todo">○</span>
+                <span class="check-text">연구개발계획서 작성</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="project-actions">
+          <div class="action-title">🎯 다음 액션</div>
+          <div class="action-list">
+            <div class="action-item">
+              <span>KT ENA 컨소시엄 참여 확정</span>
+              <span class="date">~2/7</span>
+            </div>
+            <div class="action-item">
+              <span>역할분담(R&R) 협의</span>
+              <span class="date">~2/10</span>
+            </div>
+            <div class="action-item">
+              <span>연구개발계획서 공동 작성</span>
+              <span class="date">~2/20</span>
+            </div>
+            <div class="action-item">
+              <span>IRIS 접수</span>
+              <span class="date">2/25</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. KOCCA 기업창작전담부서 -->
+    <section class="project-section" id="kocca">
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-title-group">
+            <h2>
+              <span>3. KOCCA 기업창작전담부서 인정</span>
+              <span class="status-badge in-progress">● To-Do 진행</span>
+            </h2>
+            <p class="org">문화체육관광부 / 한국콘텐츠진흥원</p>
+          </div>
+          <div class="deadline-box">
+            <div class="date">2/27 (금) 16:00</div>
+            <span class="d-day warning">D-24</span>
+          </div>
+        </div>
+
+        <div class="project-body">
+          <div class="project-col">
+            <div class="col-title">📌 기본 정보</div>
+            <div class="info-grid">
+              <div class="info-item">
+                <div class="label">혜택</div>
+                <div class="value">법인세 세액공제</div>
+              </div>
+              <div class="info-item">
+                <div class="label">제출처</div>
+                <div class="value">rnd.kocca.kr</div>
+              </div>
+              <div class="info-item">
+                <div class="label">전담부서명</div>
+                <div class="value">STEP AI 창작전담부서</div>
+              </div>
+              <div class="info-item">
+                <div class="label">창작전담요원</div>
+                <div class="value">장혜수 (석사)</div>
+              </div>
+            </div>
+
+            <div class="documents-section">
+              <div class="col-title" style="margin-top:20px;">📄 준비 서류</div>
+              <div class="doc-list">
+                <span class="doc-item needed">⏳ 사업자등록증</span>
+                <span class="doc-item needed">⏳ 조직도</span>
+                <span class="doc-item needed">⏳ 4대보험 증빙</span>
+                <span class="doc-item needed">⏳ 석사 졸업증명서</span>
+                <span class="doc-item needed">⏳ 중소기업확인서</span>
+                <span class="doc-item needed">⏳ 현판 사진</span>
+                <span class="doc-item needed">⏳ 현장점검 영상</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-col">
+            <div class="col-title">✅ 자격요건 체크</div>
+            <ul class="checklist">
+              <li>
+                <span class="check-icon done">✓</span>
+                <span class="check-text done">창작전담요원 1명 이상 (장혜수, 석사)</span>
+              </li>
+              <li>
+                <span class="check-icon done">✓</span>
+                <span class="check-text done">중소기업 확인</span>
+              </li>
+              <li>
+                <span class="check-icon pending">!</span>
+                <span class="check-text">현판 주문 ("STEP AI 창작전담부서")</span>
+              </li>
+              <li>
+                <span class="check-icon todo">○</span>
+                <span class="check-text">온라인 현장점검 영상 촬영</span>
+              </li>
+              <li>
+                <span class="check-icon todo">○</span>
+                <span class="check-text">서류 온라인 제출</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="project-actions">
+          <div class="action-title">🎯 다음 액션 (To-Do)</div>
+          <div class="action-list">
+            <div class="action-item">
+              <span>현판 주문</span>
+              <span class="date">2/3</span>
+            </div>
+            <div class="action-item">
+              <span>온라인 서류 발급</span>
+              <span class="date">~2/7</span>
+            </div>
+            <div class="action-item">
+              <span>현판 부착 + 사진/영상</span>
+              <span class="date">~2/14</span>
+            </div>
+            <div class="action-item">
+              <span>온라인 신청 + 제출</span>
+              <span class="date">~2/25</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 방송영상콘텐츠 -->
+    <section class="project-section" id="broadcast">
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-title-group">
+            <h2>
+              <span>4. 방송영상콘텐츠제작지원 (다큐)</span>
+              <span class="status-badge pending">○ 검토 필요</span>
+            </h2>
+            <p class="org">한국콘텐츠진흥원 (KOCCA)</p>
+          </div>
+          <div class="deadline-box">
+            <div class="date">3/4 (수) 14:00</div>
+            <span class="d-day normal">D-29</span>
+          </div>
+        </div>
+
+        <div class="project-body">
+          <div class="project-col">
+            <div class="col-title">📌 기본 정보</div>
+            <div class="info-grid">
+              <div class="info-item">
+                <div class="label">지원금</div>
+                <div class="value money">최대 1.5억원</div>
+              </div>
+              <div class="info-item">
+                <div class="label">자부담</div>
+                <div class="value">총사업비 10%</div>
+              </div>
+              <div class="info-item">
+                <div class="label">제출처</div>
+                <div class="value">e나라도움</div>
+              </div>
+              <div class="info-item">
+                <div class="label">협약기간</div>
+                <div class="value">~2026.10.31</div>
+              </div>
+            </div>
+
+            <div class="documents-section">
+              <div class="col-title" style="margin-top:20px;">📄 준비 서류</div>
+              <div class="doc-list">
+                <span class="doc-item ready">✓ 중소기업확인서</span>
+                <span class="doc-item ready">✓ 방송영상독립제작사신고필증</span>
+                <span class="doc-item needed">⏳ 제작계획서</span>
+                <span class="doc-item needed">⏳ 기획안</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-col">
+            <div class="col-title">✅ 자격요건 체크</div>
+            <ul class="checklist">
+              <li>
+                <span class="check-icon done">✓</span>
+                <span class="check-text done">중소기업확인서 보유</span>
+              </li>
+              <li>
+                <span class="check-icon done">✓</span>
+                <span class="check-text done">방송영상독립제작사신고필증 보유</span>
+              </li>
+              <li>
+                <span class="check-icon todo">○</span>
+                <span class="check-text">다큐멘터리 주제/기획안 구상</span>
+              </li>
+              <li>
+                <span class="check-icon todo">○</span>
+                <span class="check-text">STEP AI 사업 방향 적합성 검토</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="project-actions">
+          <div class="action-title">🎯 검토 필요사항</div>
+          <div class="action-list">
+            <div class="action-item">
+              <span>AI 플랫폼 vs 방송 콘텐츠 제작 적합성 검토</span>
+            </div>
+            <div class="action-item">
+              <span>다큐멘터리 주제 구상</span>
+            </div>
+            <div class="action-item">
+              <span>제작 인력 및 협력사 확보</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>STEP AI Inc. — 내부 협업용 문서</p>
+    <p style="margin-top: 8px;">
+      <a href="index.html">← 대중소 제안서 페이지 보기</a>
+    </p>
+  </footer>
+
+  <script>
+    // Smooth scroll for navigation
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+        // Update active state
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Update active nav on scroll
+    window.addEventListener('scroll', function() {
+      const sections = document.querySelectorAll('.project-section');
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 200) {
+          current = section.getAttribute('id');
+        }
+      });
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+
 </body>
 </html>
