@@ -510,6 +510,30 @@
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 완료 카드 스타일 */
+    .cert-card.completed {
+      background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+      border-left: 4px solid var(--success);
+    }
+
+    .cert-card.completed .stamp {
+      position: absolute;
+      top: 12px;
+      right: -8px;
+      background: #dc2626;
+      color: white;
+      padding: 6px 20px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transform: rotate(12deg);
+      box-shadow: 0 2px 8px rgba(220, 38, 38, 0.4);
+      border: 2px solid #b91c1c;
     }
 
     .cert-header {
@@ -927,7 +951,8 @@
           <a href="https://www.smes.go.kr/venturein/home/viewHome" target="_blank" class="cert-link">🔗 벤처인 바로가기</a>
         </div>
 
-        <div class="cert-card">
+        <div class="cert-card completed">
+          <div class="stamp">COMPLETE</div>
           <div class="cert-header">
             <div class="cert-title">방송영상독립제작사</div>
             <span class="cert-status done">✅ 완료</span>
