@@ -3,7 +3,17 @@
     "allow": [
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push)"
+      "Bash(git push)",
+      "Bash(git mv:*)",
+      "Bash(npx create-next-app@latest:*)",
+      "Bash(npm install)",
+      "Bash(npm run dev:*)",
+      "Bash(node scripts/seed.mjs:*)",
+      "Bash(vercel:*)",
+      "Bash(npx vercel --prod)",
+      "Bash(npx vercel:*)",
+      "Bash(vercel login)",
+      "Bash(npx vercel --prod --yes)"
     ]
   }
 }

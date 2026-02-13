@@ -38,13 +38,6 @@
         .project-card.visible { display: block; }
         .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); border-color: #cbd5e1; }
         .card-header { padding: 20px 24px; display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #f1f5f9; }
-        .card-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 10px; }
-        .badge-review { background: #fef3c7; color: #92400e; }
-        .badge-preparing { background: #dbeafe; color: #1e40af; }
-        .badge-submitted { background: #e0e7ff; color: #3730a3; }
-        .badge-evaluating { background: #fce7f3; color: #9d174d; }
-        .badge-passed { background: #d1fae5; color: #065f46; }
-        .badge-pending { background: #fed7aa; color: #9a3412; }
         .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; line-height: 1.4; color: #0f172a; }
         .card-org { font-size: 0.9rem; color: #64748b; font-weight: 500; }
         .d-day { background: #ef4444; color: #fff; padding: 8px 14px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; white-space: nowrap; }
@@ -151,7 +144,6 @@
                 <div class="project-card visible" data-stage="preparing" data-project-id="startup">
                     <div class="card-header">
                         <div>
-                            <span class="card-badge badge-preparing">✏️ 준비중</span>
                             <div class="card-title">초기창업패키지 (일반형)</div>
                             <div class="card-org">중소벤처기업부 / 창업진흥원</div>
                         </div>
@@ -190,7 +182,6 @@
                 <div class="project-card visible" data-stage="preparing" data-project-id="kculture">
                     <div class="card-header">
                         <div>
-                            <span class="card-badge badge-preparing">✏️ 준비중</span>
                             <div class="card-title">K-Culture 대중소 공동도약 <span class="star">⭐</span></div>
                             <div class="card-org">문화체육관광부 / 한국콘텐츠진흥원</div>
                         </div>
@@ -229,7 +220,6 @@
                 <div class="project-card visible" data-stage="preparing" data-project-id="kocca-creative">
                     <div class="card-header">
                         <div>
-                            <span class="card-badge badge-preparing">✏️ 준비중</span>
                             <div class="card-title">KOCCA 기업창작전담부서 인정</div>
                             <div class="card-org">문화체육관광부 / 한국콘텐츠진흥원</div>
                         </div>
@@ -268,7 +258,6 @@
                 <div class="project-card visible" data-stage="review" data-project-id="broadcast-docu">
                     <div class="card-header">
                         <div>
-                            <span class="card-badge badge-review">🔍 검토중</span>
                             <div class="card-title">방송영상콘텐츠제작지원 (다큐)</div>
                             <div class="card-org">한국콘텐츠진흥원 (KOCCA)</div>
                         </div>
@@ -307,7 +296,6 @@
                 <div class="project-card visible" data-stage="evaluating" data-project-id="venture">
                     <div class="card-header">
                         <div>
-                            <span class="card-badge badge-evaluating">⏳ 심사중</span>
                             <div class="card-title">벤처기업 인증</div>
                             <div class="card-org">중소벤처기업부 / 벤처인</div>
                         </div>
@@ -346,7 +334,6 @@
                 <div class="project-card visible" data-stage="passed" data-project-id="broadcast-producer">
                     <div class="card-header">
                         <div>
-                            <span class="card-badge badge-passed">✅ 완료</span>
                             <div class="card-title">방송영상독립제작사 신고</div>
                             <div class="card-org">문화체육관광부</div>
                         </div>
@@ -385,7 +372,6 @@
                 <div class="project-card visible" data-stage="pending" data-project-id="copyright">
                     <div class="card-header">
                         <div>
-                            <span class="card-badge badge-pending">🔄 보완중</span>
                             <div class="card-title">한국저작권위원회 등록</div>
                             <div class="card-org">한국저작권위원회</div>
                         </div>
@@ -452,15 +438,6 @@
             'evaluating': '심사중',
             'passed': '합격/완료',
             'pending': '보완중'
-        };
-
-        const badgeConfig = {
-            'review': { class: 'badge-review', icon: '🔍', text: '검토중' },
-            'preparing': { class: 'badge-preparing', icon: '✏️', text: '준비중' },
-            'submitted': { class: 'badge-submitted', icon: '📤', text: '제출완료' },
-            'evaluating': { class: 'badge-evaluating', icon: '⏳', text: '심사중' },
-            'passed': { class: 'badge-passed', icon: '✅', text: '완료' },
-            'pending': { class: 'badge-pending', icon: '🔄', text: '보완중' }
         };
 
         // Show save indicator
@@ -534,13 +511,6 @@
 
             // Update data-stage attribute
             card.dataset.stage = status;
-
-            // Update badge
-            const badge = card.querySelector('.card-badge');
-            if (badge && badgeConfig[status]) {
-                badge.className = 'card-badge badge-' + status;
-                badge.textContent = badgeConfig[status].icon + ' ' + badgeConfig[status].text;
-            }
 
             // Update dropdown style
             const dropdown = card.querySelector('.status-dropdown');

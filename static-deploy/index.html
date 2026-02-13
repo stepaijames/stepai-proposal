@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STEP AI 정부지원사업 현황</title>
+    <title>STEP AI (정부) 지원 사업 현황판</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -12,6 +12,9 @@
         .header { text-align: center; margin-bottom: 32px; padding: 32px; background: #fff; border-radius: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
         .header h1 { font-size: 2rem; margin-bottom: 8px; color: #0f172a; font-weight: 700; }
         .header .update-date { color: #64748b; font-size: 1rem; }
+        .sync-status { display: inline-block; margin-left: 12px; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; }
+        .sync-status.online { background: #d1fae5; color: #065f46; }
+        .sync-status.offline { background: #fee2e2; color: #991b1b; }
         .pipeline-section { background: #fff; border-radius: 16px; padding: 24px; margin-bottom: 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
         .pipeline-title { font-size: 1.1rem; color: #475569; margin-bottom: 20px; font-weight: 600; }
         .pipeline { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; }
@@ -23,48 +26,36 @@
         .pipeline-stage .stage-label { font-size: 0.9rem; font-weight: 600; }
         .stage-all { background: #f1f5f9; } .stage-all .stage-count { color: #475569; } .stage-all .stage-label { color: #64748b; }
         .stage-review { background: #fef3c7; } .stage-review .stage-count { color: #b45309; } .stage-review .stage-label { color: #92400e; }
-        .stage-preparing { background: #dbeafe; } .stage-preparing .stage-count { color: #1d4ed8; } .stage-preparing .stage-label { color: #1e40af; }
+        .stage-writing { background: #dbeafe; } .stage-writing .stage-count { color: #1d4ed8; } .stage-writing .stage-label { color: #1e40af; }
         .stage-submitted { background: #e0e7ff; } .stage-submitted .stage-count { color: #4338ca; } .stage-submitted .stage-label { color: #3730a3; }
         .stage-evaluating { background: #fce7f3; } .stage-evaluating .stage-count { color: #be185d; } .stage-evaluating .stage-label { color: #9d174d; }
-        .stage-passed { background: #d1fae5; } .stage-passed .stage-count { color: #047857; } .stage-passed .stage-label { color: #065f46; }
-        .stage-pending { background: #fed7aa; } .stage-pending .stage-count { color: #c2410c; } .stage-pending .stage-label { color: #9a3412; }
-        .pipeline-stage:not(:last-child)::after { content: '→'; position: absolute; right: -14px; top: 50%; transform: translateY(-50%); color: #cbd5e1; font-size: 1.2rem; font-weight: bold; }
+        .stage-selected { background: #d1fae5; } .stage-selected .stage-count { color: #047857; } .stage-selected .stage-label { color: #065f46; }
+        .stage-rejected { background: #fee2e2; } .stage-rejected .stage-count { color: #dc2626; } .stage-rejected .stage-label { color: #991b1b; }
+        .stage-dropped { background: #f1f5f9; } .stage-dropped .stage-count { color: #64748b; } .stage-dropped .stage-label { color: #475569; }
+        .stage-deadline { background: #fef2f2; } .stage-deadline .stage-count { color: #dc2626; } .stage-deadline .stage-label { color: #991b1b; }
+        .pipeline-stage:not(:last-child):not(:nth-last-child(2))::after { content: '→'; position: absolute; right: -14px; top: 50%; transform: translateY(-50%); color: #cbd5e1; font-size: 1.2rem; font-weight: bold; }
         .cards-section { margin-bottom: 32px; }
         .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         .section-title { font-size: 1.3rem; color: #0f172a; font-weight: 700; }
         .filter-info { font-size: 0.95rem; color: #64748b; background: #f1f5f9; padding: 8px 16px; border-radius: 20px; }
         .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 20px; }
-        .project-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); transition: all 0.3s; border: 2px solid #e2e8f0; display: none; }
-        .project-card.visible { display: block; }
+        .project-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); transition: all 0.3s; border: 2px solid #e2e8f0; display: none; flex-direction: column; }
+        .project-card.visible { display: flex; }
         .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); border-color: #cbd5e1; }
         .card-header { padding: 20px 24px; display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #f1f5f9; }
-        .card-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 10px; }
-        .badge-review { background: #fef3c7; color: #92400e; }
-        .badge-preparing { background: #dbeafe; color: #1e40af; }
-        .badge-submitted { background: #e0e7ff; color: #3730a3; }
-        .badge-evaluating { background: #fce7f3; color: #9d174d; }
-        .badge-passed { background: #d1fae5; color: #065f46; }
-        .badge-pending { background: #fed7aa; color: #9a3412; }
         .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; line-height: 1.4; color: #0f172a; }
         .card-org { font-size: 0.9rem; color: #64748b; font-weight: 500; }
         .d-day { background: #ef4444; color: #fff; padding: 8px 14px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; white-space: nowrap; }
         .d-day.safe { background: #22c55e; }
         .d-day.warning { background: #f59e0b; }
         .d-day.complete { background: #6366f1; }
-        .card-body { padding: 20px 24px; }
+        .card-body { padding: 20px 24px; flex: 1; display: flex; flex-direction: column; }
         .card-info { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
         .info-item { background: #f8fafc; padding: 12px 14px; border-radius: 10px; border: 1px solid #e2e8f0; }
+        .info-item.full-width { grid-column: 1 / -1; }
         .info-label { font-size: 0.75rem; color: #64748b; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
         .info-value { font-size: 1rem; font-weight: 600; color: #1e293b; }
-        .progress-section { margin-bottom: 16px; }
-        .progress-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; }
-        .progress-label { color: #64748b; font-weight: 500; }
-        .progress-value { color: #3b82f6; font-weight: 700; }
-        .progress-bar { height: 8px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
-        .progress-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, #3b82f6, #8b5cf6); transition: width 0.5s ease; }
-
-        /* Status Dropdown Styles */
-        .status-dropdown-wrapper { margin-bottom: 16px; }
+        .status-dropdown-wrapper { margin-bottom: 16px; margin-top: auto; }
         .status-dropdown-label { font-size: 0.75rem; color: #64748b; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
         .status-dropdown {
             width: 100%;
@@ -86,12 +77,12 @@
         .status-dropdown:hover { border-color: #3b82f6; }
         .status-dropdown:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
         .status-dropdown.status-review { background-color: #fef3c7; border-color: #fbbf24; color: #92400e; }
-        .status-dropdown.status-preparing { background-color: #dbeafe; border-color: #60a5fa; color: #1e40af; }
+        .status-dropdown.status-writing { background-color: #dbeafe; border-color: #60a5fa; color: #1e40af; }
         .status-dropdown.status-submitted { background-color: #e0e7ff; border-color: #818cf8; color: #3730a3; }
         .status-dropdown.status-evaluating { background-color: #fce7f3; border-color: #f472b6; color: #9d174d; }
-        .status-dropdown.status-passed { background-color: #d1fae5; border-color: #34d399; color: #065f46; }
-        .status-dropdown.status-pending { background-color: #fed7aa; border-color: #fb923c; color: #9a3412; }
-
+        .status-dropdown.status-selected { background-color: #d1fae5; border-color: #34d399; color: #065f46; }
+        .status-dropdown.status-rejected { background-color: #fee2e2; border-color: #f87171; color: #991b1b; }
+        .status-dropdown.status-dropped { background-color: #f1f5f9; border-color: #94a3b8; color: #475569; }
         .link-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: #3b82f6; color: #fff; padding: 12px 16px; border-radius: 10px; font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.2s; }
         .link-btn:hover { background: #2563eb; transform: translateY(-1px); }
         .link-btn svg { width: 18px; height: 18px; }
@@ -102,9 +93,6 @@
         .empty-state.visible { display: block; }
         .empty-state .empty-icon { font-size: 3rem; margin-bottom: 16px; }
         .empty-state .empty-text { font-size: 1.1rem; }
-        .star { color: #f59e0b; margin-left: 4px; }
-
-        /* Loading & Save indicator */
         .save-indicator {
             position: fixed;
             bottom: 24px;
@@ -122,304 +110,22 @@
         .save-indicator.saving { background: #dbeafe; color: #1e40af; }
         .save-indicator.saved { background: #d1fae5; color: #065f46; }
         .save-indicator.error { background: #fee2e2; color: #991b1b; }
-
         @media (max-width: 768px) { .header h1 { font-size: 1.5rem; } .pipeline { flex-wrap: wrap; } .pipeline-stage { min-width: calc(33% - 8px); } .pipeline-stage::after { display: none; } .cards-grid { grid-template-columns: 1fr; } body { padding: 16px; } }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>STEP AI 정부지원사업 현황</h1>
-            <p class="update-date">📅 2026. 2. 3 (화) 업데이트</p>
+            <h1>STEP AI (정부) 지원 사업 현황판</h1>
+            <p class="update-date"></p>
         </div>
         <div class="pipeline-section">
             <div class="pipeline-title">📊 진행 단계별 현황 (클릭하여 필터링)</div>
-            <div class="pipeline">
-                <div class="pipeline-stage stage-all active" data-filter="all"><div class="stage-icon">📋</div><div class="stage-count" id="count-all">7</div><div class="stage-label">전체</div></div>
-                <div class="pipeline-stage stage-review" data-filter="review"><div class="stage-icon">🔍</div><div class="stage-count" id="count-review">0</div><div class="stage-label">검토중</div></div>
-                <div class="pipeline-stage stage-preparing" data-filter="preparing"><div class="stage-icon">✏️</div><div class="stage-count" id="count-preparing">0</div><div class="stage-label">준비중</div></div>
-                <div class="pipeline-stage stage-submitted" data-filter="submitted"><div class="stage-icon">📤</div><div class="stage-count" id="count-submitted">0</div><div class="stage-label">제출완료</div></div>
-                <div class="pipeline-stage stage-evaluating" data-filter="evaluating"><div class="stage-icon">⏳</div><div class="stage-count" id="count-evaluating">0</div><div class="stage-label">심사중</div></div>
-                <div class="pipeline-stage stage-passed" data-filter="passed"><div class="stage-icon">✅</div><div class="stage-count" id="count-passed">0</div><div class="stage-label">합격/완료</div></div>
-                <div class="pipeline-stage stage-pending" data-filter="pending"><div class="stage-icon">🔄</div><div class="stage-count" id="count-pending">0</div><div class="stage-label">보완중</div></div>
-            </div>
+            <div class="pipeline" id="pipelineContainer"></div>
         </div>
         <div class="cards-section">
-            <div class="section-header"><h2 class="section-title">📋 사업 목록</h2><span class="filter-info" id="filterInfo">전체 7건</span></div>
-            <div class="cards-grid" id="cardsGrid">
-                <!-- Card 1: 초기창업패키지 -->
-                <div class="project-card visible" data-stage="preparing" data-project-id="startup">
-                    <div class="card-header">
-                        <div>
-                            <span class="card-badge badge-preparing">✏️ 준비중</span>
-                            <div class="card-title">초기창업패키지 (일반형)</div>
-                            <div class="card-org">중소벤처기업부 / 창업진흥원</div>
-                        </div>
-                        <div class="d-day">D-10</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-info">
-                            <div class="info-item"><div class="info-label">마감일</div><div class="info-value">2/13 (목) 16:00</div></div>
-                            <div class="info-item"><div class="info-label">지원금</div><div class="info-value">최대 1억원</div></div>
-                            <div class="info-item"><div class="info-label">제출처</div><div class="info-value">K-Startup</div></div>
-                            <div class="info-item"><div class="info-label">유형</div><div class="info-value">정부지원사업</div></div>
-                        </div>
-                        <div class="status-dropdown-wrapper">
-                            <div class="status-dropdown-label">상태 변경</div>
-                            <select class="status-dropdown status-preparing" data-project-id="startup" onchange="updateStatus(this)">
-                                <option value="review">🔍 검토중</option>
-                                <option value="preparing" selected>✏️ 준비중</option>
-                                <option value="submitted">📤 제출완료</option>
-                                <option value="evaluating">⏳ 심사중</option>
-                                <option value="passed">✅ 합격/완료</option>
-                                <option value="pending">🔄 보완중</option>
-                            </select>
-                        </div>
-                        <div class="progress-section">
-                            <div class="progress-header"><span class="progress-label">진행률</span><span class="progress-value">20%</span></div>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 20%"></div></div>
-                        </div>
-                        <a href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?pbancClssCd=PBC010&schM=view&pbancSn=176019" target="_blank" class="link-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                            공고 바로가기
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Card 2: K-Culture 대중소 공동도약 -->
-                <div class="project-card visible" data-stage="preparing" data-project-id="kculture">
-                    <div class="card-header">
-                        <div>
-                            <span class="card-badge badge-preparing">✏️ 준비중</span>
-                            <div class="card-title">K-Culture 대중소 공동도약 <span class="star">⭐</span></div>
-                            <div class="card-org">문화체육관광부 / 한국콘텐츠진흥원</div>
-                        </div>
-                        <div class="d-day warning">D-22</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-info">
-                            <div class="info-item"><div class="info-label">마감일</div><div class="info-value">2/25 (수) 14:00</div></div>
-                            <div class="info-item"><div class="info-label">지원금 (3년)</div><div class="info-value">약 77억원</div></div>
-                            <div class="info-item"><div class="info-label">제출처</div><div class="info-value">IRIS</div></div>
-                            <div class="info-item"><div class="info-label">유형</div><div class="info-value">정부지원사업</div></div>
-                        </div>
-                        <div class="status-dropdown-wrapper">
-                            <div class="status-dropdown-label">상태 변경</div>
-                            <select class="status-dropdown status-preparing" data-project-id="kculture" onchange="updateStatus(this)">
-                                <option value="review">🔍 검토중</option>
-                                <option value="preparing" selected>✏️ 준비중</option>
-                                <option value="submitted">📤 제출완료</option>
-                                <option value="evaluating">⏳ 심사중</option>
-                                <option value="passed">✅ 합격/완료</option>
-                                <option value="pending">🔄 보완중</option>
-                            </select>
-                        </div>
-                        <div class="progress-section">
-                            <div class="progress-header"><span class="progress-label">진행률</span><span class="progress-value">30%</span></div>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 30%"></div></div>
-                        </div>
-                        <a href="https://www.kocca.kr/kocca/pims/view.do?intcNo=226D00079001&menuNo=204104&recptSt=204104&category=&pageIndex=2&search=01&searchWrd=" target="_blank" class="link-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                            공고 바로가기
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Card 3: KOCCA 기업창작전담부서 -->
-                <div class="project-card visible" data-stage="preparing" data-project-id="kocca-creative">
-                    <div class="card-header">
-                        <div>
-                            <span class="card-badge badge-preparing">✏️ 준비중</span>
-                            <div class="card-title">KOCCA 기업창작전담부서 인정</div>
-                            <div class="card-org">문화체육관광부 / 한국콘텐츠진흥원</div>
-                        </div>
-                        <div class="d-day warning">D-24</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-info">
-                            <div class="info-item"><div class="info-label">마감일</div><div class="info-value">2/27 (금) 16:00</div></div>
-                            <div class="info-item"><div class="info-label">혜택</div><div class="info-value">법인세 세액공제</div></div>
-                            <div class="info-item"><div class="info-label">제출처</div><div class="info-value">rnd.kocca.kr</div></div>
-                            <div class="info-item"><div class="info-label">유형</div><div class="info-value">인증/신고</div></div>
-                        </div>
-                        <div class="status-dropdown-wrapper">
-                            <div class="status-dropdown-label">상태 변경</div>
-                            <select class="status-dropdown status-preparing" data-project-id="kocca-creative" onchange="updateStatus(this)">
-                                <option value="review">🔍 검토중</option>
-                                <option value="preparing" selected>✏️ 준비중</option>
-                                <option value="submitted">📤 제출완료</option>
-                                <option value="evaluating">⏳ 심사중</option>
-                                <option value="passed">✅ 합격/완료</option>
-                                <option value="pending">🔄 보완중</option>
-                            </select>
-                        </div>
-                        <div class="progress-section">
-                            <div class="progress-header"><span class="progress-label">진행률</span><span class="progress-value">25%</span></div>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 25%"></div></div>
-                        </div>
-                        <a href="https://www.kocca.kr/kocca/bbs/view/B0000137/2010505.do?menuNo=204802" target="_blank" class="link-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                            공고 바로가기
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Card 4: 방송영상콘텐츠제작지원 -->
-                <div class="project-card visible" data-stage="review" data-project-id="broadcast-docu">
-                    <div class="card-header">
-                        <div>
-                            <span class="card-badge badge-review">🔍 검토중</span>
-                            <div class="card-title">방송영상콘텐츠제작지원 (다큐)</div>
-                            <div class="card-org">한국콘텐츠진흥원 (KOCCA)</div>
-                        </div>
-                        <div class="d-day safe">D-29</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-info">
-                            <div class="info-item"><div class="info-label">마감일</div><div class="info-value">3/4 (수) 14:00</div></div>
-                            <div class="info-item"><div class="info-label">지원금</div><div class="info-value">최대 1.5억원</div></div>
-                            <div class="info-item"><div class="info-label">제출처</div><div class="info-value">e나라도움</div></div>
-                            <div class="info-item"><div class="info-label">유형</div><div class="info-value">정부지원사업</div></div>
-                        </div>
-                        <div class="status-dropdown-wrapper">
-                            <div class="status-dropdown-label">상태 변경</div>
-                            <select class="status-dropdown status-review" data-project-id="broadcast-docu" onchange="updateStatus(this)">
-                                <option value="review" selected>🔍 검토중</option>
-                                <option value="preparing">✏️ 준비중</option>
-                                <option value="submitted">📤 제출완료</option>
-                                <option value="evaluating">⏳ 심사중</option>
-                                <option value="passed">✅ 합격/완료</option>
-                                <option value="pending">🔄 보완중</option>
-                            </select>
-                        </div>
-                        <div class="progress-section">
-                            <div class="progress-header"><span class="progress-label">진행률</span><span class="progress-value">10%</span></div>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 10%"></div></div>
-                        </div>
-                        <a href="https://www.kocca.kr/kocca/pims/view.do?intcNo=126J261007&menuNo=204104&recptSt=&category=&pageIndex=1&search=&searchWrd=" target="_blank" class="link-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                            공고 바로가기
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Card 5: 벤처기업 인증 -->
-                <div class="project-card visible" data-stage="evaluating" data-project-id="venture">
-                    <div class="card-header">
-                        <div>
-                            <span class="card-badge badge-evaluating">⏳ 심사중</span>
-                            <div class="card-title">벤처기업 인증</div>
-                            <div class="card-org">중소벤처기업부 / 벤처인</div>
-                        </div>
-                        <div class="d-day warning">D-8</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-info">
-                            <div class="info-item"><div class="info-label">심사일</div><div class="info-value">2/11 (화) 최종심의</div></div>
-                            <div class="info-item"><div class="info-label">혜택</div><div class="info-value">세제/금융 혜택</div></div>
-                            <div class="info-item"><div class="info-label">담당자</div><div class="info-value">이호신 박사</div></div>
-                            <div class="info-item"><div class="info-label">유형</div><div class="info-value">인증/신고</div></div>
-                        </div>
-                        <div class="status-dropdown-wrapper">
-                            <div class="status-dropdown-label">상태 변경</div>
-                            <select class="status-dropdown status-evaluating" data-project-id="venture" onchange="updateStatus(this)">
-                                <option value="review">🔍 검토중</option>
-                                <option value="preparing">✏️ 준비중</option>
-                                <option value="submitted">📤 제출완료</option>
-                                <option value="evaluating" selected>⏳ 심사중</option>
-                                <option value="passed">✅ 합격/완료</option>
-                                <option value="pending">🔄 보완중</option>
-                            </select>
-                        </div>
-                        <div class="progress-section">
-                            <div class="progress-header"><span class="progress-label">진행률</span><span class="progress-value">90%</span></div>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 90%"></div></div>
-                        </div>
-                        <a href="https://www.smes.go.kr/venturein/home/viewHome" target="_blank" class="link-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                            벤처인 바로가기
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Card 6: 방송영상독립제작사 신고 -->
-                <div class="project-card visible" data-stage="passed" data-project-id="broadcast-producer">
-                    <div class="card-header">
-                        <div>
-                            <span class="card-badge badge-passed">✅ 완료</span>
-                            <div class="card-title">방송영상독립제작사 신고</div>
-                            <div class="card-org">문화체육관광부</div>
-                        </div>
-                        <div class="d-day complete">완료</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-info">
-                            <div class="info-item"><div class="info-label">신고번호</div><div class="info-value">제 12351 호</div></div>
-                            <div class="info-item"><div class="info-label">혜택</div><div class="info-value">방송 제작 자격</div></div>
-                            <div class="info-item"><div class="info-label">상태</div><div class="info-value">신고 완료</div></div>
-                            <div class="info-item"><div class="info-label">유형</div><div class="info-value">인증/신고</div></div>
-                        </div>
-                        <div class="status-dropdown-wrapper">
-                            <div class="status-dropdown-label">상태 변경</div>
-                            <select class="status-dropdown status-passed" data-project-id="broadcast-producer" onchange="updateStatus(this)">
-                                <option value="review">🔍 검토중</option>
-                                <option value="preparing">✏️ 준비중</option>
-                                <option value="submitted">📤 제출완료</option>
-                                <option value="evaluating">⏳ 심사중</option>
-                                <option value="passed" selected>✅ 합격/완료</option>
-                                <option value="pending">🔄 보완중</option>
-                            </select>
-                        </div>
-                        <div class="progress-section">
-                            <div class="progress-header"><span class="progress-label">진행률</span><span class="progress-value">100%</span></div>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
-                        </div>
-                        <a href="https://production.mcst.go.kr/user/main.do" target="_blank" class="link-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                            신고시스템 바로가기
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Card 7: 한국저작권위원회 등록 -->
-                <div class="project-card visible" data-stage="pending" data-project-id="copyright">
-                    <div class="card-header">
-                        <div>
-                            <span class="card-badge badge-pending">🔄 보완중</span>
-                            <div class="card-title">한국저작권위원회 등록</div>
-                            <div class="card-org">한국저작권위원회</div>
-                        </div>
-                        <div class="d-day warning">진행중</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-info">
-                            <div class="info-item"><div class="info-label">신청내용</div><div class="info-value">저작권 등록</div></div>
-                            <div class="info-item"><div class="info-label">현재상태</div><div class="info-value">보완사항 해결 중</div></div>
-                            <div class="info-item"><div class="info-label">혜택</div><div class="info-value">저작권 보호</div></div>
-                            <div class="info-item"><div class="info-label">유형</div><div class="info-value">인증/신고</div></div>
-                        </div>
-                        <div class="status-dropdown-wrapper">
-                            <div class="status-dropdown-label">상태 변경</div>
-                            <select class="status-dropdown status-pending" data-project-id="copyright" onchange="updateStatus(this)">
-                                <option value="review">🔍 검토중</option>
-                                <option value="preparing">✏️ 준비중</option>
-                                <option value="submitted">📤 제출완료</option>
-                                <option value="evaluating">⏳ 심사중</option>
-                                <option value="passed">✅ 합격/완료</option>
-                                <option value="pending" selected>🔄 보완중</option>
-                            </select>
-                        </div>
-                        <div class="progress-section">
-                            <div class="progress-header"><span class="progress-label">진행률</span><span class="progress-value">60%</span></div>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 60%"></div></div>
-                        </div>
-                        <a href="https://www.cros.or.kr/psnsys/cmmn/infoPage.do?w2xPath=/ui/main/main.xml" target="_blank" class="link-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                            저작권등록시스템 바로가기
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <div class="section-header"><h2 class="section-title">📋 사업 목록</h2><span class="filter-info" id="filterInfo"></span></div>
+            <div class="cards-grid" id="cardsGrid"></div>
             <div class="empty-state" id="emptyState"><div class="empty-icon">📭</div><div class="empty-text">해당 단계의 사업이 없습니다.</div></div>
         </div>
         <div class="footer">
@@ -428,192 +134,529 @@
         </div>
     </div>
 
-    <!-- Save Indicator -->
     <div class="save-indicator" id="saveIndicator"></div>
 
     <script>
+        // ==========================================
+        // STATUSES 정의
+        // ==========================================
+        const STATUSES = [
+            { key: 'all',        label: '전체',     icon: '📋', stageClass: 'stage-all' },
+            { key: 'review',     label: '검토중',   icon: '🔍', stageClass: 'stage-review' },
+            { key: 'writing',    label: '작성중',   icon: '✏️', stageClass: 'stage-writing' },
+            { key: 'submitted',  label: '제출완료', icon: '📤', stageClass: 'stage-submitted' },
+            { key: 'evaluating', label: '심사중',   icon: '⏳', stageClass: 'stage-evaluating' },
+            { key: 'selected',   label: '선정',     icon: '✅', stageClass: 'stage-selected' },
+            { key: 'rejected',   label: '탈락',     icon: '❌', stageClass: 'stage-rejected' },
+            { key: 'dropped',    label: '드랍',     icon: '⏹️', stageClass: 'stage-dropped' },
+            { key: 'deadline',   label: '마감일자', icon: '📅', stageClass: 'stage-deadline' }
+        ];
+
+        // ==========================================
+        // 상태 매핑: 영어 key ↔ 한글 (Supabase)
+        // ==========================================
+        const STATUS_KEY_TO_KR = {
+            'review': '검토중',
+            'writing': '작성중',
+            'submitted': '제출완료',
+            'evaluating': '심사중',
+            'selected': '선정',
+            'rejected': '탈락',
+            'dropped': '드랍'
+        };
+        const STATUS_KR_TO_KEY = {};
+        Object.entries(STATUS_KEY_TO_KR).forEach(([k, v]) => { STATUS_KR_TO_KEY[v] = k; });
+
+        // ==========================================
+        // SSOT: projects[] — 프론트엔드 단일 데이터 소스
+        // supabaseId: Supabase gov_projects 테이블의 id
+        // ==========================================
+        const projects = [
+            {
+                id: 'startup',
+                supabaseId: 1,
+                title: '초기창업패키지 (일반형)',
+                agency: '중소벤처기업부 / 창업진흥원',
+                deadline: '2026-02-13T16:00',
+                budget: '최대 1억원',
+                status: 'review',
+                category: '정부지원사업',
+                link: 'https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?pbancClssCd=PBC010&schM=view&pbancSn=176019',
+                note: '자격요건 리스크: 대표자 기존 법인 보유 이력'
+            },
+            {
+                id: 'kculture',
+                supabaseId: 4,
+                title: 'K-Culture 대중소 공동도약 ⭐',
+                agency: '문화체육관광부 / 한국콘텐츠진흥원',
+                deadline: '2026-02-25T14:00',
+                budget: '약 77억원 (3년)',
+                status: 'writing',
+                category: '정부지원사업',
+                link: 'https://www.kocca.kr/kocca/pims/view.do?intcNo=126D00079001&menuNo=204104&recptSt=204104&category=&pageIndex=3&search=01&searchWrd=',
+                note: 'KT ENA 협의 중'
+            },
+            {
+                id: 'kocca-creative',
+                supabaseId: 5,
+                title: 'KOCCA 기업창작전담부서 인정',
+                agency: '문화체육관광부 / 한국콘텐츠진흥원',
+                deadline: '2026-02-27T16:00',
+                budget: '법인세 세액공제',
+                status: 'evaluating',
+                category: '인증/신고',
+                link: 'https://www.kocca.kr/kocca/bbs/view/B0000137/2010505.do?menuNo=204802'
+            },
+            {
+                id: 'broadcast-docu',
+                supabaseId: 2,
+                title: '방송영상콘텐츠제작지원 (다큐)',
+                agency: '한국콘텐츠진흥원 (KOCCA)',
+                deadline: '2026-03-04T14:00',
+                budget: '최대 1.5억원',
+                status: 'review',
+                category: '정부지원사업',
+                link: 'https://www.kocca.kr/kocca/pims/view.do?intcNo=126J261007&menuNo=204104'
+            },
+            {
+                id: 'venture',
+                supabaseId: 6,
+                title: '벤처기업 인증',
+                agency: '중소벤처기업부 / 벤처인',
+                deadline: '2026-02-11',
+                budget: '세제/금융 혜택',
+                status: 'evaluating',
+                category: '인증/신고',
+                link: 'https://www.smes.go.kr/venturein/home/viewHome',
+                note: '2/11 최종심의 예정'
+            },
+            {
+                id: 'broadcast-reg',
+                supabaseId: 7,
+                title: '방송영상독립제작사 신고',
+                agency: '문화체육관광부',
+                deadline: null,
+                budget: '방송 제작 자격',
+                status: 'selected',
+                category: '인증/신고',
+                link: 'https://production.mcst.go.kr/user/main.do',
+                note: '신고번호 제12351호'
+            },
+            {
+                id: 'copyright',
+                supabaseId: 8,
+                title: '한국저작권위원회 등록',
+                agency: '한국저작권위원회',
+                deadline: '2026-03-01',
+                budget: '저작권 보호',
+                status: 'writing',
+                category: '인증/신고',
+                link: 'https://www.cros.or.kr/psnsys/cmmn/infoPage.do?w2xPath=/ui/main/main.xml',
+                note: '보완사항 해결 중'
+            }
+        ];
+
+        // ==========================================
         // Supabase Configuration
+        // ==========================================
         const SUPABASE_URL = 'https://yihgjkfyaynfjbodefzm.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlpaGdqa2Z5YXluZmpib2RlZnptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAwNjQ4NTQsImV4cCI6MjA4NTY0MDg1NH0.KS6L2v3UtB3QJdYeW1tW-Kna_wlHO_37Ykq6jiueIMg';
 
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        let supabaseClient = null;
+        let isSupabaseOnline = false;
 
-        const stages = document.querySelectorAll('.pipeline-stage');
-        const cards = document.querySelectorAll('.project-card');
-        const filterInfo = document.getElementById('filterInfo');
-        const emptyState = document.getElementById('emptyState');
+        try {
+            if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
+                supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                console.log('[Supabase] Client created');
+            } else {
+                console.warn('[Supabase] SDK not loaded — offline mode');
+            }
+        } catch (e) {
+            console.warn('[Supabase] Init failed — offline mode:', e);
+        }
+
+        const STORAGE_KEY = 'stepai-project-statuses';
+
+        // ==========================================
+        // localStorage (Fallback)
+        // ==========================================
+        function saveToLocalStorage() {
+            const data = {};
+            projects.forEach(p => { data[p.id] = { status: p.status }; });
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
+
+        function loadFromLocalStorage() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return;
+                const data = JSON.parse(raw);
+                projects.forEach(p => {
+                    if (data[p.id] && data[p.id].status) {
+                        p.status = data[p.id].status;
+                    }
+                });
+            } catch (e) {
+                console.error('[localStorage] Load error:', e);
+            }
+        }
+
+        // ==========================================
+        // Supabase Sync (Primary)
+        // ==========================================
+        async function syncFromSupabase() {
+            if (!supabaseClient) return;
+            try {
+                const { data, error } = await supabaseClient
+                    .from('gov_projects')
+                    .select('id, status');
+
+                if (error) throw error;
+
+                if (data && data.length > 0) {
+                    isSupabaseOnline = true;
+                    data.forEach(row => {
+                        const project = projects.find(p => p.supabaseId === row.id);
+                        if (project) {
+                            // 한글 상태 → 영어 key 변환
+                            const mappedKey = STATUS_KR_TO_KEY[row.status];
+                            if (mappedKey) {
+                                project.status = mappedKey;
+                            }
+                        }
+                    });
+                    // Supabase 데이터로 localStorage 덮어쓰기
+                    saveToLocalStorage();
+                    renderAll();
+                    console.log('[Supabase] Sync complete — ' + data.length + ' projects loaded');
+                }
+                updateSyncStatus();
+            } catch (e) {
+                console.error('[Supabase] Sync error:', e);
+                isSupabaseOnline = false;
+                updateSyncStatus();
+            }
+        }
+
+        async function saveToSupabase(projectId, newStatusKey) {
+            if (!supabaseClient) return;
+
+            const project = projects.find(p => p.id === projectId);
+            if (!project) return;
+
+            const statusKR = STATUS_KEY_TO_KR[newStatusKey];
+            if (!statusKR) {
+                console.error('[Supabase] Unknown status key:', newStatusKey);
+                return;
+            }
+
+            try {
+                const { error } = await supabaseClient
+                    .from('gov_projects')
+                    .update({
+                        status: statusKR,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq('id', project.supabaseId);
+
+                if (error) throw error;
+                isSupabaseOnline = true;
+                console.log('[Supabase] Saved: ' + project.title + ' → ' + statusKR);
+            } catch (e) {
+                console.error('[Supabase] Save error:', e);
+                isSupabaseOnline = false;
+                showIndicator('error', '⚠ DB 저장 실패 (로컬 저장됨)');
+            }
+            updateSyncStatus();
+        }
+
+        function updateSyncStatus() {
+            const el = document.getElementById('syncStatus');
+            if (!el) return;
+            if (isSupabaseOnline) {
+                el.className = 'sync-status online';
+                el.textContent = '🟢 DB 연결됨';
+            } else {
+                el.className = 'sync-status offline';
+                el.textContent = '🔴 오프라인 (로컬 저장)';
+            }
+        }
+
+        // ==========================================
+        // D-Day Calculation
+        // ==========================================
+        function calculateDDay(deadlineStr) {
+            if (!deadlineStr) return null;
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const deadline = new Date(deadlineStr);
+            const deadlineDay = new Date(deadline);
+            deadlineDay.setHours(0, 0, 0, 0);
+            const diffTime = deadlineDay.getTime() - today.getTime();
+            return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        }
+
+        function getDDayText(diffDays) {
+            if (diffDays === null) return null;
+            if (diffDays < 0) return `D+${Math.abs(diffDays)}`;
+            if (diffDays === 0) return 'D-Day';
+            return `D-${diffDays}`;
+        }
+
+        function getDDayClass(diffDays) {
+            if (diffDays === null) return 'complete';
+            if (diffDays > 21) return 'safe';
+            if (diffDays > 7) return 'warning';
+            return '';
+        }
+
+        // ==========================================
+        // Date Formatting
+        // ==========================================
+        function formatDeadline(deadlineStr) {
+            if (!deadlineStr) return '-';
+            const d = new Date(deadlineStr);
+            const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+            const month = d.getMonth() + 1;
+            const date = d.getDate();
+            const day = dayNames[d.getDay()];
+            const hours = d.getHours();
+            const minutes = d.getMinutes();
+            if (hours === 0 && minutes === 0) {
+                return `${month}/${date} (${day})`;
+            }
+            return `${month}/${date} (${day}) ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+        }
+
+        // ==========================================
+        // Save Indicator
+        // ==========================================
         const saveIndicator = document.getElementById('saveIndicator');
-
-        const stageLabels = {
-            'all': '전체',
-            'review': '검토중',
-            'preparing': '준비중',
-            'submitted': '제출완료',
-            'evaluating': '심사중',
-            'passed': '합격/완료',
-            'pending': '보완중'
-        };
-
-        const badgeConfig = {
-            'review': { class: 'badge-review', icon: '🔍', text: '검토중' },
-            'preparing': { class: 'badge-preparing', icon: '✏️', text: '준비중' },
-            'submitted': { class: 'badge-submitted', icon: '📤', text: '제출완료' },
-            'evaluating': { class: 'badge-evaluating', icon: '⏳', text: '심사중' },
-            'passed': { class: 'badge-passed', icon: '✅', text: '완료' },
-            'pending': { class: 'badge-pending', icon: '🔄', text: '보완중' }
-        };
-
-        // Show save indicator
         function showIndicator(type, message) {
             saveIndicator.className = 'save-indicator show ' + type;
             saveIndicator.textContent = message;
             if (type !== 'saving') {
-                setTimeout(() => {
-                    saveIndicator.classList.remove('show');
-                }, 2000);
+                setTimeout(() => { saveIndicator.classList.remove('show'); }, 2000);
             }
         }
 
-        // Load statuses from Supabase
-        async function loadStatuses() {
-            try {
-                const { data, error } = await supabase
-                    .from('gov_projects')
-                    .select('project_id, status');
+        // ==========================================
+        // Render Pipeline
+        // ==========================================
+        function renderPipeline() {
+            const container = document.getElementById('pipelineContainer');
+            container.innerHTML = '';
+            STATUSES.forEach(s => {
+                const div = document.createElement('div');
+                div.className = `pipeline-stage ${s.stageClass}${s.key === currentFilter ? ' active' : ''}`;
+                div.dataset.filter = s.key;
+                const countValue = s.key === 'deadline' ? '—' : getCount(s.key);
+                div.innerHTML = `
+                    <div class="stage-icon">${s.icon}</div>
+                    <div class="stage-count" id="count-${s.key}">${countValue}</div>
+                    <div class="stage-label">${s.label}</div>
+                `;
+                div.addEventListener('click', () => handleFilter(s.key));
+                container.appendChild(div);
+            });
+        }
 
-                if (error) throw error;
+        function getCount(statusKey) {
+            if (statusKey === 'all') return projects.length;
+            return projects.filter(p => p.status === statusKey).length;
+        }
 
-                if (data) {
-                    data.forEach(project => {
-                        const dropdown = document.querySelector(`select[data-project-id="${project.project_id}"]`);
-                        if (dropdown && project.status) {
-                            dropdown.value = project.status;
-                            applyStatusToCard(project.project_id, project.status);
-                        }
-                    });
+        function updateCounts() {
+            STATUSES.forEach(s => {
+                if (s.key === 'deadline') return;
+                const el = document.getElementById('count-' + s.key);
+                if (el) el.textContent = getCount(s.key);
+            });
+        }
+
+        // ==========================================
+        // Render Cards
+        // ==========================================
+        function renderCards(projectList) {
+            const grid = document.getElementById('cardsGrid');
+            grid.innerHTML = '';
+            const statusOptions = STATUSES.filter(s => s.key !== 'all' && s.key !== 'deadline');
+
+            projectList.forEach(project => {
+                const dday = calculateDDay(project.deadline);
+                const ddayText = getDDayText(dday);
+                const ddayClass = getDDayClass(dday);
+                const isCompleted = ['selected', 'rejected', 'dropped'].includes(project.status);
+
+                let ddayBadge = '';
+                if (isCompleted && !project.deadline) {
+                    const statusLabel = STATUSES.find(s => s.key === project.status);
+                    ddayBadge = `<div class="d-day complete">${statusLabel ? statusLabel.label : ''}</div>`;
+                } else if (ddayText) {
+                    ddayBadge = `<div class="d-day ${ddayClass}">${ddayText}</div>`;
                 }
-                updateCounts();
-            } catch (error) {
-                console.error('Error loading statuses:', error);
-            }
+
+                const optionsHTML = statusOptions.map(s =>
+                    `<option value="${s.key}"${project.status === s.key ? ' selected' : ''}>${s.icon} ${s.label}</option>`
+                ).join('');
+
+                const noteHTML = project.note
+                    ? `<div class="info-item"><div class="info-label">비고</div><div class="info-value">${project.note}</div></div>`
+                    : '';
+
+                const card = document.createElement('div');
+                card.className = 'project-card visible';
+                card.dataset.stage = project.status;
+                card.dataset.projectId = project.id;
+                if (project.deadline) card.dataset.deadline = project.deadline;
+
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">${project.title}</div>
+                            <div class="card-org">${project.agency}</div>
+                        </div>
+                        ${ddayBadge}
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div class="info-item"><div class="info-label">마감일</div><div class="info-value">${formatDeadline(project.deadline)}</div></div>
+                            <div class="info-item"><div class="info-label">예산/혜택</div><div class="info-value">${project.budget}</div></div>
+                            <div class="info-item${project.note ? '' : ' full-width'}"><div class="info-label">유형</div><div class="info-value">${project.category}</div></div>
+                            ${noteHTML}
+                        </div>
+                        <div class="status-dropdown-wrapper">
+                            <div class="status-dropdown-label">상태 변경</div>
+                            <select class="status-dropdown status-${project.status}" data-project-id="${project.id}" onchange="handleStatusChange(this)">
+                                ${optionsHTML}
+                            </select>
+                        </div>
+                        <a href="${project.link}" target="_blank" class="link-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                            공고 바로가기
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
         }
 
-        // Update status in Supabase
-        async function updateStatus(selectElement) {
+        // ==========================================
+        // Status Change Handler
+        // ==========================================
+        function handleStatusChange(selectElement) {
             const projectId = selectElement.dataset.projectId;
             const newStatus = selectElement.value;
 
-            showIndicator('saving', '저장 중...');
+            showIndicator('saving', '💾 저장 중...');
 
-            try {
-                const { error } = await supabase
-                    .from('gov_projects')
-                    .upsert({
-                        project_id: projectId,
-                        status: newStatus,
-                        updated_at: new Date().toISOString()
-                    }, {
-                        onConflict: 'project_id'
-                    });
+            const project = projects.find(p => p.id === projectId);
+            if (project) {
+                project.status = newStatus;
 
-                if (error) throw error;
+                // 1. localStorage 즉시 저장
+                saveToLocalStorage();
 
-                applyStatusToCard(projectId, newStatus);
-                updateCounts();
-                showIndicator('saved', '✓ 저장됨');
-            } catch (error) {
-                console.error('Error updating status:', error);
-                showIndicator('error', '저장 실패');
-            }
-        }
-
-        // Apply status changes to card UI
-        function applyStatusToCard(projectId, status) {
-            const card = document.querySelector(`[data-project-id="${projectId}"].project-card`);
-            if (!card) return;
-
-            // Update data-stage attribute
-            card.dataset.stage = status;
-
-            // Update badge
-            const badge = card.querySelector('.card-badge');
-            if (badge && badgeConfig[status]) {
-                badge.className = 'card-badge badge-' + status;
-                badge.textContent = badgeConfig[status].icon + ' ' + badgeConfig[status].text;
-            }
-
-            // Update dropdown style
-            const dropdown = card.querySelector('.status-dropdown');
-            if (dropdown) {
-                dropdown.className = 'status-dropdown status-' + status;
-            }
-        }
-
-        // Update pipeline counts
-        function updateCounts() {
-            const counts = {
-                'all': 0,
-                'review': 0,
-                'preparing': 0,
-                'submitted': 0,
-                'evaluating': 0,
-                'passed': 0,
-                'pending': 0
-            };
-
-            cards.forEach(card => {
-                const stage = card.dataset.stage;
-                counts.all++;
-                if (counts[stage] !== undefined) {
-                    counts[stage]++;
-                }
-            });
-
-            Object.keys(counts).forEach(key => {
-                const countEl = document.getElementById('count-' + key);
-                if (countEl) {
-                    countEl.textContent = counts[key];
-                }
-            });
-
-            // Update filter info based on active filter
-            const activeStage = document.querySelector('.pipeline-stage.active');
-            if (activeStage) {
-                const filter = activeStage.dataset.filter;
-                filterInfo.textContent = `${stageLabels[filter]} ${counts[filter]}건`;
-            }
-        }
-
-        // Filter cards by stage
-        stages.forEach(stage => {
-            stage.addEventListener('click', () => {
-                stages.forEach(s => s.classList.remove('active'));
-                stage.classList.add('active');
-                const filter = stage.dataset.filter;
-                let visibleCount = 0;
-
-                cards.forEach(card => {
-                    if (filter === 'all' || card.dataset.stage === filter) {
-                        card.classList.add('visible');
-                        visibleCount++;
-                    } else {
-                        card.classList.remove('visible');
-                    }
+                // 2. Supabase 비동기 저장
+                saveToSupabase(projectId, newStatus).then(() => {
+                    showIndicator('saved', '✓ 저장 완료 (DB + 로컬)');
+                }).catch(() => {
+                    showIndicator('error', '⚠ DB 실패 (로컬만 저장됨)');
                 });
 
-                filterInfo.textContent = `${stageLabels[filter]} ${visibleCount}건`;
+                // 3. UI 즉시 갱신
+                renderAll();
+            }
+        }
 
-                if (visibleCount === 0) {
-                    emptyState.classList.add('visible');
-                } else {
-                    emptyState.classList.remove('visible');
-                }
+        // ==========================================
+        // Filtering & Sorting
+        // ==========================================
+        let currentFilter = 'all';
+
+        function handleFilter(filterKey) {
+            currentFilter = filterKey;
+            document.querySelectorAll('.pipeline-stage').forEach(s => s.classList.remove('active'));
+            const activeStage = document.querySelector(`.pipeline-stage[data-filter="${filterKey}"]`);
+            if (activeStage) activeStage.classList.add('active');
+            renderFilteredCards();
+        }
+
+        function renderFilteredCards() {
+            const filterInfo = document.getElementById('filterInfo');
+            const emptyState = document.getElementById('emptyState');
+
+            let filtered;
+            if (currentFilter === 'all') {
+                filtered = [...projects];
+            } else if (currentFilter === 'deadline') {
+                filtered = sortProjectsByDeadline([...projects]);
+            } else {
+                filtered = projects.filter(p => p.status === currentFilter);
+            }
+
+            renderCards(filtered);
+
+            const statusObj = STATUSES.find(s => s.key === currentFilter);
+            const label = statusObj ? statusObj.label : '전체';
+            filterInfo.textContent = currentFilter === 'deadline'
+                ? `마감일자순 ${filtered.length}건`
+                : `${label} ${filtered.length}건`;
+
+            emptyState.classList.toggle('visible', filtered.length === 0);
+        }
+
+        function sortProjectsByDeadline(list) {
+            return list.sort((a, b) => {
+                const aCompleted = ['selected', 'rejected', 'dropped'].includes(a.status);
+                const bCompleted = ['selected', 'rejected', 'dropped'].includes(b.status);
+                if (aCompleted && !bCompleted) return 1;
+                if (!aCompleted && bCompleted) return -1;
+                if (aCompleted && bCompleted) return 0;
+                const aDay = calculateDDay(a.deadline);
+                const bDay = calculateDDay(b.deadline);
+                const aDDayVal = aDay === null ? Infinity : aDay;
+                const bDDayVal = bDay === null ? Infinity : bDay;
+                const aRed = aDay !== null && aDay <= 7;
+                const bRed = bDay !== null && bDay <= 7;
+                if (aRed && !bRed) return -1;
+                if (!aRed && bRed) return 1;
+                return aDDayVal - bDDayVal;
             });
-        });
+        }
 
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            loadStatuses();
+        // ==========================================
+        // Header Date
+        // ==========================================
+        function updateHeaderDate() {
+            const now = new Date();
+            const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+            const dateText = `📅 ${now.getFullYear()}. ${now.getMonth() + 1}. ${now.getDate()} (${dayNames[now.getDay()]}) 업데이트`;
+            const syncBadge = `<span id="syncStatus" class="sync-status offline">⏳ 연결 중...</span>`;
+            document.querySelector('.update-date').innerHTML = dateText + ' ' + syncBadge;
+        }
+
+        // ==========================================
+        // Render All
+        // ==========================================
+        function renderAll() {
+            renderPipeline();
+            updateCounts();
+            renderFilteredCards();
+        }
+
+        // ==========================================
+        // Initialize
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 1. localStorage에서 우선 로드 (즉시 렌더링)
+            loadFromLocalStorage();
+            updateHeaderDate();
+            renderAll();
+
+            // 2. Supabase에서 최신 데이터 동기화 (비동기)
+            await syncFromSupabase();
         });
     </script>
 </body>

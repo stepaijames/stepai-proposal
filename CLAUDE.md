@@ -4,26 +4,49 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-2026 디지털미디어이노베이션 R&D 컨소시엄 전략 브리핑 문서. IITP 주관 국가 R&D 사업 참여를 위한 내부 협의용 단일 페이지 웹 문서.
+STEP AI 정부지원사업 현황 대시보드. Next.js + Supabase 기반 관리 시스템.
+
+기존 브리핑 문서(index.html, STEP AI_status.html)도 함께 보관됨.
+
+## Tech Stack
+
+- Next.js 14 (App Router)
+- TypeScript
+- Tailwind CSS
+- Supabase (Database & Auth)
 
 ## Structure
 
-- `index.html` - 전체 콘텐츠가 포함된 단일 HTML 파일 (HTML + CSS inline)
+```
+src/
+├── app/           # Next.js App Router 페이지
+│   ├── layout.tsx # 루트 레이아웃
+│   ├── page.tsx   # 대시보드 메인 페이지
+│   └── globals.css
+├── components/    # 재사용 컴포넌트
+└── lib/
+    └── supabase.ts # Supabase 클라이언트
+```
+
+Legacy files:
+- `index.html` - R&D 컨소시엄 전략 브리핑 문서
+- `STEP AI_status.html` - K-Culture 대중소공동도약 전략 문서
 
 ## Development
 
-정적 HTML 파일이므로 빌드 과정 없음. 브라우저에서 직접 열어 확인.
+```bash
+npm run dev    # 개발 서버 (http://localhost:3000)
+npm run build  # 프로덕션 빌드
+npm run start  # 프로덕션 서버
+npm run lint   # ESLint 검사
+```
 
-## Content Sections
+## Environment Variables
 
-1. 사업 개요 (8개 과제, 79억원 규모)
-2. 전체 과제 개요 (RFP 1~8)
-3. 타겟 과제: 미디어 바이브 편집 기술개발
-4. 기회 분석 (AENA 실증 기반)
-5. 참여기관 자격요건
-6. 제안 컨소시엄 구조
-7. 액션 플랜 (마감: 2026.2.12)
+`.env.local` 파일에 Supabase 연결 정보 설정:
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 
 ## Language
 
-문서 전체가 한국어로 작성됨. 커밋 메시지는 영어 사용.
+UI 및 문서는 한국어. 커밋 메시지와 코드 주석은 영어 사용.
